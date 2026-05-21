@@ -74,7 +74,8 @@ const faqs = [
 ]
 
 export default function ContactPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [step, setStep] = useState<"form" | "booking">("form")
+  const [bookingPrefill, setBookingPrefill] = useState<{ name: string; email: string } | null>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -105,7 +106,8 @@ export default function ContactPage() {
         ...data,
         ...captureUtmParams(),
       })
-      setIsSubmitted(true)
+      setBookingPrefill({ name: data.full_name, email: data.work_email })
+      setStep("booking")
     } catch (err) {
       setSubmitError(
         err instanceof Error ? err.message : "Something went wrong. Please try again."
@@ -130,37 +132,13 @@ export default function ContactPage() {
       </div>
 
       <main className="flex-1">
-        {/* Booking Section */}
+        {/* Main Content */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="mb-8">
+            <div className="mb-10">
               <h2 className="text-2xl font-semibold">Book a Discovery Call</h2>
               <p className="mt-2 text-muted-foreground">
-                Pick a 30-minute slot that works for you. We&apos;ll reach out beforehand to confirm what to prepare.
-              </p>
-            </div>
-            <Card className="border-border overflow-hidden">
-              <CardContent className="p-0">
-                <div className="min-h-[640px]">
-                  <Cal
-                    namespace="discovery"
-                    calLink={CALCOM_LINK}
-                    style={{ width: "100%", height: "640px", overflow: "scroll" }}
-                    config={{ layout: "month_view" }}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Main Content */}
-        <section className="border-t border-border py-20">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="mb-10">
-              <h2 className="text-2xl font-semibold">Prefer to send a message instead?</h2>
-              <p className="mt-2 text-muted-foreground">
-                Not ready to book? Tell us about your project and we&apos;ll get back to you within one business day.
+                Share a few details about your project so we can prepare for your call. After you submit, you&apos;ll pick a time that works for you.
               </p>
             </div>
             <div className="grid gap-12 lg:grid-cols-2">
@@ -205,11 +183,11 @@ export default function ContactPage() {
                   <CardContent className="p-6">
                     <h3 className="font-semibold">Contact Form</h3>
 
-                    {isSubmitted ? (
+                    {step === "booking" ? (
                       <div className="mt-6 rounded-lg bg-muted/50 p-6 text-center">
-                        <p className="font-medium">Thank you!</p>
+                        <p className="font-medium">Thanks{bookingPrefill?.name ? `, ${bookingPrefill.name.split(" ")[0]}` : ""}!</p>
                         <p className="mt-2 text-sm text-muted-foreground">
-                          We&apos;ve received your inquiry and will respond within one business day.
+                          Pick a time below to book your discovery call.
                         </p>
                       </div>
                     ) : (
@@ -363,6 +341,27 @@ export default function ContactPage() {
                 </Card>
               </div>
             </div>
+
+            {step === "booking" && bookingPrefill && (
+              <div className="mt-12">
+                <Card className="border-border overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="min-h-[640px]">
+                      <Cal
+                        namespace="discovery"
+                        calLink={CALCOM_LINK}
+                        style={{ width: "100%", height: "640px", overflow: "scroll" }}
+                        config={{
+                          layout: "month_view",
+                          name: bookingPrefill.name,
+                          email: bookingPrefill.email,
+                        }}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </div>
         </section>
 
