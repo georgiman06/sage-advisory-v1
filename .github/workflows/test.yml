@@ -1,0 +1,81 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: sage_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Run Alembic migrations on test DB
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:testpass@localhost:5432/sage_test
+        run: |
+          pip install alembic asyncpg sqlalchemy[asyncio]
+          PYTHONPATH=$GITHUB_WORKSPACE/backend alembic -c backend/migrations/alembic/alembic.ini upgrade head
+
+      - name: Test lead-service
+        env:
+          PYTHONPATH: ${{ github.workspace }}/backend
+          DATABASE_URL: postgresql+asyncpg://postgres:testpass@localhost:5432/sage_test
+          REDIS_URL: redis://localhost:6379
+          AUTH0_DOMAIN: test.auth0.com
+          AUTH0_AUDIENCE: https://sage-api-test
+          IP_HASH_SALT: ci-test-salt
+        run: |
+          pip install -r backend/services/lead-service/requirements.txt
+          cd backend/services/lead-service
+          pytest tests/ --cov=app --cov-report=xml --cov-fail-under=80 -v
+
+      - name: Test notification-service
+        env:
+          PYTHONPATH: ${{ github.workspace }}/backend
+          REDIS_URL: redis://localhost:6379
+          SENDGRID_API_KEY: test-key
+        run: |
+          pip install -r backend/services/notification-service/requirements.txt
+          cd backend/services/notification-service
+          pytest tests/ --cov=app --cov-report=xml --cov-fail-under=80 -v
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
