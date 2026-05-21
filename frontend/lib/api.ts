@@ -81,10 +81,21 @@ async function apiFetch<T>(url: string, init?: RequestInit): Promise<T> {
 // ---------- Lead Service (client-side) ----------
 
 export async function submitLead(data: LeadPayload): Promise<LeadResponse> {
+  const backendPayload = {
+    name: data.full_name,
+    email: data.work_email,
+    company: data.company,
+    title: data.role,
+    message: data.message,
+    service_interest: data.area_of_interest,
+    utm_source: data.utm_source,
+    utm_medium: data.utm_medium,
+    utm_campaign: data.utm_campaign,
+  }
   return apiFetch<LeadResponse>(`${publicApiBase()}/api/leads/submit`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: JSON.stringify(backendPayload),
   })
 }
 
