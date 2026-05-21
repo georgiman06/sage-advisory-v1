@@ -1,13 +1,19 @@
 import hashlib
 import hmac
+import json
 import logging
 import os
+from datetime import datetime
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from pydantic import BaseModel
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.models.booking import Booking
 from app.services.sendgrid import send_consultation_confirmed
+from shared.database.connection import get_db
 
 logger = logging.getLogger(__name__)
 
@@ -27,13 +33,29 @@ def _verify_calcom_signature(payload: bytes, signature: str) -> bool:
     return hmac.compare_digest(expected, signature)
 
 
+def _hash_email(email: str) -> str:
+    return hashlib.sha256(email.encode()).hexdigest()
+
+
+def _parse_dt(value: Any) -> datetime | None:
+    if not value or not isinstance(value, str):
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
 class CalComWebhookPayload(BaseModel):
     triggerEvent: str
     payload: dict[str, Any]
 
 
 @router.post("/notifications/cal-webhook", status_code=status.HTTP_200_OK)
-async def cal_webhook(request: Request) -> dict:
+async def cal_webhook(
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+) -> dict:
     raw_body = await request.body()
     signature = request.headers.get("x-cal-signature-256", "")
 
@@ -44,20 +66,74 @@ async def cal_webhook(request: Request) -> dict:
         )
 
     try:
-        import json
         data = json.loads(raw_body)
         trigger = data.get("triggerEvent", "")
+        booking_payload = data.get("payload", {})
+
+        calcom_id = str(booking_payload.get("id") or booking_payload.get("bookingId") or "")
+        if not calcom_id:
+            logger.warning("Cal.com webhook missing booking id, trigger=%s", trigger)
+            return {"received": True}
+
+        attendee = (booking_payload.get("attendees") or [{}])[0]
+        attendee_email = attendee.get("email", "")
+        attendee_name = attendee.get("name", "")
+
+        existing = (
+            await db.execute(
+                select(Booking).where(Booking.calcom_booking_id == calcom_id)
+            )
+        ).scalar_one_or_none()
 
         if trigger == "BOOKING_CREATED":
-            booking = data.get("payload", {})
-            attendee = (booking.get("attendees") or [{}])[0]
+            if existing is None:
+                booking = Booking(
+                    calcom_booking_id=calcom_id,
+                    calcom_uid=booking_payload.get("uid"),
+                    attendee_email=attendee_email,
+                    attendee_name=attendee_name,
+                    attendee_email_hash=_hash_email(attendee_email) if attendee_email else None,
+                    event_type_slug=booking_payload.get("eventTypeSlug")
+                    or booking_payload.get("type"),
+                    start_time=_parse_dt(booking_payload.get("startTime")),
+                    end_time=_parse_dt(booking_payload.get("endTime")),
+                    status="confirmed",
+                    meeting_url=(booking_payload.get("metadata") or {}).get("videoCallUrl"),
+                    raw_payload=booking_payload,
+                )
+                db.add(booking)
+                await db.flush()
+                logger.info("[booking:%s] BOOKING_CREATED persisted", booking.id)
+            else:
+                logger.info("[booking:%s] BOOKING_CREATED duplicate, skipping insert", existing.id)
+
             await send_consultation_confirmed(
-                recipient_email=attendee.get("email", ""),
-                attendee_name=attendee.get("name", ""),
-                start_time=booking.get("startTime", ""),
-                meeting_url=booking.get("metadata", {}).get("videoCallUrl", ""),
+                recipient_email=attendee_email,
+                attendee_name=attendee_name,
+                start_time=booking_payload.get("startTime", ""),
+                meeting_url=(booking_payload.get("metadata") or {}).get("videoCallUrl", ""),
             )
-            logger.info("Cal.com BOOKING_CREATED processed")
+
+        elif trigger == "BOOKING_CANCELLED":
+            if existing is not None:
+                existing.status = "cancelled"
+                existing.raw_payload = booking_payload
+                logger.info("[booking:%s] BOOKING_CANCELLED", existing.id)
+            else:
+                logger.warning("BOOKING_CANCELLED for unknown calcom_id=%s", calcom_id)
+
+        elif trigger == "BOOKING_RESCHEDULED":
+            if existing is not None:
+                existing.start_time = _parse_dt(booking_payload.get("startTime"))
+                existing.end_time = _parse_dt(booking_payload.get("endTime"))
+                existing.status = "rescheduled"
+                existing.raw_payload = booking_payload
+                logger.info("[booking:%s] BOOKING_RESCHEDULED", existing.id)
+            else:
+                logger.warning("BOOKING_RESCHEDULED for unknown calcom_id=%s", calcom_id)
+
+        else:
+            logger.info("Cal.com webhook unhandled trigger=%s", trigger)
 
     except Exception as exc:
         logger.error("Cal.com webhook processing error: %s", exc)

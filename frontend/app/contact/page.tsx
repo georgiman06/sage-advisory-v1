@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import Cal, { getCalApi } from "@calcom/embed-react"
 import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import { Button } from "@/components/ui/button"
@@ -15,6 +16,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { submitLead, captureUtmParams } from "@/lib/api"
+
+const CALCOM_LINK = process.env.NEXT_PUBLIC_CALCOM_LINK || "discovery-call/discovery-call"
 
 const schema = z.object({
   full_name: z.string().min(2, "Name must be at least 2 characters"),
@@ -74,6 +77,17 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
+  useEffect(() => {
+    ;(async () => {
+      const cal = await getCalApi({ namespace: "discovery" })
+      cal("ui", {
+        theme: "light",
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      })
+    })()
+  }, [])
+
   const {
     register,
     handleSubmit,
@@ -116,14 +130,43 @@ export default function ContactPage() {
       </div>
 
       <main className="flex-1">
-        {/* Main Content */}
+        {/* Booking Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
+            <div className="mb-8">
+              <h2 className="text-2xl font-semibold">Book a Discovery Call</h2>
+              <p className="mt-2 text-muted-foreground">
+                Pick a 30-minute slot that works for you. We&apos;ll reach out beforehand to confirm what to prepare.
+              </p>
+            </div>
+            <Card className="border-border overflow-hidden">
+              <CardContent className="p-0">
+                <div className="min-h-[640px]">
+                  <Cal
+                    namespace="discovery"
+                    calLink={CALCOM_LINK}
+                    style={{ width: "100%", height: "640px", overflow: "scroll" }}
+                    config={{ layout: "month_view" }}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Main Content */}
+        <section className="border-t border-border py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="mb-10">
+              <h2 className="text-2xl font-semibold">Prefer to send a message instead?</h2>
+              <p className="mt-2 text-muted-foreground">
+                Not ready to book? Tell us about your project and we&apos;ll get back to you within one business day.
+              </p>
+            </div>
             <div className="grid gap-12 lg:grid-cols-2">
               {/* Left Column - Info */}
               <div>
-                <h2 className="text-2xl font-semibold">Schedule a Consultation</h2>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   Ready to modernize your data ecosystem? Let&apos;s discuss your transformation
                   initiatives and explore how our V2V Framework can accelerate your journey
                   to data-driven excellence.

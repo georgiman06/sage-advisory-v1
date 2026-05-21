@@ -34,6 +34,10 @@ _load_module_from_path(
     "email_event_model",
     PROJECT_ROOT / "services" / "notification-service" / "app" / "models" / "email_event.py",
 )
+_load_module_from_path(
+    "booking_model",
+    PROJECT_ROOT / "services" / "notification-service" / "app" / "models" / "booking.py",
+)
 
 config = context.config
 
