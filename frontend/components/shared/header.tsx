@@ -13,14 +13,12 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
     <header className={isDark ? "border-b border-white/10" : "border-b border-border bg-background"}>
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-baseline gap-1.5 font-serif">
-          <span
-            className={`text-3xl font-bold tracking-tight ${
-              isDark ? "text-[#5fbf91]" : "text-[#0a3a2a]"
-            }`}
-          >
+          <span className={`text-3xl font-bold tracking-tight ${isDark ? "text-white" : "text-foreground"}`}>
             sage
           </span>
-          <span className="text-lg font-semibold tracking-wide text-[#c9a14a]">Advisory LLC</span>
+          <span className={`text-4xl font-semibold tracking-tight ${isDark ? "text-white" : "text-foreground"}`}>
+            Advisory LLC
+          </span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
           <Link
