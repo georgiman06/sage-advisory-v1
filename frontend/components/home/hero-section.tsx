@@ -13,8 +13,8 @@ export function HeroSection() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a2f]/40 via-transparent to-transparent" />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
-        <div className="grid gap-8 md:grid-cols-2">
+      <div className="relative px-4 py-24 md:py-32 lg:px-12">
+        <div className="max-w-xl lg:max-w-2xl">
           <Card className="border-border/40 shadow-xl">
             <CardContent className="p-8 md:p-10">
               <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
@@ -30,7 +30,6 @@ export function HeroSection() {
               </div>
             </CardContent>
           </Card>
-          <div className="hidden md:block" />
         </div>
       </div>
     </section>

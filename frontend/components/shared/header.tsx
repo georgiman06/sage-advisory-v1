@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 interface HeaderProps {
@@ -13,15 +12,15 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
   return (
     <header className={isDark ? "border-b border-white/10" : "border-b border-border bg-background"}>
       <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/images/logo.png"
-            alt="Sage Advisory LLC"
-            width={200}
-            height={80}
-            className="h-16 w-auto rounded-sm"
-            priority
-          />
+        <Link href="/" className="flex items-baseline gap-1.5 font-serif">
+          <span
+            className={`text-3xl font-bold tracking-tight ${
+              isDark ? "text-[#5fbf91]" : "text-[#0a3a2a]"
+            }`}
+          >
+            sage
+          </span>
+          <span className="text-lg font-semibold tracking-wide text-[#c9a14a]">Advisory LLC</span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
           <Link
