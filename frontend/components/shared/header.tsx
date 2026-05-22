@@ -14,12 +14,12 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
     <header className={isDark ? "border-b border-white/10" : "border-b border-border bg-background"}>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center">
-          <Image 
-            src="/images/logo.png" 
-            alt="Sage Advisory LLC" 
-            width={120} 
-            height={48} 
-            className={`h-10 w-auto ${isDark ? "brightness-0 invert" : ""}`}
+          <Image
+            src="/images/logo.png"
+            alt="Sage Advisory LLC"
+            width={120}
+            height={48}
+            className="h-10 w-auto rounded-sm"
             priority
           />
         </Link>
