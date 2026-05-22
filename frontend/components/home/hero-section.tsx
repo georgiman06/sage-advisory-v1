@@ -1,17 +1,22 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { HalftoneWaves } from "@/components/home/halftone-waves"
+
+const ChartScene = dynamic(
+  () => import("@/components/home/chart-scene").then((m) => m.ChartScene),
+  { ssr: false }
+)
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden" style={{ background: "#0a1f18" }}>
       <div className="absolute inset-0">
-        <HalftoneWaves />
+        <ChartScene />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a2f]/40 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a1f18]/60 via-transparent to-transparent" />
 
       <div className="relative px-4 py-24 md:py-32 lg:px-12">
         <div className="max-w-xl lg:max-w-2xl">
