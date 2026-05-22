@@ -1,85 +1,36 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
-function AnimatedCounter({ end, suffix = "" }: { end: number; suffix?: string }) {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    const duration = 2000
-    const steps = 60
-    const increment = end / steps
-    let current = 0
-
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= end) {
-        setCount(end)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, duration / steps)
-
-    return () => clearInterval(timer)
-  }, [end])
-
-  return (
-    <span>
-      {count}
-      {suffix}
-    </span>
-  )
-}
+import { Card, CardContent } from "@/components/ui/card"
+import { HalftoneWaves } from "@/components/home/halftone-waves"
 
 export function HeroSection() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-balance text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
-            Transforming Enterprises Through Data, AI, and Intelligent Analytics
-          </h1>
-          <p className="mt-6 text-lg leading-relaxed text-white/80">
-            Sage Advisory helps organizations modernize their data ecosystems, unlock the power of AI-driven insights, and build scalable analytics platforms that drive measurable business outcomes.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" asChild>
-              <Link href="/capabilities">Explore Capabilities</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white" asChild>
-              <Link href="/contact">Schedule Consultation</Link>
-            </Button>
-          </div>
-        </div>
+    <section className="relative overflow-hidden">
+      <div className="absolute inset-0">
+        <HalftoneWaves />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a2f]/40 via-transparent to-transparent" />
 
-        <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
-          <div className="text-center">
-            <p className="text-3xl font-bold text-white md:text-4xl">
-              $<AnimatedCounter end={10} />M+
-            </p>
-            <p className="mt-2 text-sm text-white/70">Operational Savings</p>
-          </div>
-          <div className="text-center">
-            <p className="text-3xl font-bold text-white md:text-4xl">
-              <AnimatedCounter end={95} />%
-            </p>
-            <p className="mt-2 text-sm text-white/70">Enterprise Adoption</p>
-          </div>
-          <div className="text-center">
-            <p className="text-3xl font-bold text-white md:text-4xl">
-              <AnimatedCounter end={500} />K
-            </p>
-            <p className="mt-2 text-sm text-white/70">Labor Hours Saved</p>
-          </div>
-          <div className="text-center">
-            <p className="text-3xl font-bold text-white md:text-4xl">
-              <AnimatedCounter end={2} />hr
-            </p>
-            <p className="mt-2 text-sm text-white/70">Time-to-Insight</p>
-          </div>
+      <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div className="grid gap-8 md:grid-cols-2">
+          <Card className="border-border/40 shadow-xl">
+            <CardContent className="p-8 md:p-10">
+              <h1 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+                Transforming Enterprises Through Data, AI, and Intelligent Analytics
+              </h1>
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
+                Sage Advisory helps organizations modernize their data ecosystems, unlock the power of AI-driven insights, and build scalable analytics platforms that drive measurable business outcomes.
+              </p>
+              <div className="mt-8">
+                <Button size="lg" asChild>
+                  <Link href="/contact">Schedule with Us</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+          <div className="hidden md:block" />
         </div>
       </div>
     </section>
