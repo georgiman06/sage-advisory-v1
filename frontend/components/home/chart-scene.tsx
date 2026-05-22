@@ -52,9 +52,9 @@ function ChartLine({
   offsetZ: number
   amplitude: number
   speed: number
-  paused: React.MutableRefObject<boolean>
+  paused: React.RefObject<boolean>
 }) {
-  const ref = useRef<THREE.Line>(null)
+  const ref = useRef<THREE.Line>(null!)
   const geometry = useMemo(() => {
     const g = new THREE.BufferGeometry()
     const positions = new Float32Array(POINTS_PER_SERIES * 3)
@@ -112,10 +112,11 @@ function ChartLine({
     geometry.attributes.position.needsUpdate = true
   })
 
-  return <primitive object={new THREE.Line(geometry, material)} ref={ref} />
+  const line = useMemo(() => new THREE.Line(geometry, material), [geometry, material])
+  return <primitive object={line} ref={ref} />
 }
 
-function Candlesticks({ paused }: { paused: React.MutableRefObject<boolean> }) {
+function Candlesticks({ paused }: { paused: React.RefObject<boolean> }) {
   const groupRef = useRef<THREE.Group>(null)
   const candles = useMemo(() => {
     const arr: { x: number; height: number; color: string; key: number }[] = []
@@ -163,8 +164,8 @@ function Candlesticks({ paused }: { paused: React.MutableRefObject<boolean> }) {
   )
 }
 
-function ParticleField({ paused }: { paused: React.MutableRefObject<boolean> }) {
-  const ref = useRef<THREE.Points>(null)
+function ParticleField({ paused }: { paused: React.RefObject<boolean> }) {
+  const ref = useRef<THREE.Points>(null!)
   const geometry = useMemo(() => {
     const g = new THREE.BufferGeometry()
     const positions = new Float32Array(PARTICLE_COUNT * 3)
