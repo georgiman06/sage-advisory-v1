@@ -2,7 +2,6 @@ import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import { CapabilitiesGrid } from "@/components/capabilities/capabilities-grid"
 import { IndustryExperience } from "@/components/capabilities/industry-experience"
-import { TechnologyExpertise } from "@/components/capabilities/technology-expertise"
 import { BusinessImpact } from "@/components/capabilities/business-impact"
 import { CTASection } from "@/components/capabilities/cta-section"
 
@@ -16,7 +15,6 @@ export default function CapabilitiesPage() {
       </div>
       <main className="flex-1">
         <IndustryExperience />
-        <TechnologyExpertise />
         <BusinessImpact />
         <CTASection />
       </main>
