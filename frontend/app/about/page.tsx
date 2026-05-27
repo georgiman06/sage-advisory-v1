@@ -2,6 +2,7 @@ import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Linkedin } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
@@ -28,27 +29,25 @@ const values = [
   },
 ]
 
-const leadership = [
-  {
-    name: "Alexandra Chen",
-    role: "Managing Partner",
-    bio: "Former Chief Data Officer at Fortune 100 financial services firm. 20+ years leading enterprise data transformations.",
-  },
-  {
-    name: "Marcus Williams",
-    role: "Partner, Technology",
-    bio: "Ex-Microsoft and AWS. Architect of cloud data platforms processing petabytes daily for global enterprises.",
-  },
-  {
-    name: "Sarah Mitchell",
-    role: "Partner, Strategy",
-    bio: "McKinsey alumna. Specializes in data monetization strategies and AI-driven business model innovation.",
-  },
-  {
-    name: "David Park",
-    role: "Partner, Delivery",
-    bio: "Former Accenture practice lead. Expert in large-scale program delivery and organizational change management.",
-  },
+const founder = {
+  name: "Sangeeth Thuruthippallil",
+  role: "Founder & Managing Partner",
+  location: "Coppell, Texas",
+  bio: "Strategic data and analytics executive with 20+ years of experience leading enterprise-scale digital transformation across financial services, technology, healthcare, retail, and utilities.",
+  background: [
+    "Vice President, Enterprise Data Analytics & Visualization — Fidelity Investments",
+    "Oracle Consulting",
+    "B.Tech, Cochin University of Science and Technology",
+  ],
+  linkedin: "https://www.linkedin.com/in/sangeeth-thuruthippallil/",
+}
+
+const topSkills = [
+  "Enterprise Data & Analytics Strategy",
+  "Digital, Cloud & AI Transformation",
+  "Analytics Governance, Risk & Compliance",
+  "Value Creation, Cost Optimization & Operational Efficiency",
+  "Data-Driven Culture & Change Leadership",
 ]
 
 const stats = [
@@ -155,20 +154,80 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Leadership Section */}
+        {/* Founder Section */}
         <section className="border-t border-border bg-muted/30 py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-2xl font-semibold">Leadership Team</h2>
-            <p className="mt-2 text-muted-foreground">Industry veterans with decades of combined experience.</p>
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {leadership.map((leader) => (
-                <Card key={leader.name} className="border-border bg-background">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold">{leader.name}</h3>
-                    <p className="text-sm text-muted-foreground">{leader.role}</p>
-                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{leader.bio}</p>
-                  </CardContent>
-                </Card>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+              Leadership
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Meet the founder
+            </h2>
+
+            <Card className="mt-10 border-emerald-400/25 bg-[#0f1815]/80 backdrop-blur-sm">
+              <CardContent className="p-6 md:p-10">
+                <div className="grid items-start gap-8 md:grid-cols-[280px_1fr]">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#0a1410]">
+                    {/* Drop portrait at frontend/public/images/sangeeth.jpg, then
+                        replace this placeholder with:
+                        <img src="/images/sangeeth.jpg" alt="Sangeeth Thuruthippallil"
+                             className="h-full w-full object-cover" /> */}
+                    <div className="flex h-full w-full items-center justify-center text-xs uppercase tracking-[0.2em] text-emerald-400/70">
+                      Portrait
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <a
+                      href={founder.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Sangeeth Thuruthippallil on LinkedIn"
+                      className="absolute right-0 top-0 text-white/50 hover:text-emerald-400"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                    <h3 className="text-2xl font-semibold text-white">{founder.name}</h3>
+                    <p className="mt-1 text-sm text-emerald-300/90">{founder.role}</p>
+                    <p className="mt-1 text-xs text-white/50">{founder.location}</p>
+                    <p className="mt-5 leading-relaxed text-white/75">{founder.bio}</p>
+
+                    <ul className="mt-6 space-y-2">
+                      {founder.background.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-white/65">
+                          <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Top Skills Section */}
+        <section className="py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+              Expertise
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Top skills we lead with
+            </h2>
+            <p className="mt-4 max-w-2xl leading-relaxed text-white/70">
+              Drawn from two decades of enterprise transformation work — these are the disciplines our founder brings to every engagement.
+            </p>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {topSkills.map((skill) => (
+                <div
+                  key={skill}
+                  className="rounded-lg border border-white/10 bg-[#0f1815]/80 p-5 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#121d19]/90"
+                >
+                  <p className="text-sm font-medium text-white">{skill}</p>
+                </div>
               ))}
             </div>
           </div>
