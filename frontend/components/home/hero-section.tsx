@@ -12,13 +12,13 @@ const ChartScene = dynamic(
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: "#0a1f18" }}>
+    <section className="relative h-full overflow-hidden" style={{ background: "#0a1f18" }}>
       <div className="absolute inset-0">
         <ChartScene />
       </div>
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a1f18]/60 via-transparent to-transparent" />
 
-      <div className="relative px-4 py-24 md:py-32 lg:px-12">
+      <div className="relative flex h-full items-center px-4 lg:px-12">
         <div className="max-w-xl lg:max-w-2xl">
           <Card className="border-border/40 shadow-xl">
             <CardContent className="p-8 md:p-10">
