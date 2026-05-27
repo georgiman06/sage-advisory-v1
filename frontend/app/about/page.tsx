@@ -67,46 +67,56 @@ export default function AboutPage() {
         {/* Hero Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">About Sage Advisory</h1>
-            <p className="mt-4 max-w-2xl text-lg text-white/80">
-              We are a specialized consulting firm focused exclusively on enterprise data strategy, 
-              AI transformation, and cloud modernization.
-            </p>
+            <div className="grid items-center gap-10 md:grid-cols-2">
+              <div>
+                <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">About Sage Advisory</h1>
+                <p className="mt-4 max-w-2xl text-lg text-white/80">
+                  We are a specialized consulting firm focused exclusively on enterprise data strategy,
+                  AI transformation, and cloud modernization.
+                </p>
+              </div>
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#0f1815]/60 shadow-2xl">
+                {/* Drop image at frontend/public/images/about-hero.jpg, then replace
+                    this placeholder block with:
+                    <img src="/images/about-hero.jpg" alt="Sage Advisory team"
+                         className="h-full w-full object-cover" /> */}
+                <div className="flex h-full w-full items-center justify-center text-xs uppercase tracking-[0.2em] text-emerald-400/70">
+                  Team photo
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </div>
 
       <main className="flex-1">
-        {/* Mission Section */}
+        {/* Vision & Mission Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid gap-12 md:grid-cols-2">
               <div>
-                <h2 className="text-2xl font-semibold">Our Mission</h2>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  To empower enterprises to unlock the full value of their data through strategic 
-                  advisory and hands-on implementation. We bridge the gap between vision and 
-                  execution, helping organizations transform their data capabilities into 
-                  sustainable competitive advantages.
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+                  Vision
                 </p>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  Founded by industry veterans who saw a need for consulting that combines deep 
-                  technical expertise with strategic business acumen, Sage Advisory has grown 
-                  to become a trusted partner for Fortune 500 companies navigating their data 
-                  transformation journeys.
+                <h2 className="mt-3 text-2xl font-semibold text-white md:text-3xl">
+                  A wisdom-driven future
+                </h2>
+                <p className="mt-4 leading-relaxed text-white/70">
+                  To shape a future where wisdom-driven decisions create enduring competitive
+                  advantage through data, AI, and decentralized innovation.
                 </p>
               </div>
               <div>
-                <h2 className="text-2xl font-semibold">Why Sage?</h2>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  Unlike traditional consulting firms that offer generalized advice, we specialize 
-                  exclusively in data and AI. This singular focus allows us to maintain deep 
-                  expertise across the rapidly evolving technology landscape.
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+                  Mission
                 </p>
-                <p className="mt-4 text-muted-foreground leading-relaxed">
-                  Our V2V Framework methodology has been refined through hundreds of engagements, 
-                  providing a proven approach to transformation that balances quick wins with 
-                  long-term strategic value.
+                <h2 className="mt-3 text-2xl font-semibold text-white md:text-3xl">
+                  From complexity to clarity
+                </h2>
+                <p className="mt-4 leading-relaxed text-white/70">
+                  Sage Advisory empowers organizations to turn complexity into clarity by combining
+                  strategic wisdom, deep analytical insight, agentic &amp; emerging technologies, and
+                  execution excellence to deliver measurable business outcomes.
                 </p>
               </div>
             </div>
