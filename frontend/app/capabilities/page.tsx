@@ -12,12 +12,9 @@ export default function CapabilitiesPage() {
         <Header activePage="capabilities" variant="dark" />
         <CapabilitiesGrid />
         <ServicesSection />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
-      </div>
-      <main className="flex-1">
         <BusinessImpact />
         <CTASection />
-      </main>
+      </div>
       <Footer />
     </div>
   )

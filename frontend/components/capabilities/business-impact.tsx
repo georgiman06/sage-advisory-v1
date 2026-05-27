@@ -1,43 +1,62 @@
-import { TrendingUp, Users, Clock, ShieldCheck } from "lucide-react"
+import { TrendingUp, Users, Clock, ShieldCheck, type LucideIcon } from "lucide-react"
 
-const impacts = [
+type Impact = {
+  icon: LucideIcon
+  title: string
+  description: string
+}
+
+const impacts: Impact[] = [
   {
+    icon: TrendingUp,
     title: "Operational Excellence",
     description: "Significant operational cost optimization through platform modernization and intelligent automation.",
-    icon: <TrendingUp className="h-6 w-6" />
   },
   {
+    icon: Users,
     title: "Enterprise Adoption",
     description: "Enterprise-scale analytics adoption and self-service enablement across thousands of users.",
-    icon: <Users className="h-6 w-6" />
   },
   {
+    icon: Clock,
     title: "Speed to Insight",
     description: "Reduction in time-to-insight from weeks to minutes through modern data architectures.",
-    icon: <Clock className="h-6 w-6" />
   },
   {
+    icon: ShieldCheck,
     title: "Governance & Compliance",
     description: "Improved governance frameworks and regulatory compliance across global operations.",
-    icon: <ShieldCheck className="h-6 w-6" />
-  }
+  },
 ]
 
 export function BusinessImpact() {
   return (
-    <section className="bg-muted/50 py-16">
+    <section className="py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Business Impact</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {impacts.map((impact, index) => (
-            <div key={index} className="flex flex-col">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                {impact.icon}
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+            Outcomes
+          </p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+            Business Impact
+          </h2>
+        </div>
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {impacts.map((impact) => {
+            const Icon = impact.icon
+            return (
+              <div
+                key={impact.title}
+                className="flex flex-col rounded-xl border border-white/10 bg-[#0f1815]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#121d19]/90"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-emerald-500/15">
+                  <Icon className="h-5 w-5 text-emerald-400" />
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-white">{impact.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/65">{impact.description}</p>
               </div>
-              <h3 className="text-lg font-semibold">{impact.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{impact.description}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
