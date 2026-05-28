@@ -59,8 +59,8 @@ const stats = [
 
 export default function AboutPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <div className="bg-[#22513f]">
+    <div className="flex min-h-screen flex-col">
+      <div className="relative bg-gradient-to-b from-[#22513f] via-[#143028] to-[#0d1e17]">
         <Header activePage="about" variant="dark" />
         
         {/* Hero Section */}
@@ -86,9 +86,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-      </div>
 
-      <main className="flex-1">
         {/* Vision & Mission Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
@@ -123,13 +121,13 @@ export default function AboutPage() {
         </section>
 
         {/* Stats Section */}
-        <section className="border-y border-border bg-muted/30 py-16">
+        <section className="border-y border-white/10 py-16">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="text-3xl font-bold md:text-4xl">{stat.value}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="text-3xl font-bold text-white md:text-4xl">{stat.value}</p>
+                  <p className="mt-1 text-sm text-white/65">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -139,23 +137,29 @@ export default function AboutPage() {
         {/* Values Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-2xl font-semibold">Our Values</h2>
-            <p className="mt-2 text-muted-foreground">The principles that guide everything we do.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+              Principles
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Our values
+            </h2>
+            <p className="mt-2 text-white/65">The principles that guide everything we do.</p>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               {values.map((value) => (
-                <Card key={value.title} className="border-border">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold">{value.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{value.description}</p>
-                  </CardContent>
-                </Card>
+                <div
+                  key={value.title}
+                  className="rounded-xl border border-white/10 bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
+                >
+                  <h3 className="font-semibold text-white">{value.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/65">{value.description}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Founder Section */}
-        <section className="border-t border-border bg-muted/30 py-20">
+        <section className="border-t border-white/10 py-20">
           <div className="mx-auto max-w-6xl px-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
               Leadership
@@ -236,21 +240,26 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6 text-center">
-            <h2 className="text-2xl font-semibold">Ready to Partner With Us?</h2>
-            <p className="mx-auto mt-2 max-w-xl text-muted-foreground">
+            <h2 className="text-2xl font-semibold text-white md:text-3xl">Ready to partner with us?</h2>
+            <p className="mx-auto mt-2 max-w-xl text-white/65">
               Let&apos;s discuss how Sage Advisory can help accelerate your data transformation journey.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button asChild size="lg">
                 <Link href="/contact">Schedule a Consultation</Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-emerald-400/40 bg-transparent text-emerald-100 hover:bg-emerald-400/10 hover:text-white"
+              >
                 <Link href="/capabilities">View Our Capabilities</Link>
               </Button>
             </div>
           </div>
         </section>
-      </main>
+      </div>
 
       <Footer />
     </div>
