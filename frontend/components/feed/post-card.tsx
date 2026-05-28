@@ -2,6 +2,7 @@
 
 import { ThumbsUp, MessageCircle, Share2 } from "lucide-react"
 import type { FeedPost } from "@/lib/feed-posts"
+import { PostGallery } from "./post-gallery"
 
 function relativeTime(iso: string): string {
   const then = new Date(iso).getTime()
@@ -44,15 +45,7 @@ export function PostCard({ post, onRequireSignIn }: Props) {
         <p className="whitespace-pre-line text-sm leading-relaxed text-white/85">{post.body}</p>
       </div>
 
-      {post.imageUrl && (
-        <div className="mt-4 overflow-hidden border-y border-white/5">
-          <img
-            src={post.imageUrl}
-            alt=""
-            className="aspect-video w-full object-cover"
-          />
-        </div>
-      )}
+      {post.images && post.images.length > 0 && <PostGallery images={post.images} />}
 
       {post.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 px-5 pt-4">

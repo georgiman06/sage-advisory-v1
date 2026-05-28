@@ -5,6 +5,7 @@ import { feedPosts } from "@/lib/feed-posts"
 import { PostCard } from "./post-card"
 import { TagFilter } from "./tag-filter"
 import { SignInModal } from "./sign-in-modal"
+import { PostComposer } from "./post-composer"
 
 export function Feed() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null)
@@ -44,6 +45,7 @@ export function Feed() {
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_280px]">
           <div className="mx-auto w-full max-w-[640px] space-y-6 lg:mx-0">
+            <PostComposer />
             {visiblePosts.length === 0 ? (
               <div className="rounded-xl border border-white/10 bg-[#0f1815]/60 p-10 text-center text-sm text-white/60">
                 No posts match this filter yet.
