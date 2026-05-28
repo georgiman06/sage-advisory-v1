@@ -135,8 +135,17 @@ export default function AboutPage() {
         </section>
 
         {/* Values Section */}
-        <section className="py-20">
-          <div className="mx-auto max-w-6xl px-6">
+        <section className="relative overflow-hidden py-20">
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            src="/videos/values-bg.mp4"
+          />
+          <div className="absolute inset-0 bg-[#0d1f1a]/75" />
+          <div className="relative z-10 mx-auto max-w-6xl px-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
               Principles
             </p>
