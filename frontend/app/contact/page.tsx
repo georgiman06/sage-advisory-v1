@@ -344,11 +344,11 @@ export default function ContactPage() {
               <div className="mt-12">
                 <Card className="border-border overflow-hidden">
                   <CardContent className="p-0">
-                    <div className="min-h-[640px]">
+                    <div className="min-h-[480px] sm:min-h-[640px]">
                       <Cal
                         namespace="discovery"
                         calLink={CALCOM_LINK}
-                        style={{ width: "100%", height: "640px", overflow: "scroll" }}
+                        style={{ width: "100%", height: "100%", minHeight: "480px", overflow: "scroll" }}
                         config={{
                           layout: "month_view",
                           name: bookingPrefill.name,

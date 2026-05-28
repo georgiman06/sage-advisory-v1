@@ -127,13 +127,13 @@ export default function InsightsPage() {
               <p className="mt-2 text-muted-foreground">
                 Subscribe to receive our latest insights on enterprise data transformation.
               </p>
-              <form className="mt-6 flex gap-3">
-                <Input 
-                  type="email" 
-                  placeholder="Enter your email" 
+              <form className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
                   className="flex-1"
                 />
-                <Button type="submit">Subscribe</Button>
+                <Button type="submit" className="w-full sm:w-auto">Subscribe</Button>
               </form>
               <p className="mt-3 text-xs text-muted-foreground">
                 We respect your privacy. Unsubscribe at any time.

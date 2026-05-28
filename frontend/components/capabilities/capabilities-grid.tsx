@@ -244,7 +244,7 @@ export function CapabilitiesGrid() {
         <div className="relative mt-12 grid gap-x-10 gap-y-16 md:grid-cols-2">
           {/* === Core Capabilities tree === */}
           <div className="flex flex-col items-center">
-            <div ref={capParentRef} className="relative w-full max-w-[420px]">
+            <div ref={capParentRef} className="relative w-full max-w-full md:max-w-[420px]">
               <div
                 className="pointer-events-none absolute inset-0 -m-6 rounded-3xl bg-emerald-400/20 blur-2xl"
                 style={{ animation: "pulse-glow 3.5s ease-in-out infinite" }}
@@ -321,7 +321,7 @@ export function CapabilitiesGrid() {
 
           {/* === Technology Expertise tree === */}
           <div className="flex flex-col items-center">
-            <div ref={techParentRef} className="relative w-full max-w-[420px]">
+            <div ref={techParentRef} className="relative w-full max-w-full md:max-w-[420px]">
               <div
                 className="pointer-events-none absolute inset-0 -m-6 rounded-3xl bg-emerald-400/20 blur-2xl"
                 style={{ animation: "pulse-glow 3.5s ease-in-out infinite" }}
