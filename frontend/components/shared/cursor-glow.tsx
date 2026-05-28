@@ -41,7 +41,7 @@ export function CursorGlow() {
       className="pointer-events-none fixed inset-0 z-[60] mix-blend-screen"
       style={{
         background:
-          "radial-gradient(circle 420px at var(--cx, 50%) var(--cy, 50%), rgba(110, 231, 183, 0.22), rgba(110, 231, 183, 0.05) 35%, transparent 65%)",
+          "radial-gradient(circle 180px at var(--cx, 50%) var(--cy, 50%), rgba(110, 231, 183, 0.13), rgba(110, 231, 183, 0.04) 40%, transparent 70%)",
       }}
     />
   )

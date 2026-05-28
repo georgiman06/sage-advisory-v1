@@ -108,6 +108,7 @@ const nodes: Node[] = [
       "Security and compliance architecture",
     ],
   },
+  // Technology nodes start at index 6
   {
     type: "technology",
     icon: Cloud,
@@ -142,7 +143,17 @@ const nodes: Node[] = [
   },
 ]
 
-const TECH_START = 6 // index where technology nodes begin
+const TECH_START = 6
+
+// Which technology nodes (by index) each capability relies on
+const capToTech: Record<number, number[]> = {
+  0: [9],     // Enterprise Data Strategy → Development & Engineering
+  1: [6],     // Cloud Data Platforms → Cloud Platforms
+  2: [7],     // Analytics & BI → Analytics Platforms
+  3: [7, 9],  // AI & Advanced Analytics → Analytics Platforms + Dev & Engineering
+  4: [8],     // Data Governance → Data Governance
+  5: [6],     // Cloud Architecture → Cloud Platforms
+}
 
 export function CapabilitiesGrid() {
   const [expanded, setExpanded] = useState(true)
@@ -179,6 +190,10 @@ export function CapabilitiesGrid() {
     return () => window.removeEventListener("resize", handler)
   }, [expanded, selection])
 
+  // Highlight related tech nodes when a capability is selected
+  const relatedTechIndices =
+    selection !== null && selection < TECH_START ? (capToTech[selection] ?? []) : []
+
   return (
     <section
       className="relative pb-32 pt-12 md:pt-16"
@@ -206,20 +221,21 @@ export function CapabilitiesGrid() {
           {paths.map((d, i) => {
             const isTech = i >= TECH_START
             const isActive = selection === i
+            const isRelated = relatedTechIndices.includes(i)
             return (
               <path
                 key={i}
                 d={d}
                 stroke={
-                  isActive
+                  isActive || isRelated
                     ? isTech
                       ? "rgba(125,211,252,0.9)"
                       : "rgba(110,231,183,0.9)"
                     : isTech
-                    ? "rgba(125,211,252,0.4)"
-                    : "rgba(160,200,180,0.5)"
+                    ? "rgba(125,211,252,0.35)"
+                    : "rgba(160,200,180,0.45)"
                 }
-                strokeWidth={isActive ? 2 : 1.5}
+                strokeWidth={isActive || isRelated ? 2 : 1.5}
                 strokeDasharray="5 5"
                 fill="none"
               />
@@ -271,10 +287,15 @@ export function CapabilitiesGrid() {
               expanded ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-4"
             }`}
           >
-            {/* Capabilities group */}
-            <p className="mb-4 text-center text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-400/50">
-              Core Capabilities
-            </p>
+            {/* ── CORE CAPABILITIES label ── */}
+            <div className="mb-5 flex items-center gap-4">
+              <div className="h-px flex-1 bg-emerald-400/30" />
+              <span className="text-sm font-bold uppercase tracking-[0.3em] text-emerald-400">
+                Core Capabilities
+              </span>
+              <div className="h-px flex-1 bg-emerald-400/30" />
+            </div>
+
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
               {nodes.slice(0, TECH_START).map((node, i) => {
                 const Icon = node.icon
@@ -283,9 +304,7 @@ export function CapabilitiesGrid() {
                   <button
                     key={node.title}
                     ref={(el) => { childRefs.current[i] = el }}
-                    onClick={() =>
-                      setSelection((prev) => (prev === i ? null : i))
-                    }
+                    onClick={() => setSelection((prev) => (prev === i ? null : i))}
                     className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
                       isActive
                         ? "border-emerald-400/60 bg-[#1f352c]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
@@ -302,28 +321,34 @@ export function CapabilitiesGrid() {
               })}
             </div>
 
-            {/* Technology group */}
-            <p className="mb-4 mt-8 text-center text-[10px] font-semibold uppercase tracking-[0.25em] text-sky-400/50">
-              Technology Stack
-            </p>
+            {/* ── TECHNOLOGY STACK label ── */}
+            <div className="mb-5 mt-10 flex items-center gap-4">
+              <div className="h-px flex-1 bg-sky-400/30" />
+              <span className="text-sm font-bold uppercase tracking-[0.3em] text-sky-400">
+                Technology Stack
+              </span>
+              <div className="h-px flex-1 bg-sky-400/30" />
+            </div>
+
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {nodes.slice(TECH_START).map((node, j) => {
                 const i = TECH_START + j
                 const Icon = node.icon
                 const isActive = selection === i
+                const isRelated = relatedTechIndices.includes(i)
                 return (
                   <button
                     key={node.title}
                     ref={(el) => { childRefs.current[i] = el }}
-                    onClick={() =>
-                      setSelection((prev) => (prev === i ? null : i))
-                    }
+                    onClick={() => setSelection((prev) => (prev === i ? null : i))}
                     className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
                       isActive
                         ? "border-sky-400/60 bg-[#1a2d35]/90 shadow-[0_0_20px_-6px_rgba(125,211,252,0.5)]"
+                        : isRelated
+                        ? "border-sky-400/50 bg-[#1a2d35]/70 shadow-[0_0_14px_-6px_rgba(125,211,252,0.35)]"
                         : "border-white/10 bg-[#162923]/80 hover:border-sky-400/40 hover:bg-[#1a2d35]/70"
                     }`}
-                    style={{ transitionDelay: expanded ? `${(i) * 50}ms` : "0ms" }}
+                    style={{ transitionDelay: expanded ? `${i * 50}ms` : "0ms" }}
                   >
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-sky-500/15">
                       <Icon className="h-4 w-4 text-sky-400" />
@@ -338,58 +363,97 @@ export function CapabilitiesGrid() {
 
         {/* Detail panel */}
         {selection !== null && (
-          <div className="relative mx-auto mt-12 w-full max-w-3xl rounded-xl border border-emerald-400/30 bg-[#162923]/95 p-6 shadow-2xl backdrop-blur-sm">
+          <div className="relative mx-auto mt-12 w-full max-w-4xl rounded-xl border border-emerald-400/30 bg-[#162923]/95 p-6 shadow-2xl backdrop-blur-sm">
             {(() => {
               const node = nodes[selection]
               const Icon = node.icon
               const isTech = node.type === "technology"
+              const linkedTechNodes = !isTech ? (capToTech[selection] ?? []).map((ti) => nodes[ti]) : []
+
               return (
-                <>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3">
-                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md ${isTech ? "bg-sky-500/15" : "bg-emerald-500/15"}`}>
-                        <Icon className={`h-5 w-5 ${isTech ? "text-sky-400" : "text-emerald-400"}`} />
+                <div className={`grid gap-8 ${!isTech && linkedTechNodes.length > 0 ? "md:grid-cols-2" : "grid-cols-1"}`}>
+                  {/* Left: selected node details */}
+                  <div>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-start gap-3">
+                        <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md ${isTech ? "bg-sky-500/15" : "bg-emerald-500/15"}`}>
+                          <Icon className={`h-5 w-5 ${isTech ? "text-sky-400" : "text-emerald-400"}`} />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-white">{node.title}</h3>
+                          <p className="mt-1 text-sm text-white/60">{node.description}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-white">{node.title}</h3>
-                        <p className="mt-1 text-sm text-white/60">{node.description}</p>
+                      <button
+                        onClick={() => setSelection(null)}
+                        className="text-white/40 hover:text-white/80"
+                        aria-label="Close details"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                    <div className="mt-5">
+                      <p className={`text-xs font-semibold uppercase tracking-wide ${isTech ? "text-sky-400/80" : "text-emerald-400/80"}`}>
+                        {node.servicesLabel}
+                      </p>
+                      {isTech ? (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {node.services.map((item) => (
+                            <span
+                              key={item}
+                              className="rounded-md border border-sky-400/25 bg-sky-500/10 px-2.5 py-1 text-xs text-sky-100"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <ul className="mt-3 space-y-2">
+                          {node.services.map((s) => (
+                            <li key={s} className="flex items-start gap-2 text-sm text-white/80">
+                              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+                              {s}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Right: linked technology stack (capabilities only) */}
+                  {!isTech && linkedTechNodes.length > 0 && (
+                    <div className="border-t border-white/10 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-sky-400/80">
+                        Technology Stack
+                      </p>
+                      <div className="mt-4 space-y-5">
+                        {linkedTechNodes.map((tech) => {
+                          const TechIcon = tech.icon
+                          return (
+                            <div key={tech.title}>
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-sky-500/15">
+                                  <TechIcon className="h-3.5 w-3.5 text-sky-400" />
+                                </div>
+                                <span className="text-sm font-semibold text-white">{tech.title}</span>
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {tech.services.map((item) => (
+                                  <span
+                                    key={item}
+                                    className="rounded-md border border-sky-400/25 bg-sky-500/10 px-2 py-0.5 text-xs text-sky-100"
+                                  >
+                                    {item}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )
+                        })}
                       </div>
                     </div>
-                    <button
-                      onClick={() => setSelection(null)}
-                      className="text-white/40 hover:text-white/80"
-                      aria-label="Close details"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <div className="mt-5">
-                    <p className={`text-xs font-semibold uppercase tracking-wide ${isTech ? "text-sky-400/80" : "text-emerald-400/80"}`}>
-                      {node.servicesLabel}
-                    </p>
-                    {isTech ? (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {node.services.map((item) => (
-                          <span
-                            key={item}
-                            className="rounded-md border border-sky-400/25 bg-sky-500/10 px-2.5 py-1 text-xs text-sky-100"
-                          >
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    ) : (
-                      <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                        {node.services.map((s) => (
-                          <li key={s} className="flex items-start gap-2 text-sm text-white/80">
-                            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
-                            {s}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </>
+                  )}
+                </div>
               )
             })()}
           </div>
