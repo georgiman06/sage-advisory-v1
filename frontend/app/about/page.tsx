@@ -120,22 +120,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="border-y border-white/10 py-16">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-3xl font-bold text-white md:text-4xl">{stat.value}</p>
-                  <p className="mt-1 text-sm text-white/65">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Values Section */}
-        <section className="relative overflow-hidden py-20">
+        <section className="relative overflow-hidden py-32 md:min-h-[680px]">
           <video
             className="absolute inset-0 h-full w-full object-cover"
             autoPlay
