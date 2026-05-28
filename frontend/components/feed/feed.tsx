@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useMemo, useState } from "react"
 import { feedPosts } from "@/lib/feed-posts"
@@ -47,7 +47,7 @@ export function Feed() {
           <div className="mx-auto w-full max-w-[640px] space-y-6 lg:mx-0">
             <PostComposer />
             {visiblePosts.length === 0 ? (
-              <div className="rounded-xl border border-white/10 bg-[#0f1815]/60 p-10 text-center text-sm text-white/60">
+              <div className="rounded-xl border border-white/10 bg-[#162923]/60 p-10 text-center text-sm text-white/60">
                 No posts match this filter yet.
               </div>
             ) : (

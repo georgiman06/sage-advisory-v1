@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import { ImageIcon } from "lucide-react"
@@ -22,7 +22,7 @@ function Tile({
       href={failed ? undefined : src}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative block overflow-hidden bg-[#0a1410] ${className}`}
+      className={`group relative block overflow-hidden bg-[#13241d] ${className}`}
     >
       {failed ? (
         <div className="flex h-full w-full items-center justify-center border border-emerald-400/15">

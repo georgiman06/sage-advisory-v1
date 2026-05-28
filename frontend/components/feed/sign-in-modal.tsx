@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -11,7 +11,7 @@ type Props = {
 export function SignInModal({ open, onOpenChange }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-emerald-400/25 bg-[#0f1815] text-white">
+      <DialogContent className="border-emerald-400/25 bg-[#162923] text-white">
         <DialogHeader>
           <DialogTitle className="text-white">Sign in to participate</DialogTitle>
           <DialogDescription className="text-white/70">

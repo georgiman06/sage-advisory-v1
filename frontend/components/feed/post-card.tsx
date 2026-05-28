@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { ThumbsUp, MessageCircle, Share2 } from "lucide-react"
 import type { FeedPost } from "@/lib/feed-posts"
@@ -29,7 +29,7 @@ type Props = {
 
 export function PostCard({ post, onRequireSignIn }: Props) {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#0f1815]/80 backdrop-blur-sm transition-colors hover:border-emerald-400/30">
+    <article className="rounded-xl border border-white/10 bg-[#162923]/80 backdrop-blur-sm transition-colors hover:border-emerald-400/30">
       <header className="flex items-center gap-3 px-5 pt-5">
         <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-sm font-semibold text-emerald-300">
           {post.author.initials}

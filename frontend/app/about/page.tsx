@@ -1,4 +1,4 @@
-import { Header } from "@/components/shared/header"
+﻿import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -60,7 +60,7 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <div className="bg-[#1a3a2f]">
+      <div className="bg-[#22513f]">
         <Header activePage="about" variant="dark" />
         
         {/* Hero Section */}
@@ -74,7 +74,7 @@ export default function AboutPage() {
                   AI transformation, and cloud modernization.
                 </p>
               </div>
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#0f1815]/60 shadow-2xl">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#162923]/60 shadow-2xl">
                 {/* Drop image at frontend/public/images/about-hero.jpg, then replace
                     this placeholder block with:
                     <img src="/images/about-hero.jpg" alt="Sage Advisory team"
@@ -164,10 +164,10 @@ export default function AboutPage() {
               Meet the founder
             </h2>
 
-            <Card className="mt-10 border-emerald-400/25 bg-[#0f1815]/80 backdrop-blur-sm">
+            <Card className="mt-10 border-emerald-400/25 bg-[#162923]/80 backdrop-blur-sm">
               <CardContent className="p-6 md:p-10">
                 <div className="grid items-start gap-8 md:grid-cols-[280px_1fr]">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#0a1410]">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#13241d]">
                     {/* Drop portrait at frontend/public/images/sangeeth.jpg, then
                         replace this placeholder with:
                         <img src="/images/sangeeth.jpg" alt="Sangeeth Thuruthippallil"
@@ -224,7 +224,7 @@ export default function AboutPage() {
               {topSkills.map((skill) => (
                 <div
                   key={skill}
-                  className="rounded-lg border border-white/10 bg-[#0f1815]/80 p-5 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#121d19]/90"
+                  className="rounded-lg border border-white/10 bg-[#162923]/80 p-5 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
                 >
                   <p className="text-sm font-medium text-white">{skill}</p>
                 </div>

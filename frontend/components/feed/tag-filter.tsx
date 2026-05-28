@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Info } from "lucide-react"
 
@@ -12,7 +12,7 @@ export function TagFilter({ tagCounts, selectedTag, onSelect }: Props) {
   return (
     <aside className="hidden lg:block">
       <div className="sticky top-24 space-y-6">
-        <div className="rounded-xl border border-white/10 bg-[#0f1815]/80 p-5 backdrop-blur-sm">
+        <div className="rounded-xl border border-white/10 bg-[#162923]/80 p-5 backdrop-blur-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
             Filter
           </p>
@@ -48,7 +48,7 @@ export function TagFilter({ tagCounts, selectedTag, onSelect }: Props) {
           </div>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#0f1815]/60 p-5 backdrop-blur-sm">
+        <div className="rounded-xl border border-white/10 bg-[#162923]/60 p-5 backdrop-blur-sm">
           <div className="flex items-start gap-2">
             <Info className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-400/80" />
             <div>

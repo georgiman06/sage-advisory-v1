@@ -1,4 +1,4 @@
-import { TrendingUp, Users, Clock, ShieldCheck, type LucideIcon } from "lucide-react"
+﻿import { TrendingUp, Users, Clock, ShieldCheck, type LucideIcon } from "lucide-react"
 
 type Impact = {
   icon: LucideIcon
@@ -47,7 +47,7 @@ export function BusinessImpact() {
             return (
               <div
                 key={impact.title}
-                className="flex flex-col rounded-xl border border-white/10 bg-[#0f1815]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#121d19]/90"
+                className="flex flex-col rounded-xl border border-white/10 bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-md bg-emerald-500/15">
                   <Icon className="h-5 w-5 text-emerald-400" />

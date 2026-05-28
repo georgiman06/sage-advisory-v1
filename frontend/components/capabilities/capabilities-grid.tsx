@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useRef, useLayoutEffect, useEffect } from "react"
 import {
@@ -254,7 +254,7 @@ export function CapabilitiesGrid() {
                   setCapExpanded((v) => !v)
                   setSelection((s) => (s?.column === "capabilities" ? null : s))
                 }}
-                className="group relative w-full rounded-xl border border-emerald-400/30 bg-[#0f1815]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-[#121d19]"
+                className="group relative w-full rounded-xl border border-emerald-400/30 bg-[#162923]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-[#1a3027]"
               >
                 <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                   <div className="flex items-center gap-2.5">
@@ -302,8 +302,8 @@ export function CapabilitiesGrid() {
                     }
                     className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
                       isActive
-                        ? "border-emerald-400/60 bg-[#16221d]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
-                        : "border-white/10 bg-[#0f1815]/80 hover:border-emerald-400/40 hover:bg-[#121d19]/90"
+                        ? "border-emerald-400/60 bg-[#1f352c]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
+                        : "border-white/10 bg-[#162923]/80 hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
                     }`}
                     style={{
                       transitionDelay: capExpanded ? `${i * 60}ms` : "0ms",
@@ -331,7 +331,7 @@ export function CapabilitiesGrid() {
                   setTechExpanded((v) => !v)
                   setSelection((s) => (s?.column === "technology" ? null : s))
                 }}
-                className="group relative w-full rounded-xl border border-emerald-400/30 bg-[#0f1815]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-[#121d19]"
+                className="group relative w-full rounded-xl border border-emerald-400/30 bg-[#162923]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-[#1a3027]"
               >
                 <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                   <div className="flex items-center gap-2.5">
@@ -379,8 +379,8 @@ export function CapabilitiesGrid() {
                     }
                     className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
                       isActive
-                        ? "border-emerald-400/60 bg-[#16221d]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
-                        : "border-white/10 bg-[#0f1815]/80 hover:border-emerald-400/40 hover:bg-[#121d19]/90"
+                        ? "border-emerald-400/60 bg-[#1f352c]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
+                        : "border-white/10 bg-[#162923]/80 hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
                     }`}
                     style={{
                       transitionDelay: techExpanded ? `${i * 60}ms` : "0ms",
@@ -398,7 +398,7 @@ export function CapabilitiesGrid() {
         </div>
 
         {selection && (
-          <div className="relative mx-auto mt-12 w-full max-w-3xl rounded-xl border border-emerald-400/30 bg-[#0f1815]/95 p-6 shadow-2xl backdrop-blur-sm">
+          <div className="relative mx-auto mt-12 w-full max-w-3xl rounded-xl border border-emerald-400/30 bg-[#162923]/95 p-6 shadow-2xl backdrop-blur-sm">
             {selection.column === "capabilities" ? (
               (() => {
                 const cap = capabilities[selection.index]

@@ -1,11 +1,11 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 export function CTASection() {
   return (
     <section className="py-20">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="rounded-2xl border border-emerald-400/30 bg-[#0f1815]/80 p-8 backdrop-blur-sm md:p-12">
+        <div className="rounded-2xl border border-emerald-400/30 bg-[#162923]/80 p-8 backdrop-blur-sm md:p-12">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
             Get Started
           </p>

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState, type ChangeEvent } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
@@ -54,7 +54,7 @@ export function PostComposer() {
 
   return (
     <>
-      <div className="rounded-xl border border-white/10 bg-[#0f1815]/80 p-4 backdrop-blur-sm">
+      <div className="rounded-xl border border-white/10 bg-[#162923]/80 p-4 backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-300">
             <User className="h-5 w-5" />
@@ -69,7 +69,7 @@ export function PostComposer() {
       </div>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="max-w-xl border-emerald-400/25 bg-[#0f1815] text-white">
+        <DialogContent className="max-w-xl border-emerald-400/25 bg-[#162923] text-white">
           <DialogHeader>
             <DialogTitle className="text-white">New update</DialogTitle>
           </DialogHeader>
@@ -134,7 +134,7 @@ export function PostComposer() {
                     return (
                       <div
                         key={url}
-                        className="relative aspect-square overflow-hidden rounded-md border border-white/10 bg-[#0a1410]"
+                        className="relative aspect-square overflow-hidden rounded-md border border-white/10 bg-[#13241d]"
                       >
                         <img src={url} alt="" className="h-full w-full object-cover" />
                         {isLast && extra > 0 && (

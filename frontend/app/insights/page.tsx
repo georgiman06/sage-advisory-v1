@@ -1,4 +1,4 @@
-import { Header } from "@/components/shared/header"
+﻿import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -59,7 +59,7 @@ const categories = [
 export default function InsightsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <div className="bg-[#1a3a2f]">
+      <div className="bg-[#22513f]">
         <Header activePage="insights" variant="dark" />
         
         {/* Hero Section */}

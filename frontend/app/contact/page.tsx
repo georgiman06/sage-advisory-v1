@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
@@ -117,7 +117,7 @@ export default function ContactPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <div className="bg-[#1a3a2f]">
+      <div className="bg-[#22513f]">
         <Header activePage="contact" variant="dark" />
 
         {/* Hero Section */}

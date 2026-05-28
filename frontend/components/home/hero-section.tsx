@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import dynamic from "next/dynamic"
 import Link from "next/link"
@@ -11,11 +11,11 @@ const ChartScene = dynamic(
 
 export function HeroSection() {
   return (
-    <section className="relative h-full overflow-hidden" style={{ background: "#0a1f18" }}>
+    <section className="relative h-full overflow-hidden" style={{ background: "#143228" }}>
       <div className="absolute inset-0">
         <ChartScene />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0a1f18]/70 via-[#0a1f18]/30 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#143228]/70 via-[#143228]/30 to-transparent" />
 
       <div className="relative flex h-full items-center px-4 lg:px-12">
         <div className="max-w-xl lg:max-w-2xl">
