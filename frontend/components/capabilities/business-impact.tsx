@@ -37,7 +37,7 @@ export function BusinessImpact() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
             Outcomes
           </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
             Business Impact
           </h2>
         </div>
@@ -47,13 +47,13 @@ export function BusinessImpact() {
             return (
               <div
                 key={impact.title}
-                className="flex flex-col rounded-xl border border-white/10 bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
+                className="flex flex-col rounded-xl border border-border dark:border-white/10 bg-card dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-emerald-50/50 dark:hover:bg-[#1a3027]/90"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-md bg-emerald-500/15">
                   <Icon className="h-5 w-5 text-emerald-400" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-white">{impact.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/65">{impact.description}</p>
+                <h3 className="mt-4 text-lg font-semibold text-foreground dark:text-white">{impact.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground dark:text-white/65">{impact.description}</p>
               </div>
             )
           })}

@@ -401,7 +401,7 @@ export function CapabilitiesGrid() {
                           {node.services.map((item) => (
                             <span
                               key={item}
-                              className="rounded-md border border-sky-400/25 bg-sky-500/10 px-2.5 py-1 text-xs text-sky-100"
+                              className="rounded-md border border-sky-400/25 bg-sky-500/10 px-2.5 py-1 text-xs text-sky-700 dark:text-sky-100"
                             >
                               {item}
                             </span>
