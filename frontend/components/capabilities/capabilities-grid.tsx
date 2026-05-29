@@ -204,11 +204,11 @@ export function CapabilitiesGrid() {
       }}
     >
       <div ref={canvasRef} className="relative mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400/80">
             Capabilities & Technology
           </p>
-          <p className="mt-4 text-base text-muted-foreground dark:text-white/70 md:text-lg">
+          <p className="mt-4 text-2xl font-semibold text-muted-foreground dark:text-white/70 md:text-3xl">
             Strategic advisory and hands-on implementation to deliver measurable business impact.
           </p>
         </div>
@@ -257,22 +257,22 @@ export function CapabilitiesGrid() {
               }}
               className="group relative w-full rounded-xl border border-emerald-400/30 bg-white/95 dark:bg-[#162923]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-emerald-50 dark:hover:bg-[#1a3027]"
             >
-              <div className="flex items-center justify-between border-b border-border dark:border-white/10 px-5 py-4">
-                <div className="flex items-center gap-2.5">
-                  <Sparkles className="h-5 w-5 text-emerald-500 dark:text-emerald-400" />
-                  <span className="text-lg font-semibold text-foreground dark:text-white">Capabilities & Technology</span>
+              <div className="flex items-center justify-between border-b border-border dark:border-white/10 px-6 py-5">
+                <div className="flex items-center gap-3">
+                  <Sparkles className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
+                  <span className="text-2xl font-bold text-foreground dark:text-white">Capabilities & Technology</span>
                 </div>
                 <span className="text-muted-foreground dark:text-white/40 transition-colors group-hover:text-foreground dark:group-hover:text-white/80">
-                  {expanded ? <X className="h-5 w-5" /> : <span className="text-2xl leading-none">+</span>}
+                  {expanded ? <X className="h-6 w-6" /> : <span className="text-3xl leading-none">+</span>}
                 </span>
               </div>
-              <div className="px-5 py-5">
-                <div className="rounded border border-border dark:border-white/10 bg-muted/50 dark:bg-black/40 px-3 py-2.5 text-sm text-muted-foreground dark:text-white/65">
+              <div className="px-6 py-6">
+                <div className="rounded border border-border dark:border-white/10 bg-muted/50 dark:bg-black/40 px-4 py-3 text-base text-muted-foreground dark:text-white/65">
                   {expanded ? "6 capabilities · 4 technology areas — click a node for details" : "Click to expand"}
                 </div>
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {["Strategy", "Cloud", "AI", "Governance", "AWS", "Snowflake", "Python"].map((tag) => (
-                    <span key={tag} className="rounded bg-muted dark:bg-white/5 px-2 py-0.5 text-[11px] text-muted-foreground dark:text-white/55">
+                    <span key={tag} className="rounded bg-muted dark:bg-white/5 px-3 py-1 text-xs font-semibold text-muted-foreground dark:text-white/55">
                       {tag}
                     </span>
                   ))}
@@ -288,15 +288,15 @@ export function CapabilitiesGrid() {
             }`}
           >
             {/* ── CORE CAPABILITIES label ── */}
-            <div className="mb-5 flex items-center gap-4">
+            <div className="mb-6 flex items-center gap-4">
               <div className="h-px flex-1 bg-emerald-400/30" />
-              <span className="text-sm font-bold uppercase tracking-[0.3em] text-emerald-400">
+              <span className="text-lg font-bold uppercase tracking-[0.3em] text-emerald-400">
                 Core Capabilities
               </span>
               <div className="h-px flex-1 bg-emerald-400/30" />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
               {nodes.slice(0, TECH_START).map((node, i) => {
                 const Icon = node.icon
                 const isActive = selection === i
@@ -305,32 +305,32 @@ export function CapabilitiesGrid() {
                     key={node.title}
                     ref={(el) => { childRefs.current[i] = el }}
                     onClick={() => setSelection((prev) => (prev === i ? null : i))}
-                    className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
+                    className={`flex items-center gap-4 rounded-xl border px-5 py-5 text-left backdrop-blur-sm transition-all ${
                       isActive
                         ? "border-emerald-400/60 bg-emerald-100/90 dark:bg-[#1f352c]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
                         : "border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 hover:border-emerald-400/40 hover:bg-emerald-50/90 dark:hover:bg-[#1a3027]/90"
                     }`}
                     style={{ transitionDelay: expanded ? `${i * 50}ms` : "0ms" }}
                   >
-                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-emerald-500/15">
-                      <Icon className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-500/15">
+                      <Icon className="h-6 w-6 text-emerald-500 dark:text-emerald-400" />
                     </div>
-                    <span className="text-xs font-medium leading-tight text-foreground dark:text-white/90">{node.title}</span>
+                    <span className="text-base font-bold leading-tight text-foreground dark:text-white/90">{node.title}</span>
                   </button>
                 )
               })}
             </div>
 
             {/* ── TECHNOLOGY STACK label ── */}
-            <div className="mb-5 mt-10 flex items-center gap-4">
+            <div className="mb-6 mt-12 flex items-center gap-4">
               <div className="h-px flex-1 bg-sky-400/30" />
-              <span className="text-sm font-bold uppercase tracking-[0.3em] text-sky-400">
+              <span className="text-lg font-bold uppercase tracking-[0.3em] text-sky-400">
                 Technology Stack
               </span>
               <div className="h-px flex-1 bg-sky-400/30" />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
               {nodes.slice(TECH_START).map((node, j) => {
                 const i = TECH_START + j
                 const Icon = node.icon
@@ -341,7 +341,7 @@ export function CapabilitiesGrid() {
                     key={node.title}
                     ref={(el) => { childRefs.current[i] = el }}
                     onClick={() => setSelection((prev) => (prev === i ? null : i))}
-                    className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
+                    className={`flex items-center gap-4 rounded-xl border px-5 py-5 text-left backdrop-blur-sm transition-all ${
                       isActive
                         ? "border-sky-400/60 bg-sky-50/90 dark:bg-[#1a2d35]/90 shadow-[0_0_20px_-6px_rgba(125,211,252,0.5)]"
                         : isRelated
@@ -350,10 +350,10 @@ export function CapabilitiesGrid() {
                     }`}
                     style={{ transitionDelay: expanded ? `${i * 50}ms` : "0ms" }}
                   >
-                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-sky-500/15">
-                      <Icon className="h-4 w-4 text-sky-500 dark:text-sky-400" />
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-sky-500/15">
+                      <Icon className="h-6 w-6 text-sky-500 dark:text-sky-400" />
                     </div>
-                    <span className="text-xs font-medium leading-tight text-foreground dark:text-white/90">{node.title}</span>
+                    <span className="text-base font-bold leading-tight text-foreground dark:text-white/90">{node.title}</span>
                   </button>
                 )
               })}
@@ -380,8 +380,8 @@ export function CapabilitiesGrid() {
                           <Icon className={`h-5 w-5 ${isTech ? "text-sky-400" : "text-emerald-400"}`} />
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-foreground dark:text-white">{node.title}</h3>
-                          <p className="mt-1 text-sm text-muted-foreground dark:text-white/60">{node.description}</p>
+                          <h3 className="text-2xl font-bold text-foreground dark:text-white">{node.title}</h3>
+                          <p className="mt-2 text-base text-muted-foreground dark:text-white/60">{node.description}</p>
                         </div>
                       </div>
                       <button
@@ -393,25 +393,25 @@ export function CapabilitiesGrid() {
                       </button>
                     </div>
                     <div className="mt-5">
-                      <p className={`text-xs font-semibold uppercase tracking-wide ${isTech ? "text-sky-400/80" : "text-emerald-400/80"}`}>
+                      <p className={`text-sm font-bold uppercase tracking-wide ${isTech ? "text-sky-400/80" : "text-emerald-400/80"}`}>
                         {node.servicesLabel}
                       </p>
                       {isTech ? (
-                        <div className="mt-3 flex flex-wrap gap-2">
+                        <div className="mt-4 flex flex-wrap gap-2.5">
                           {node.services.map((item) => (
                             <span
                               key={item}
-                              className="rounded-md border border-sky-400/25 bg-sky-500/10 px-2.5 py-1 text-xs text-sky-700 dark:text-sky-100"
+                              className="rounded-md border border-sky-400/25 bg-sky-500/10 px-3 py-1.5 text-sm font-medium text-sky-700 dark:text-sky-100"
                             >
                               {item}
                             </span>
                           ))}
                         </div>
                       ) : (
-                        <ul className="mt-3 space-y-2">
+                        <ul className="mt-4 space-y-2.5">
                           {node.services.map((s) => (
-                            <li key={s} className="flex items-start gap-2 text-sm text-muted-foreground dark:text-white/80">
-                              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+                            <li key={s} className="flex items-start gap-2.5 text-base text-muted-foreground dark:text-white/80">
+                              <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
                               {s}
                             </li>
                           ))}
@@ -423,25 +423,25 @@ export function CapabilitiesGrid() {
                   {/* Right: linked technology stack (capabilities only) */}
                   {!isTech && linkedTechNodes.length > 0 && (
                     <div className="border-t border-border dark:border-white/10 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-sky-400/80">
+                      <p className="text-sm font-bold uppercase tracking-wide text-sky-400/80">
                         Technology Stack
                       </p>
-                      <div className="mt-4 space-y-5">
+                      <div className="mt-4 space-y-6">
                         {linkedTechNodes.map((tech) => {
                           const TechIcon = tech.icon
                           return (
                             <div key={tech.title}>
-                              <div className="flex items-center gap-2 mb-2">
-                                <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-sky-500/15">
-                                  <TechIcon className="h-3.5 w-3.5 text-sky-400" />
+                              <div className="flex items-center gap-3 mb-3">
+                                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-sky-500/15">
+                                  <TechIcon className="h-5 w-5 text-sky-400" />
                                 </div>
-                                <span className="text-sm font-semibold text-foreground dark:text-white">{tech.title}</span>
+                                <span className="text-base font-bold text-foreground dark:text-white">{tech.title}</span>
                               </div>
-                              <div className="flex flex-wrap gap-1.5">
+                              <div className="flex flex-wrap gap-2">
                                 {tech.services.map((item) => (
                                   <span
                                     key={item}
-                                    className="rounded-md border border-sky-400/30 bg-sky-500/10 px-2.5 py-1 text-xs text-sky-700 dark:text-sky-100"
+                                    className="rounded-md border border-sky-400/30 bg-sky-500/10 px-3 py-1.5 text-sm font-medium text-sky-700 dark:text-sky-100"
                                   >
                                     {item}
                                   </span>
