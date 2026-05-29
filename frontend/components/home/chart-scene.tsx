@@ -4,15 +4,15 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import * as THREE from "three"
 
-const BASE_COLOR = "#f4f7f4"
-const FOG_NEAR = 8
-const FOG_FAR = 18
+const BASE_COLOR = "#0a1f18"
+const FOG_NEAR = 6
+const FOG_FAR = 16
 
 const LINE_SERIES = [
-  { color: "#0d9488", offsetZ: -1.0, amplitude: 0.8, speed: 0.35 },
-  { color: "#059669", offsetZ: 0.0, amplitude: 1.0, speed: 0.30 },
-  { color: "#f59e0b", offsetZ: 1.0, amplitude: 0.6, speed: 0.40 },
-  { color: "#3b82f6", offsetZ: 2.0, amplitude: 0.5, speed: 0.32 },
+  { color: "#5fbf91", offsetZ: -1.0, amplitude: 0.8, speed: 0.35 },
+  { color: "#2d7a5a", offsetZ: 0.0, amplitude: 1.0, speed: 0.30 },
+  { color: "#c9a14a", offsetZ: 1.0, amplitude: 0.6, speed: 0.40 },
+  { color: "#f5ecd0", offsetZ: 2.0, amplitude: 0.5, speed: 0.32 },
 ] as const
 
 const POINTS_PER_SERIES = 140
@@ -24,16 +24,16 @@ function GridPlane() {
   const grid = useMemo(() => {
     const size = 24
     const divisions = 24
-    const helper = new THREE.GridHelper(size, divisions, "#94a3b8", "#94a3b8")
+    const helper = new THREE.GridHelper(size, divisions, "#5fbf91", "#5fbf91")
     const mat = helper.material as THREE.LineBasicMaterial | THREE.LineBasicMaterial[]
     if (Array.isArray(mat)) {
       mat.forEach((m) => {
         m.transparent = true
-        m.opacity = 0.18
+        m.opacity = 0.08
       })
     } else {
       mat.transparent = true
-      mat.opacity = 0.18
+      mat.opacity = 0.08
     }
     helper.position.y = -1.5
     return helper
@@ -128,7 +128,7 @@ function Candlesticks({ paused }: { paused: React.RefObject<boolean> }) {
       arr.push({
         x: -X_RANGE / 2 + (i / (CANDLE_COUNT - 1)) * X_RANGE,
         height: Math.max(0.15, Math.abs(delta) * 3 + Math.random() * 0.6),
-        color: delta >= 0 ? "#059669" : "#ef4444",
+        color: delta >= 0 ? "#5fbf91" : "#c9a14a",
         key: i,
       })
     }
@@ -180,10 +180,10 @@ function ParticleField({ paused }: { paused: React.RefObject<boolean> }) {
   const material = useMemo(
     () =>
       new THREE.PointsMaterial({
-        color: "#64748b",
-        size: 0.025,
+        color: "#f5ecd0",
+        size: 0.03,
         transparent: true,
-        opacity: 0.35,
+        opacity: 0.55,
         sizeAttenuation: true,
       }),
     []
