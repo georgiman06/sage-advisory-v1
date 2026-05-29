@@ -208,7 +208,7 @@ export function CapabilitiesGrid() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
             Capabilities & Technology
           </p>
-          <p className="mt-4 text-base text-white/70 md:text-lg">
+          <p className="mt-4 text-base text-muted-foreground dark:text-white/70 md:text-lg">
             Strategic advisory and hands-on implementation to deliver measurable business impact.
           </p>
         </div>
@@ -255,24 +255,24 @@ export function CapabilitiesGrid() {
                 setExpanded((v) => !v)
                 setSelection(null)
               }}
-              className="group relative w-full rounded-xl border border-emerald-400/30 bg-[#162923]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-[#1a3027]"
+              className="group relative w-full rounded-xl border border-emerald-400/30 bg-white/95 dark:bg-[#162923]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-emerald-50 dark:hover:bg-[#1a3027]"
             >
-              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+              <div className="flex items-center justify-between border-b border-border dark:border-white/10 px-5 py-4">
                 <div className="flex items-center gap-2.5">
-                  <Sparkles className="h-5 w-5 text-emerald-400" />
-                  <span className="text-lg font-semibold text-white">Capabilities & Technology</span>
+                  <Sparkles className="h-5 w-5 text-emerald-500 dark:text-emerald-400" />
+                  <span className="text-lg font-semibold text-foreground dark:text-white">Capabilities & Technology</span>
                 </div>
-                <span className="text-white/40 transition-colors group-hover:text-white/80">
+                <span className="text-muted-foreground dark:text-white/40 transition-colors group-hover:text-foreground dark:group-hover:text-white/80">
                   {expanded ? <X className="h-5 w-5" /> : <span className="text-2xl leading-none">+</span>}
                 </span>
               </div>
               <div className="px-5 py-5">
-                <div className="rounded border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white/65">
+                <div className="rounded border border-border dark:border-white/10 bg-muted/50 dark:bg-black/40 px-3 py-2.5 text-sm text-muted-foreground dark:text-white/65">
                   {expanded ? "6 capabilities · 4 technology areas — click a node for details" : "Click to expand"}
                 </div>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {["Strategy", "Cloud", "AI", "Governance", "AWS", "Snowflake", "Python"].map((tag) => (
-                    <span key={tag} className="rounded bg-white/5 px-2 py-0.5 text-[11px] text-white/55">
+                    <span key={tag} className="rounded bg-muted dark:bg-white/5 px-2 py-0.5 text-[11px] text-muted-foreground dark:text-white/55">
                       {tag}
                     </span>
                   ))}
@@ -307,15 +307,15 @@ export function CapabilitiesGrid() {
                     onClick={() => setSelection((prev) => (prev === i ? null : i))}
                     className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
                       isActive
-                        ? "border-emerald-400/60 bg-[#1f352c]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
-                        : "border-white/10 bg-[#162923]/80 hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
+                        ? "border-emerald-400/60 bg-emerald-100/90 dark:bg-[#1f352c]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
+                        : "border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 hover:border-emerald-400/40 hover:bg-emerald-50/90 dark:hover:bg-[#1a3027]/90"
                     }`}
                     style={{ transitionDelay: expanded ? `${i * 50}ms` : "0ms" }}
                   >
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-emerald-500/15">
-                      <Icon className="h-4 w-4 text-emerald-400" />
+                      <Icon className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                     </div>
-                    <span className="text-xs font-medium leading-tight text-white/90">{node.title}</span>
+                    <span className="text-xs font-medium leading-tight text-foreground dark:text-white/90">{node.title}</span>
                   </button>
                 )
               })}
@@ -343,17 +343,17 @@ export function CapabilitiesGrid() {
                     onClick={() => setSelection((prev) => (prev === i ? null : i))}
                     className={`flex items-center gap-3 rounded-lg border px-3 py-3 text-left backdrop-blur-sm transition-all ${
                       isActive
-                        ? "border-sky-400/60 bg-[#1a2d35]/90 shadow-[0_0_20px_-6px_rgba(125,211,252,0.5)]"
+                        ? "border-sky-400/60 bg-sky-50/90 dark:bg-[#1a2d35]/90 shadow-[0_0_20px_-6px_rgba(125,211,252,0.5)]"
                         : isRelated
-                        ? "border-sky-400/50 bg-[#1a2d35]/70 shadow-[0_0_14px_-6px_rgba(125,211,252,0.35)]"
-                        : "border-white/10 bg-[#162923]/80 hover:border-sky-400/40 hover:bg-[#1a2d35]/70"
+                        ? "border-sky-400/50 bg-sky-50/70 dark:bg-[#1a2d35]/70 shadow-[0_0_14px_-6px_rgba(125,211,252,0.35)]"
+                        : "border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 hover:border-sky-400/40 hover:bg-sky-50/70 dark:hover:bg-[#1a2d35]/70"
                     }`}
                     style={{ transitionDelay: expanded ? `${i * 50}ms` : "0ms" }}
                   >
                     <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-sky-500/15">
-                      <Icon className="h-4 w-4 text-sky-400" />
+                      <Icon className="h-4 w-4 text-sky-500 dark:text-sky-400" />
                     </div>
-                    <span className="text-xs font-medium leading-tight text-white/90">{node.title}</span>
+                    <span className="text-xs font-medium leading-tight text-foreground dark:text-white/90">{node.title}</span>
                   </button>
                 )
               })}
@@ -363,7 +363,7 @@ export function CapabilitiesGrid() {
 
         {/* Detail panel */}
         {selection !== null && (
-          <div className="relative mx-auto mt-12 w-full max-w-4xl rounded-xl border border-emerald-400/30 bg-[#162923]/95 p-6 shadow-2xl backdrop-blur-sm">
+          <div className="relative mx-auto mt-12 w-full max-w-4xl rounded-xl border border-emerald-400/30 bg-white/95 dark:bg-[#162923]/95 p-6 shadow-2xl backdrop-blur-sm">
             {(() => {
               const node = nodes[selection]
               const Icon = node.icon
@@ -380,13 +380,13 @@ export function CapabilitiesGrid() {
                           <Icon className={`h-5 w-5 ${isTech ? "text-sky-400" : "text-emerald-400"}`} />
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-white">{node.title}</h3>
-                          <p className="mt-1 text-sm text-white/60">{node.description}</p>
+                          <h3 className="text-lg font-semibold text-foreground dark:text-white">{node.title}</h3>
+                          <p className="mt-1 text-sm text-muted-foreground dark:text-white/60">{node.description}</p>
                         </div>
                       </div>
                       <button
                         onClick={() => setSelection(null)}
-                        className="text-white/40 hover:text-white/80"
+                        className="text-muted-foreground dark:text-white/40 hover:text-foreground dark:hover:text-white/80"
                         aria-label="Close details"
                       >
                         <X className="h-4 w-4" />
@@ -410,7 +410,7 @@ export function CapabilitiesGrid() {
                       ) : (
                         <ul className="mt-3 space-y-2">
                           {node.services.map((s) => (
-                            <li key={s} className="flex items-start gap-2 text-sm text-white/80">
+                            <li key={s} className="flex items-start gap-2 text-sm text-muted-foreground dark:text-white/80">
                               <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
                               {s}
                             </li>
@@ -422,7 +422,7 @@ export function CapabilitiesGrid() {
 
                   {/* Right: linked technology stack (capabilities only) */}
                   {!isTech && linkedTechNodes.length > 0 && (
-                    <div className="border-t border-white/10 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                    <div className="border-t border-border dark:border-white/10 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
                       <p className="text-xs font-semibold uppercase tracking-wide text-sky-400/80">
                         Technology Stack
                       </p>
@@ -435,7 +435,7 @@ export function CapabilitiesGrid() {
                                 <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md bg-sky-500/15">
                                   <TechIcon className="h-3.5 w-3.5 text-sky-400" />
                                 </div>
-                                <span className="text-sm font-semibold text-white">{tech.title}</span>
+                                <span className="text-sm font-semibold text-foreground dark:text-white">{tech.title}</span>
                               </div>
                               <div className="flex flex-wrap gap-1.5">
                                 {tech.services.map((item) => (

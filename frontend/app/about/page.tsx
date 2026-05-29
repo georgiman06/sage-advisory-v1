@@ -60,7 +60,7 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="relative bg-gradient-to-b from-[#22513f] via-[#143028] to-[#0d1e17]">
+      <div className="relative bg-gradient-to-b from-emerald-50 via-white to-white dark:from-[#22513f] dark:via-[#143028] dark:to-[#0d1e17]">
         <Header activePage="about" variant="dark" />
         
         {/* Hero Section */}
@@ -68,13 +68,13 @@ export default function AboutPage() {
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid items-center gap-10 md:grid-cols-2">
               <div>
-                <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">About Sage Advisory</h1>
-                <p className="mt-4 max-w-2xl text-lg text-white/80">
+                <h1 className="text-4xl font-bold tracking-tight text-foreground dark:text-white md:text-5xl">About Sage Advisory</h1>
+                <p className="mt-4 max-w-2xl text-lg text-muted-foreground dark:text-white/80">
                   We are a specialized consulting firm focused exclusively on enterprise data strategy,
                   AI transformation, and cloud modernization.
                 </p>
               </div>
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#162923]/60 shadow-2xl">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-emerald-300 dark:border-emerald-400/25 bg-emerald-50/60 dark:bg-[#162923]/60 shadow-2xl">
                 {/* Drop image at frontend/public/images/about-hero.jpg, then replace
                     this placeholder block with:
                     <img src="/images/about-hero.jpg" alt="Sage Advisory team"
@@ -92,25 +92,25 @@ export default function AboutPage() {
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid gap-12 md:grid-cols-2">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400/80">
                   Vision
                 </p>
-                <h2 className="mt-3 text-2xl font-semibold text-white md:text-3xl">
+                <h2 className="mt-3 text-2xl font-semibold text-foreground dark:text-white md:text-3xl">
                   A wisdom-driven future
                 </h2>
-                <p className="mt-4 leading-relaxed text-white/70">
+                <p className="mt-4 leading-relaxed text-muted-foreground dark:text-white/70">
                   To shape a future where wisdom-driven decisions create enduring competitive
                   advantage through data, AI, and decentralized innovation.
                 </p>
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400/80">
                   Mission
                 </p>
-                <h2 className="mt-3 text-2xl font-semibold text-white md:text-3xl">
+                <h2 className="mt-3 text-2xl font-semibold text-foreground dark:text-white md:text-3xl">
                   From complexity to clarity
                 </h2>
-                <p className="mt-4 leading-relaxed text-white/70">
+                <p className="mt-4 leading-relaxed text-muted-foreground dark:text-white/70">
                   Sage Advisory empowers organizations to turn complexity into clarity by combining
                   strategic wisdom, deep analytical insight, agentic &amp; emerging technologies, and
                   execution excellence to deliver measurable business outcomes.
@@ -154,19 +154,19 @@ export default function AboutPage() {
         </section>
 
         {/* Founder Section */}
-        <section className="border-t border-white/10 py-20">
+        <section className="border-t border-border dark:border-white/10 py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400/80">
               Leadership
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
               Meet the founder
             </h2>
 
-            <Card className="mt-10 border-emerald-400/25 bg-[#162923]/80 backdrop-blur-sm">
+            <Card className="mt-10 border-emerald-200 dark:border-emerald-400/25 bg-white/80 dark:bg-[#162923]/80 backdrop-blur-sm">
               <CardContent className="p-6 md:p-10">
                 <div className="grid items-start gap-8 md:grid-cols-[280px_1fr]">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-emerald-400/25 bg-[#13241d]">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border border-emerald-300 dark:border-emerald-400/25 bg-emerald-50 dark:bg-[#13241d]">
                     {/* Drop portrait at frontend/public/images/sangeeth.jpg, then
                         replace this placeholder with:
                         <img src="/images/sangeeth.jpg" alt="Sangeeth Thuruthippallil"
@@ -182,18 +182,18 @@ export default function AboutPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Sangeeth Thuruthippallil on LinkedIn"
-                      className="absolute right-0 top-0 text-white/50 hover:text-emerald-400"
+                      className="absolute right-0 top-0 text-muted-foreground dark:text-white/50 hover:text-emerald-500 dark:hover:text-emerald-400"
                     >
                       <Linkedin className="h-5 w-5" />
                     </a>
-                    <h3 className="text-2xl font-semibold text-white">{founder.name}</h3>
-                    <p className="mt-1 text-sm text-emerald-300/90">{founder.role}</p>
-                    <p className="mt-1 text-xs text-white/50">{founder.location}</p>
-                    <p className="mt-5 leading-relaxed text-white/75">{founder.bio}</p>
+                    <h3 className="text-2xl font-semibold text-foreground dark:text-white">{founder.name}</h3>
+                    <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-300/90">{founder.role}</p>
+                    <p className="mt-1 text-xs text-muted-foreground dark:text-white/50">{founder.location}</p>
+                    <p className="mt-5 leading-relaxed text-muted-foreground dark:text-white/75">{founder.bio}</p>
 
                     <ul className="mt-6 space-y-2">
                       {founder.background.map((item) => (
-                        <li key={item} className="flex items-start gap-2 text-sm text-white/65">
+                        <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground dark:text-white/65">
                           <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400" />
                           {item}
                         </li>
@@ -209,13 +209,13 @@ export default function AboutPage() {
         {/* Top Skills Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400/80">
               Expertise
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
               Top skills we lead with
             </h2>
-            <p className="mt-4 max-w-2xl leading-relaxed text-white/70">
+            <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground dark:text-white/70">
               Drawn from two decades of enterprise transformation work — these are the disciplines our founder brings to every engagement.
             </p>
 
@@ -223,9 +223,9 @@ export default function AboutPage() {
               {topSkills.map((skill) => (
                 <div
                   key={skill}
-                  className="rounded-lg border border-white/10 bg-[#162923]/80 p-5 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
+                  className="rounded-lg border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-5 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-emerald-50/90 dark:hover:bg-[#1a3027]/90"
                 >
-                  <p className="text-sm font-medium text-white">{skill}</p>
+                  <p className="text-sm font-medium text-foreground dark:text-white">{skill}</p>
                 </div>
               ))}
             </div>
@@ -235,8 +235,8 @@ export default function AboutPage() {
         {/* CTA Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6 text-center">
-            <h2 className="text-2xl font-semibold text-white md:text-3xl">Ready to partner with us?</h2>
-            <p className="mx-auto mt-2 max-w-xl text-white/65">
+            <h2 className="text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Ready to partner with us?</h2>
+            <p className="mx-auto mt-2 max-w-xl text-muted-foreground dark:text-white/65">
               Let&apos;s discuss how Sage Advisory can help accelerate your data transformation journey.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -247,7 +247,7 @@ export default function AboutPage() {
                 size="lg"
                 variant="outline"
                 asChild
-                className="border-emerald-400/40 bg-transparent text-emerald-100 hover:bg-emerald-400/10 hover:text-white"
+                className="border-emerald-400/40 bg-transparent text-emerald-700 dark:text-emerald-100 hover:bg-emerald-400/10 hover:text-emerald-900 dark:hover:text-white"
               >
                 <Link href="/capabilities">View Our Capabilities</Link>
               </Button>

@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
+import { useTheme } from "next-themes"
+import { ThemeToggle } from "@/components/shared/theme-toggle"
 
 interface HeaderProps {
   activePage?: "home" | "capabilities" | "about" | "insights" | "case-studies" | "contact"
@@ -21,6 +23,8 @@ const navLinks = [
 export function Header({ activePage = "home", variant = "default" }: HeaderProps) {
   const isDark = variant === "dark"
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { resolvedTheme } = useTheme()
+  const isThemeDark = resolvedTheme === "dark"
 
   return (
     <header className={isDark ? "border-b border-white/10" : "border-b border-border bg-background"}>
@@ -64,9 +68,14 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
           })}
         </nav>
 
+        {/* Theme toggle (desktop) */}
+        <div className="ml-auto hidden items-center md:flex">
+          <ThemeToggle variant={variant} />
+        </div>
+
         {/* Hamburger button (mobile only) */}
         <button
-          className={`ml-auto flex items-center justify-center rounded-md p-2 transition-colors md:hidden ${
+          className={`flex items-center justify-center rounded-md p-2 transition-colors md:hidden ${
             isDark ? "text-white/70 hover:text-white" : "text-muted-foreground hover:text-foreground"
           }`}
           onClick={() => setMobileOpen((v) => !v)}
@@ -78,7 +87,11 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className={`border-t md:hidden ${isDark ? "border-white/10 bg-[#0d1f1a]" : "border-border bg-background"}`}>
+        <div className={`border-t md:hidden ${
+          isDark
+            ? `border-white/10 ${isThemeDark ? "bg-[#0d1f1a]" : "bg-background"}`
+            : "border-border bg-background"
+        }`}>
           <nav className="flex flex-col px-4 py-3">
             {navLinks.map(({ href, label, page }) => {
               const isActive = activePage === page
@@ -99,6 +112,14 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                 </Link>
               )
             })}
+
+            {/* Appearance row */}
+            <div className={`flex items-center justify-between py-2 ${
+              isDark ? "text-white/65" : "text-muted-foreground"
+            }`}>
+              <span className="text-sm font-medium">Appearance</span>
+              <ThemeToggle variant={variant} />
+            </div>
           </nav>
         </div>
       )}

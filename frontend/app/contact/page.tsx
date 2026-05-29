@@ -117,14 +117,14 @@ export default function ContactPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="relative bg-gradient-to-b from-[#22513f] via-[#143028] to-[#0d1e17]">
+      <div className="relative bg-gradient-to-b from-emerald-50 via-white to-white dark:from-[#22513f] dark:via-[#143028] dark:to-[#0d1e17]">
         <Header activePage="contact" variant="dark" />
 
         {/* Hero Section */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">Start Your Transformation</h1>
-            <p className="mt-4 max-w-2xl text-lg text-white/80">
+            <h1 className="text-4xl font-bold tracking-tight text-foreground dark:text-white md:text-5xl">Start Your Transformation</h1>
+            <p className="mt-4 max-w-2xl text-lg text-muted-foreground dark:text-white/80">
               Partner with Sage Advisory to unlock the full value of your data.
             </p>
           </div>
@@ -134,8 +134,8 @@ export default function ContactPage() {
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10">
-              <h2 className="text-2xl font-semibold text-white md:text-3xl">Book a Discovery Call</h2>
-              <p className="mt-2 text-white/65">
+              <h2 className="text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Book a Discovery Call</h2>
+              <p className="mt-2 text-muted-foreground dark:text-white/65">
                 Share a few details about your project so we can prepare for your call. After you submit, you&apos;ll pick a time that works for you.
               </p>
             </div>
@@ -364,9 +364,9 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="border-y border-white/10 py-20">
+        <section className="border-y border-border dark:border-white/10 py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-2xl font-semibold text-white md:text-3xl">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Frequently Asked Questions</h2>
             <div className="mt-8 max-w-2xl">
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
@@ -385,22 +385,22 @@ export default function ContactPage() {
         {/* Alternative Contact */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-2xl font-semibold text-white md:text-3xl">Prefer to Email or Call?</h2>
-            <p className="mt-2 text-white/65">
+            <h2 className="text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Prefer to Email or Call?</h2>
+            <p className="mt-2 text-muted-foreground dark:text-white/65">
               We&apos;re here to help. Reach out through your preferred channel.
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
-              <div className="rounded-xl border border-white/10 bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
-                <h3 className="font-semibold text-white">Email</h3>
-                <p className="mt-2 text-sm text-white/65">strategy@sageconsulting.com</p>
+              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
+                <h3 className="font-semibold text-foreground dark:text-white">Email</h3>
+                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">strategy@sageconsulting.com</p>
               </div>
-              <div className="rounded-xl border border-white/10 bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
-                <h3 className="font-semibold text-white">Phone</h3>
-                <p className="mt-2 text-sm text-white/65">+1 (555) 123-4567</p>
+              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
+                <h3 className="font-semibold text-foreground dark:text-white">Phone</h3>
+                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">+1 (555) 123-4567</p>
               </div>
-              <div className="rounded-xl border border-white/10 bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
-                <h3 className="font-semibold text-white">LinkedIn</h3>
-                <p className="mt-2 text-sm text-white/65">linkedin.com/company/sage-consulting</p>
+              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
+                <h3 className="font-semibold text-foreground dark:text-white">LinkedIn</h3>
+                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">linkedin.com/company/sage-consulting</p>
               </div>
             </div>
           </div>

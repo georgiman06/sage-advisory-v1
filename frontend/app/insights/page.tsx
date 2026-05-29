@@ -59,7 +59,7 @@ const categories = [
 export default function InsightsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <div className="bg-[#22513f]">
+      <div className="bg-emerald-700 dark:bg-[#22513f]">
         <Header activePage="insights" variant="dark" />
         
         {/* Hero Section */}
