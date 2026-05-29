@@ -83,15 +83,24 @@ export function FounderSection() {
       </section>
 
       {/* Top Skills */}
-      <section className="py-20">
-        <div className="mx-auto max-w-6xl px-6">
-          <p className="text-base font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400/80">
+      <section className="relative overflow-hidden py-32 md:min-h-[640px]">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          src="/videos/expertise-bg.mp4"
+        />
+        <div className="absolute inset-0 bg-[#0d1f1a]/80" />
+        <div className="relative z-10 mx-auto max-w-6xl px-6">
+          <p className="text-base font-bold uppercase tracking-[0.2em] text-emerald-400/80">
             Expertise
           </p>
-          <h2 className="mt-4 text-5xl font-bold tracking-tight text-foreground dark:text-white md:text-6xl">
+          <h2 className="mt-4 text-5xl font-bold tracking-tight text-white md:text-6xl">
             Top skills we lead with
           </h2>
-          <p className="mt-5 max-w-3xl text-xl leading-relaxed text-muted-foreground dark:text-white/70 md:text-2xl">
+          <p className="mt-5 max-w-3xl text-xl leading-relaxed text-white/70 md:text-2xl">
             Drawn from two decades of enterprise transformation work — these are the disciplines our founder brings to every engagement.
           </p>
 
@@ -99,9 +108,9 @@ export function FounderSection() {
             {topSkills.map((skill) => (
               <div
                 key={skill}
-                className="rounded-lg border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-emerald-50/90 dark:hover:bg-[#1a3027]/90"
+                className="rounded-lg border border-white/10 bg-white/10 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-white/15"
               >
-                <p className="text-xl font-semibold text-foreground dark:text-white">{skill}</p>
+                <p className="text-xl font-semibold text-white">{skill}</p>
               </div>
             ))}
           </div>
