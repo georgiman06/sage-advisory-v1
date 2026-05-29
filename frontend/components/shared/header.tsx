@@ -16,9 +16,14 @@ const capabilityDropdownItems = [
   { href: "/capabilities?section=services", label: "Services & Outcomes" },
 ]
 
+const aboutDropdownItems = [
+  { href: "/about", label: "Mission Statement & Vision" },
+  { href: "/about?section=founder", label: "Meet the Founder" },
+]
+
 const navLinks = [
   { href: "/", label: "Home", page: "home" },
-  { href: "/capabilities", label: "Capabilities", page: "capabilities", hasDropdown: true },
+  { href: "/capabilities", label: "Capabilities", page: "capabilities" },
   { href: "/about", label: "About", page: "about" },
   { href: "/insights", label: "Insights", page: "insights" },
   { href: "/case-studies", label: "Case Studies", page: "case-studies" },
@@ -29,6 +34,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
   const isDark = variant === "dark"
   const [mobileOpen, setMobileOpen] = useState(false)
   const [capHovered, setCapHovered] = useState(false)
+  const [aboutHovered, setAboutHovered] = useState(false)
   const { resolvedTheme } = useTheme()
   const isThemeDark = resolvedTheme === "dark"
 
@@ -54,14 +60,19 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
           {navLinks.map(({ href, label, page }) => {
             const isActive = activePage === page
             const isCapabilities = page === "capabilities"
+            const isAbout = page === "about"
 
-            if (isCapabilities) {
+            if (isCapabilities || isAbout) {
+              const dropdownItems = isCapabilities ? capabilityDropdownItems : aboutDropdownItems
+              const hovered = isCapabilities ? capHovered : aboutHovered
+              const setHovered = isCapabilities ? setCapHovered : setAboutHovered
+
               return (
                 <div
                   key={page}
                   className="relative"
-                  onMouseEnter={() => setCapHovered(true)}
-                  onMouseLeave={() => setCapHovered(false)}
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}
                 >
                   {/* Trigger */}
                   <Link
@@ -74,31 +85,31 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                   >
                     {label}
                     <ChevronDown
-                      className={`h-3.5 w-3.5 transition-transform duration-200 ${capHovered ? "rotate-180" : ""} ${
+                      className={`h-3.5 w-3.5 transition-transform duration-200 ${hovered ? "rotate-180" : ""} ${
                         isDark ? "text-white/50" : "text-muted-foreground"
                       }`}
                     />
                     <span
                       className={`absolute -bottom-1 left-0 h-[2px] rounded-full transition-all duration-300 ease-out ${
                         isDark ? "bg-emerald-400" : "bg-foreground"
-                      } ${isActive || capHovered ? "w-full" : "w-0 group-hover:w-full"}`}
+                      } ${isActive || hovered ? "w-full" : "w-0 group-hover:w-full"}`}
                     />
                   </Link>
 
                   {/* Dropdown panel */}
                   <div
                     className={`absolute left-1/2 top-full -translate-x-1/2 pt-4 transition-all duration-200 ${
-                      capHovered ? "pointer-events-auto opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-1"
+                      hovered ? "pointer-events-auto opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-1"
                     }`}
                   >
                     <div
-                      className={`min-w-[220px] overflow-hidden rounded-xl border shadow-xl backdrop-blur-sm ${
+                      className={`min-w-[240px] overflow-hidden rounded-xl border shadow-xl backdrop-blur-sm ${
                         isDark
                           ? "border-emerald-400/20 bg-[#162923]/98"
                           : "border-border bg-white/98"
                       }`}
                     >
-                      {capabilityDropdownItems.map((item) => (
+                      {dropdownItems.map((item) => (
                         <Link
                           key={item.href}
                           href={item.href}
@@ -108,7 +119,6 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                               : "text-muted-foreground hover:bg-emerald-50 hover:text-foreground"
                           }`}
                         >
-                          {/* Animated underline on each item */}
                           <span className="relative">
                             {item.label}
                             <span
@@ -174,6 +184,12 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
             {navLinks.map(({ href, label, page }) => {
               const isActive = activePage === page
               const isCapabilities = page === "capabilities"
+              const isAbout = page === "about"
+              const mobileSubItems = isCapabilities
+                ? capabilityDropdownItems
+                : isAbout
+                ? aboutDropdownItems
+                : null
 
               return (
                 <div key={page}>
@@ -191,8 +207,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                     {label}
                   </Link>
 
-                  {/* Mobile sub-items for Capabilities */}
-                  {isCapabilities && capabilityDropdownItems.map((item) => (
+                  {mobileSubItems && mobileSubItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
