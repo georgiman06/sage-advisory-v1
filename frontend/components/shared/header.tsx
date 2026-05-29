@@ -27,7 +27,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
   const isThemeDark = resolvedTheme === "dark"
 
   return (
-    <header className={isDark ? "border-b border-white/10" : "border-b border-border bg-background"}>
+    <header className={`sticky top-0 z-50 ${isDark ? "border-b border-white/10 bg-[#1a3529]" : "border-b border-border bg-background"}`}>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:h-20 md:gap-12 md:justify-start md:px-6">
         {/* Logo */}
         <Link

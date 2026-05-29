@@ -80,20 +80,23 @@ export default function InsightsPage() {
             <h2 className="text-2xl font-semibold">Featured Articles</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               {featuredArticles.map((article) => (
-                <Card key={article.slug} className="group border-border transition-shadow hover:shadow-md">
-                  <CardContent className="flex h-full flex-col p-6">
-                    <Badge variant="secondary" className="w-fit">{article.category}</Badge>
-                    <h3 className="mt-4 text-lg font-semibold group-hover:text-primary transition-colors">
-                      {article.title}
-                    </h3>
-                    <p className="mt-2 flex-1 text-sm text-muted-foreground leading-relaxed">
-                      {article.description}
-                    </p>
-                    <p className="mt-4 text-xs text-muted-foreground">
-                      {article.readTime} &bull; {article.date}
-                    </p>
-                  </CardContent>
-                </Card>
+                <div
+                  key={article.slug}
+                  className="group flex flex-col rounded-xl border border-white/10 bg-[#162923] p-6 transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]"
+                >
+                  <span className="w-fit rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-400">
+                    {article.category}
+                  </span>
+                  <h3 className="mt-4 text-lg font-semibold text-white group-hover:text-emerald-300 transition-colors">
+                    {article.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm text-white/65 leading-relaxed">
+                    {article.description}
+                  </p>
+                  <p className="mt-4 text-xs text-white/40">
+                    {article.readTime} &bull; {article.date}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
