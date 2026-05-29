@@ -54,14 +54,14 @@ export function PostComposer() {
 
   return (
     <>
-      <div className="rounded-xl border border-white/10 bg-[#162923]/80 p-4 backdrop-blur-sm">
+      <div className="rounded-xl border border-emerald-200/60 dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-4 backdrop-blur-sm">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-300">
+          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-300">
             <User className="h-5 w-5" />
           </div>
           <button
             onClick={() => setOpen(true)}
-            className="flex-1 rounded-full border border-white/10 bg-black/30 px-4 py-3 text-left text-sm text-white/55 transition-colors hover:border-emerald-400/40 hover:bg-black/40 hover:text-white/80"
+            className="flex-1 rounded-full border border-emerald-200 dark:border-white/10 bg-emerald-50/60 dark:bg-black/30 px-4 py-3 text-left text-sm text-muted-foreground dark:text-white/55 transition-colors hover:border-emerald-400/40 hover:bg-emerald-100/60 dark:hover:bg-black/40 hover:text-foreground dark:hover:text-white/80"
           >
             Share an update with clients&hellip;
           </button>

@@ -35,10 +35,10 @@ export function Feed() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
             Updates
           </p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
             What our team is working on
           </h1>
-          <p className="mt-4 text-base text-white/70 md:text-lg">
+          <p className="mt-4 text-base text-muted-foreground dark:text-white/70 md:text-lg">
             A running log of active engagements and field notes from the team — strategy through execution.
           </p>
         </div>
@@ -47,7 +47,7 @@ export function Feed() {
           <div className="mx-auto w-full max-w-[640px] space-y-6 lg:mx-0">
             <PostComposer />
             {visiblePosts.length === 0 ? (
-              <div className="rounded-xl border border-white/10 bg-[#162923]/60 p-10 text-center text-sm text-white/60">
+              <div className="rounded-xl border border-emerald-200/60 dark:border-white/10 bg-white/60 dark:bg-[#162923]/60 p-10 text-center text-sm text-muted-foreground dark:text-white/60">
                 No posts match this filter yet.
               </div>
             ) : (

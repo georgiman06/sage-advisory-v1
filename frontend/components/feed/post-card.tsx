@@ -29,20 +29,20 @@ type Props = {
 
 export function PostCard({ post, onRequireSignIn }: Props) {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#162923]/80 backdrop-blur-sm transition-colors hover:border-emerald-400/30">
+    <article className="rounded-xl border border-emerald-200/60 dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 backdrop-blur-sm transition-colors hover:border-emerald-400/40">
       <header className="flex items-center gap-3 px-5 pt-5">
-        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-sm font-semibold text-emerald-300">
+        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-sm font-semibold text-emerald-600 dark:text-emerald-300">
           {post.author.initials}
         </div>
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-white">{post.author.name}</p>
-          <p className="truncate text-xs text-white/55">{post.author.role}</p>
-          <p className="mt-0.5 text-xs text-white/40">{relativeTime(post.postedAt)}</p>
+          <p className="text-sm font-semibold text-foreground dark:text-white">{post.author.name}</p>
+          <p className="truncate text-xs text-muted-foreground dark:text-white/55">{post.author.role}</p>
+          <p className="mt-0.5 text-xs text-muted-foreground/70 dark:text-white/40">{relativeTime(post.postedAt)}</p>
         </div>
       </header>
 
       <div className="px-5 pt-4">
-        <p className="whitespace-pre-line text-sm leading-relaxed text-white/85">{post.body}</p>
+        <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/85 dark:text-white/85">{post.body}</p>
       </div>
 
       {post.images && post.images.length > 0 && <PostGallery images={post.images} />}
@@ -52,7 +52,7 @@ export function PostCard({ post, onRequireSignIn }: Props) {
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-md border border-emerald-400/25 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-100"
+              className="rounded-md border border-emerald-400/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] text-emerald-700 dark:text-emerald-100"
             >
               {tag}
             </span>
@@ -60,17 +60,17 @@ export function PostCard({ post, onRequireSignIn }: Props) {
         </div>
       )}
 
-      <footer className="mt-4 flex items-center gap-1 border-t border-white/10 px-3 py-2">
+      <footer className="mt-4 flex items-center gap-1 border-t border-emerald-100 dark:border-white/10 px-3 py-2">
         <button
           onClick={onRequireSignIn}
-          className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm text-white/65 transition-colors hover:bg-white/5 hover:text-white"
+          className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm text-muted-foreground dark:text-white/65 transition-colors hover:bg-emerald-50 dark:hover:bg-white/5 hover:text-foreground dark:hover:text-white"
         >
           <ThumbsUp className="h-4 w-4" />
           <span>{post.likeCount}</span>
         </button>
         <button
           onClick={onRequireSignIn}
-          className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm text-white/65 transition-colors hover:bg-white/5 hover:text-white"
+          className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm text-muted-foreground dark:text-white/65 transition-colors hover:bg-emerald-50 dark:hover:bg-white/5 hover:text-foreground dark:hover:text-white"
         >
           <MessageCircle className="h-4 w-4" />
           <span>{post.commentCount}</span>
@@ -81,7 +81,7 @@ export function PostCard({ post, onRequireSignIn }: Props) {
               navigator.clipboard.writeText(`${window.location.origin}/case-studies#${post.id}`).catch(() => {})
             }
           }}
-          className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm text-white/65 transition-colors hover:bg-white/5 hover:text-white"
+          className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm text-muted-foreground dark:text-white/65 transition-colors hover:bg-emerald-50 dark:hover:bg-white/5 hover:text-foreground dark:hover:text-white"
         >
           <Share2 className="h-4 w-4" />
           <span>Share</span>
