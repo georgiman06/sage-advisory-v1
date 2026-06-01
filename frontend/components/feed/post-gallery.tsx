@@ -22,11 +22,11 @@ function Tile({
       href={failed ? undefined : src}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative block overflow-hidden bg-[#13241d] ${className}`}
+      className={`group relative block overflow-hidden bg-[#0f1d38] ${className}`}
     >
       {failed ? (
-        <div className="flex h-full w-full items-center justify-center border border-emerald-400/15">
-          <ImageIcon className="h-6 w-6 text-emerald-400/40" />
+        <div className="flex h-full w-full items-center justify-center border border-amber-400/15">
+          <ImageIcon className="h-6 w-6 text-amber-400/40" />
         </div>
       ) : (
         <img

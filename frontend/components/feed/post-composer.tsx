@@ -54,14 +54,14 @@ export function PostComposer() {
 
   return (
     <>
-      <div className="rounded-xl border border-emerald-200/60 dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-4 backdrop-blur-sm">
+      <div className="rounded-xl border border-blue-200/60 dark:border-white/10 bg-white/80 dark:bg-[#162548]/80 p-4 backdrop-blur-sm">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-300">
+          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-300">
             <User className="h-5 w-5" />
           </div>
           <button
             onClick={() => setOpen(true)}
-            className="flex-1 rounded-full border border-emerald-200 dark:border-white/10 bg-emerald-50/60 dark:bg-black/30 px-4 py-3 text-left text-sm text-muted-foreground dark:text-white/55 transition-colors hover:border-emerald-400/40 hover:bg-emerald-100/60 dark:hover:bg-black/40 hover:text-foreground dark:hover:text-white/80"
+            className="flex-1 rounded-full border border-blue-200 dark:border-white/10 bg-blue-50/60 dark:bg-black/30 px-4 py-3 text-left text-sm text-muted-foreground dark:text-white/55 transition-colors hover:border-blue-400/40 hover:bg-blue-100/60 dark:hover:bg-black/40 hover:text-foreground dark:hover:text-white/80"
           >
             Share an update with clients&hellip;
           </button>
@@ -69,20 +69,20 @@ export function PostComposer() {
       </div>
 
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogContent className="max-w-xl border-emerald-400/25 bg-[#162923] text-white">
+        <DialogContent className="max-w-xl border-amber-400/25 bg-[#162548] text-white">
           <DialogHeader>
             <DialogTitle className="text-white">New update</DialogTitle>
           </DialogHeader>
 
           {submitted && (
-            <div className="rounded-md border border-emerald-400/30 bg-emerald-500/10 p-3 text-sm text-emerald-100">
+            <div className="rounded-md border border-amber-400/30 bg-amber-500/10 p-3 text-sm text-amber-100">
               Posting is restricted to team members. Real sign-in and publishing arrive with our authentication rollout. Your draft has been kept locally &mdash; nothing was sent.
             </div>
           )}
 
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-semibold uppercase tracking-wide text-emerald-400/80">
+              <label className="text-xs font-semibold uppercase tracking-wide text-amber-400/80">
                 Headline
               </label>
               <input
@@ -90,12 +90,12 @@ export function PostComposer() {
                 maxLength={TITLE_MAX}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Closed out our healthcare GenAI engagement"
-                className="mt-1.5 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none placeholder:text-white/35 focus:border-emerald-400/40"
+                className="mt-1.5 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none placeholder:text-white/35 focus:border-amber-400/40"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold uppercase tracking-wide text-emerald-400/80">
+              <label className="text-xs font-semibold uppercase tracking-wide text-amber-400/80">
                 Body
               </label>
               <textarea
@@ -104,7 +104,7 @@ export function PostComposer() {
                 onChange={(e) => setBody(e.target.value)}
                 rows={5}
                 placeholder="What did your team accomplish for the client? What's the takeaway?"
-                className="mt-1.5 w-full resize-none rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none placeholder:text-white/35 focus:border-emerald-400/40"
+                className="mt-1.5 w-full resize-none rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none placeholder:text-white/35 focus:border-amber-400/40"
               />
               <p className="mt-1 text-right text-[11px] text-white/40">
                 {body.length}/{BODY_MAX}
@@ -112,10 +112,10 @@ export function PostComposer() {
             </div>
 
             <div>
-              <label className="text-xs font-semibold uppercase tracking-wide text-emerald-400/80">
+              <label className="text-xs font-semibold uppercase tracking-wide text-amber-400/80">
                 Images
               </label>
-              <label className="mt-1.5 flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-white/15 bg-black/20 px-3 py-6 text-sm text-white/55 transition-colors hover:border-emerald-400/40 hover:text-white/80">
+              <label className="mt-1.5 flex cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed border-white/15 bg-black/20 px-3 py-6 text-sm text-white/55 transition-colors hover:border-amber-400/40 hover:text-white/80">
                 <ImagePlus className="h-4 w-4" />
                 <span>Click to select images</span>
                 <input
@@ -134,7 +134,7 @@ export function PostComposer() {
                     return (
                       <div
                         key={url}
-                        className="relative aspect-square overflow-hidden rounded-md border border-white/10 bg-[#13241d]"
+                        className="relative aspect-square overflow-hidden rounded-md border border-white/10 bg-[#0f1d38]"
                       >
                         <img src={url} alt="" className="h-full w-full object-cover" />
                         {isLast && extra > 0 && (
@@ -157,14 +157,14 @@ export function PostComposer() {
             </div>
 
             <div>
-              <label className="text-xs font-semibold uppercase tracking-wide text-emerald-400/80">
+              <label className="text-xs font-semibold uppercase tracking-wide text-amber-400/80">
                 Tags
               </label>
               <input
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
                 placeholder="Comma-separated: Healthcare, AI Transformation"
-                className="mt-1.5 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none placeholder:text-white/35 focus:border-emerald-400/40"
+                className="mt-1.5 w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none placeholder:text-white/35 focus:border-amber-400/40"
               />
             </div>
           </div>

@@ -32,7 +32,7 @@ export function Feed() {
     <section className="pb-24 pt-12 md:pt-16">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400/80">
             Updates
           </p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
@@ -47,7 +47,7 @@ export function Feed() {
           <div className="mx-auto w-full max-w-[640px] space-y-6 lg:mx-0">
             <PostComposer />
             {visiblePosts.length === 0 ? (
-              <div className="rounded-xl border border-emerald-200/60 dark:border-white/10 bg-white/60 dark:bg-[#162923]/60 p-10 text-center text-sm text-muted-foreground dark:text-white/60">
+              <div className="rounded-xl border border-blue-200/60 dark:border-white/10 bg-white/60 dark:bg-[#162548]/60 p-10 text-center text-sm text-muted-foreground dark:text-white/60">
                 No posts match this filter yet.
               </div>
             ) : (

@@ -11,7 +11,7 @@ type Props = {
 export function SignInModal({ open, onOpenChange }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-emerald-400/25 bg-[#162923] text-white">
+      <DialogContent className="border-amber-400/25 bg-[#162548] text-white">
         <DialogHeader>
           <DialogTitle className="text-white">Sign in to participate</DialogTitle>
           <DialogDescription className="text-white/70">

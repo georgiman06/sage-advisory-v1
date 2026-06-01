@@ -117,7 +117,7 @@ export default function ContactPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="relative bg-gradient-to-b from-emerald-50 via-emerald-50/60 to-emerald-50/20 dark:from-[#22513f] dark:via-[#143028] dark:to-[#0d1e17]">
+      <div className="relative bg-gradient-to-b from-blue-50 via-blue-50/60 to-blue-50/20 dark:from-[#1c3c70] dark:via-[#102040] dark:to-[#0a1428]">
         <Header activePage="contact" variant="dark" />
 
         {/* Hero Section */}
@@ -390,15 +390,15 @@ export default function ContactPage() {
               We&apos;re here to help. Reach out through your preferred channel.
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
-              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
+              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162548]/80 p-6 backdrop-blur-sm transition-all hover:border-amber-400/40">
                 <h3 className="font-semibold text-foreground dark:text-white">Email</h3>
                 <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">strategy@sageconsulting.com</p>
               </div>
-              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
+              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162548]/80 p-6 backdrop-blur-sm transition-all hover:border-amber-400/40">
                 <h3 className="font-semibold text-foreground dark:text-white">Phone</h3>
                 <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">+1 (555) 123-4567</p>
               </div>
-              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
+              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162548]/80 p-6 backdrop-blur-sm transition-all hover:border-amber-400/40">
                 <h3 className="font-semibold text-foreground dark:text-white">LinkedIn</h3>
                 <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">linkedin.com/company/sage-consulting</p>
               </div>

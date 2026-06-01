@@ -39,7 +39,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
   const isThemeDark = resolvedTheme === "dark"
 
   return (
-    <header className={`sticky top-0 z-50 ${isDark ? "border-b border-white/10 bg-[#1a3529]" : "border-b border-border bg-background"}`}>
+    <header className={`sticky top-0 z-50 ${isDark ? "border-b border-white/10 bg-[#0f1d38]" : "border-b border-border bg-background"}`}>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:h-20 md:gap-12 md:justify-start md:px-6">
         {/* Logo */}
         <Link
@@ -91,7 +91,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                     />
                     <span
                       className={`absolute -bottom-1 left-0 h-[2px] rounded-full transition-all duration-300 ease-out ${
-                        isDark ? "bg-emerald-400" : "bg-foreground"
+                        isDark ? "bg-amber-400" : "bg-foreground"
                       } ${isActive || hovered ? "w-full" : "w-0 group-hover:w-full"}`}
                     />
                   </Link>
@@ -105,7 +105,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                     <div
                       className={`min-w-[240px] overflow-hidden rounded-xl border shadow-xl backdrop-blur-sm ${
                         isDark
-                          ? "border-emerald-400/20 bg-[#162923]/98"
+                          ? "border-amber-400/20 bg-[#0f1d38]/98"
                           : "border-border bg-white/98"
                       }`}
                     >
@@ -115,15 +115,15 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                           href={item.href}
                           className={`group/item relative flex items-center px-5 py-3.5 text-sm font-medium transition-colors ${
                             isDark
-                              ? "text-white/75 hover:bg-emerald-400/10 hover:text-white"
-                              : "text-muted-foreground hover:bg-emerald-50 hover:text-foreground"
+                              ? "text-white/75 hover:bg-amber-400/10 hover:text-white"
+                              : "text-muted-foreground hover:bg-blue-50 hover:text-foreground"
                           }`}
                         >
                           <span className="relative">
                             {item.label}
                             <span
                               className={`absolute -bottom-0.5 left-0 h-[1.5px] w-0 rounded-full transition-all duration-300 ease-out group-hover/item:w-full ${
-                                isDark ? "bg-emerald-400" : "bg-emerald-500"
+                                isDark ? "bg-amber-400" : "bg-amber-500"
                               }`}
                             />
                           </span>
@@ -148,7 +148,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                 {label}
                 <span
                   className={`absolute -bottom-1 left-0 h-[2px] rounded-full transition-all duration-300 ease-out ${
-                    isDark ? "bg-emerald-400" : "bg-foreground"
+                    isDark ? "bg-amber-400" : "bg-foreground"
                   } ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
                 />
               </Link>
@@ -177,7 +177,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
       {mobileOpen && (
         <div className={`border-t md:hidden ${
           isDark
-            ? `border-white/10 ${isThemeDark ? "bg-[#0d1f1a]" : "bg-background"}`
+            ? `border-white/10 ${isThemeDark ? "bg-[#0b1426]" : "bg-background"}`
             : "border-border bg-background"
         }`}>
           <nav className="flex flex-col px-4 py-3">
@@ -213,7 +213,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
                       className={`flex items-center gap-2 border-b py-2.5 pl-5 text-sm font-medium transition-colors ${
-                        isDark ? "border-white/10 text-emerald-400/80 hover:text-emerald-300" : "border-border text-emerald-600 hover:text-emerald-700"
+                        isDark ? "border-white/10 text-amber-400/80 hover:text-amber-300" : "border-border text-amber-600 hover:text-amber-700"
                       }`}
                     >
                       <span className="h-px w-3 rounded-full bg-current opacity-50" />

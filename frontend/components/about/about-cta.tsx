@@ -19,7 +19,7 @@ export function AboutCTA() {
             size="lg"
             variant="outline"
             asChild
-            className="border-emerald-400/40 bg-transparent text-emerald-700 dark:text-emerald-100 hover:bg-emerald-400/10 hover:text-emerald-900 dark:hover:text-white"
+            className="border-amber-400/40 bg-transparent text-amber-700 dark:text-amber-100 hover:bg-amber-400/10 hover:text-amber-900 dark:hover:text-white"
           >
             <Link href="/capabilities">View Our Capabilities</Link>
           </Button>

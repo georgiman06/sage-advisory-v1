@@ -11,7 +11,7 @@ export const metadata = {
 export default function CaseStudiesPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="relative bg-gradient-to-b from-emerald-50 via-emerald-50/60 to-emerald-50/20 dark:from-[#22513f] dark:via-[#143028] dark:to-[#0d1e17]">
+      <div className="relative bg-gradient-to-b from-blue-50 via-blue-50/60 to-blue-50/20 dark:from-[#1c3c70] dark:via-[#102040] dark:to-[#0a1428]">
         <Header activePage="case-studies" variant="dark" />
         <Feed />
       </div>

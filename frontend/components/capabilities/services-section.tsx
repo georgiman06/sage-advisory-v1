@@ -55,7 +55,7 @@ export function ServicesSection() {
     <section className="relative pt-8 pb-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400/80">
             Services
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
@@ -72,17 +72,17 @@ export function ServicesSection() {
             return (
               <div
                 key={service.title}
-                className="group relative flex flex-col rounded-xl border border-border dark:border-white/10 bg-card dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-emerald-50/50 dark:hover:bg-[#1a3027]/90"
+                className="group relative flex flex-col rounded-xl border border-border dark:border-white/10 bg-card dark:bg-[#162548]/80 p-6 backdrop-blur-sm transition-all hover:border-amber-400/40 hover:bg-blue-50/50 dark:hover:bg-[#162548]/90"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-emerald-500/15">
-                  <Icon className="h-5 w-5 text-emerald-400" />
+                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-amber-500/15">
+                  <Icon className="h-5 w-5 text-amber-400" />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-foreground dark:text-white">{service.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground dark:text-white/65">{service.description}</p>
                 <ul className="mt-4 space-y-1.5">
                   {service.highlights.map((h) => (
                     <li key={h} className="flex items-start gap-2 text-xs text-muted-foreground dark:text-white/70">
-                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400" />
+                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-amber-400" />
                       {h}
                     </li>
                   ))}

@@ -59,7 +59,7 @@ const categories = [
 export default function InsightsPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <div className="bg-emerald-700 dark:bg-[#22513f]">
+      <div className="bg-blue-700 dark:bg-[#1c3c70]">
         <Header activePage="insights" variant="dark" />
         
         {/* Hero Section */}
@@ -82,12 +82,12 @@ export default function InsightsPage() {
               {featuredArticles.map((article) => (
                 <div
                   key={article.slug}
-                  className="group flex flex-col rounded-xl border border-white/10 bg-[#162923] p-6 transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]"
+                  className="group flex flex-col rounded-xl border border-white/10 bg-[#122042] p-6 transition-all hover:border-amber-400/40 hover:bg-[#162548]"
                 >
-                  <span className="w-fit rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-medium text-emerald-400">
+                  <span className="w-fit rounded-full bg-amber-500/15 px-3 py-1 text-xs font-medium text-amber-400">
                     {article.category}
                   </span>
-                  <h3 className="mt-4 text-lg font-semibold text-white group-hover:text-emerald-300 transition-colors">
+                  <h3 className="mt-4 text-lg font-semibold text-white group-hover:text-amber-300 transition-colors">
                     {article.title}
                   </h3>
                   <p className="mt-2 flex-1 text-sm text-white/65 leading-relaxed">

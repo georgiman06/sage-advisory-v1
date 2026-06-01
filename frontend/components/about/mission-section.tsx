@@ -33,8 +33,8 @@ export function MissionSection() {
                 AI transformation, and cloud modernization.
               </p>
             </div>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-emerald-300 dark:border-emerald-400/25 bg-emerald-50/60 dark:bg-[#162923]/60 shadow-2xl">
-              <div className="flex h-full w-full items-center justify-center text-xs uppercase tracking-[0.2em] text-emerald-400/70">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-blue-300 dark:border-amber-400/25 bg-blue-50/60 dark:bg-[#162548]/60 shadow-2xl">
+              <div className="flex h-full w-full items-center justify-center text-xs uppercase tracking-[0.2em] text-amber-400/70">
                 Team photo
               </div>
             </div>
@@ -47,7 +47,7 @@ export function MissionSection() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-12 md:grid-cols-2">
             <div>
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400/80">
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400/80">
                 Vision
               </p>
               <h2 className="mt-4 text-4xl font-bold text-foreground dark:text-white md:text-5xl">
@@ -59,7 +59,7 @@ export function MissionSection() {
               </p>
             </div>
             <div>
-              <p className="text-base font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400/80">
+              <p className="text-base font-bold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400/80">
                 Mission
               </p>
               <h2 className="mt-4 text-4xl font-bold text-foreground dark:text-white md:text-5xl">
@@ -85,9 +85,9 @@ export function MissionSection() {
           playsInline
           src="/videos/values-bg.mp4"
         />
-        <div className="absolute inset-0 bg-[#0d1f1a]/75" />
+        <div className="absolute inset-0 bg-[#0b1426]/75" />
         <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <p className="text-base font-bold uppercase tracking-[0.2em] text-emerald-400/80">
+          <p className="text-base font-bold uppercase tracking-[0.2em] text-amber-400/80">
             Principles
           </p>
           <h2 className="mt-4 text-5xl font-bold tracking-tight text-white md:text-6xl">
@@ -98,7 +98,7 @@ export function MissionSection() {
             {values.map((value) => (
               <div
                 key={value.title}
-                className="rounded-xl border border-white/10 bg-[#162923]/80 p-8 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-[#1a3027]/90"
+                className="rounded-xl border border-white/10 bg-[#162548]/80 p-8 backdrop-blur-sm transition-all hover:border-amber-400/40 hover:bg-[#162548]/90"
               >
                 <h3 className="text-2xl font-bold text-white">{value.title}</h3>
                 <p className="mt-3 text-xl leading-relaxed text-white/65">{value.description}</p>

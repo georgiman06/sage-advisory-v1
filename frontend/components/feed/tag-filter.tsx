@@ -12,8 +12,8 @@ export function TagFilter({ tagCounts, selectedTag, onSelect }: Props) {
   return (
     <aside className="hidden lg:block">
       <div className="sticky top-24 space-y-6">
-        <div className="rounded-xl border border-emerald-200/60 dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-5 backdrop-blur-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
+        <div className="rounded-xl border border-blue-200/60 dark:border-white/10 bg-white/80 dark:bg-[#162548]/80 p-5 backdrop-blur-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-400/80">
             Filter
           </p>
           <h3 className="mt-2 text-sm font-semibold text-foreground dark:text-white">Topics</h3>
@@ -22,8 +22,8 @@ export function TagFilter({ tagCounts, selectedTag, onSelect }: Props) {
               onClick={() => onSelect(null)}
               className={`flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors ${
                 selectedTag === null
-                  ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-100"
-                  : "text-muted-foreground dark:text-white/70 hover:bg-emerald-50 dark:hover:bg-white/5 hover:text-foreground dark:hover:text-white"
+                  ? "bg-blue-500/15 text-blue-700 dark:text-blue-100"
+                  : "text-muted-foreground dark:text-white/70 hover:bg-blue-50 dark:hover:bg-white/5 hover:text-foreground dark:hover:text-white"
               }`}
             >
               <span>All updates</span>
@@ -36,8 +36,8 @@ export function TagFilter({ tagCounts, selectedTag, onSelect }: Props) {
                   onClick={() => onSelect(active ? null : tag)}
                   className={`flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors ${
                     active
-                      ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-100"
-                      : "text-muted-foreground dark:text-white/70 hover:bg-emerald-50 dark:hover:bg-white/5 hover:text-foreground dark:hover:text-white"
+                      ? "bg-blue-500/15 text-blue-700 dark:text-blue-100"
+                      : "text-muted-foreground dark:text-white/70 hover:bg-blue-50 dark:hover:bg-white/5 hover:text-foreground dark:hover:text-white"
                   }`}
                 >
                   <span>{tag}</span>
@@ -48,9 +48,9 @@ export function TagFilter({ tagCounts, selectedTag, onSelect }: Props) {
           </div>
         </div>
 
-        <div className="rounded-xl border border-emerald-200/60 dark:border-white/10 bg-white/70 dark:bg-[#162923]/60 p-5 backdrop-blur-sm">
+        <div className="rounded-xl border border-blue-200/60 dark:border-white/10 bg-white/70 dark:bg-[#162548]/60 p-5 backdrop-blur-sm">
           <div className="flex items-start gap-2">
-            <Info className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-400/80" />
+            <Info className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-400/80" />
             <div>
               <h3 className="text-sm font-semibold text-foreground dark:text-white">About this feed</h3>
               <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground dark:text-white/60">
