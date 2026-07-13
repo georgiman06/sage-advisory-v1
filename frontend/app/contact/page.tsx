@@ -121,12 +121,36 @@ export default function ContactPage() {
         <Header activePage="contact" variant="dark" />
 
         {/* Hero Section */}
-        <section className="py-20">
+        <section className="pt-16 pb-12 md:pt-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h1 className="text-4xl font-bold tracking-tight text-foreground dark:text-white md:text-5xl">Start Your Transformation</h1>
-            <p className="mt-4 max-w-2xl text-lg text-muted-foreground dark:text-white/80">
-              Partner with Sage Advisory to unlock the full value of your data.
+            <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-emerald-600 dark:text-accent-emerald">
+              Let&apos;s talk
             </p>
+            <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-foreground dark:text-white md:text-5xl">
+              Start your transformation
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground dark:text-white/80">
+              Partner with Sage Advisory to unlock the full value of your data, AI, and decentralized technology investments.
+            </p>
+
+            {/* Proof strip — credibility at the decision point */}
+            <dl className="mt-10 grid max-w-3xl grid-cols-2 gap-6 border-t border-border/60 dark:border-white/10 pt-8 sm:grid-cols-4">
+              {[
+                { v: "$10M+", l: "Savings delivered" },
+                { v: "60,000+", l: "Users enabled" },
+                { v: "98%", l: "Faster insight" },
+                { v: "Fortune 100", l: "Scale engagements" },
+              ].map((m) => (
+                <div key={m.l}>
+                  <dt className="font-mono text-2xl font-semibold text-foreground dark:text-white md:text-3xl">
+                    {m.v}
+                  </dt>
+                  <dd className="mt-2 text-xs leading-snug text-muted-foreground dark:text-white/55">
+                    {m.l}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
@@ -134,7 +158,7 @@ export default function ContactPage() {
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-10">
-              <h2 className="text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Book a Discovery Call</h2>
+              <h2 className="font-serif text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Book a Discovery Call</h2>
               <p className="mt-2 text-muted-foreground dark:text-white/65">
                 Share a few details about your project so we can prepare for your call. After you submit, you&apos;ll pick a time that works for you.
               </p>
@@ -366,7 +390,7 @@ export default function ContactPage() {
         {/* FAQ Section */}
         <section className="border-y border-border dark:border-white/10 py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Frequently Asked Questions</h2>
+            <h2 className="font-serif text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Frequently Asked Questions</h2>
             <div className="mt-8 max-w-2xl">
               <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
@@ -385,7 +409,7 @@ export default function ContactPage() {
         {/* Alternative Contact */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Prefer to Email or Call?</h2>
+            <h2 className="font-serif text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Prefer to Email or Call?</h2>
             <p className="mt-2 text-muted-foreground dark:text-white/65">
               We&apos;re here to help. Reach out through your preferred channel.
             </p>

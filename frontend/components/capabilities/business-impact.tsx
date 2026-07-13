@@ -1,4 +1,6 @@
 ﻿import { Compass, TrendingUp, BrainCircuit, ShieldCheck, type LucideIcon } from "lucide-react"
+import { Section, SectionHeader } from "@/components/shared/section"
+import { Reveal } from "@/components/shared/reveal"
 
 type Impact = {
   icon: LucideIcon
@@ -31,34 +33,28 @@ const impacts: Impact[] = [
 
 export function BusinessImpact() {
   return (
-    <section className="py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
-            Outcomes
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
-            The Value We Create
-          </h2>
-        </div>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {impacts.map((impact) => {
-            const Icon = impact.icon
-            return (
-              <div
-                key={impact.title}
-                className="flex flex-col rounded-xl border border-border dark:border-white/10 bg-card dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-emerald-50/50 dark:hover:bg-[#1a3027]/90"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-emerald-500/15">
-                  <Icon className="h-5 w-5 text-emerald-400" />
+    <Section>
+      <SectionHeader
+        eyebrow="Outcomes"
+        title="The Value We Create"
+        intro="Every engagement is measured by the advantage it creates — clarity, growth, better decisions, and trusted innovation."
+      />
+      <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {impacts.map((impact, i) => {
+          const Icon = impact.icon
+          return (
+            <Reveal key={impact.title} delay={i * 70} className="h-full">
+              <div className="flex h-full flex-col rounded-2xl border border-border dark:border-white/10 bg-card dark:bg-[#10231c]/80 p-8 backdrop-blur-sm transition-all hover:border-emerald-400/40 dark:hover:border-accent-emerald/40 hover:bg-emerald-50/50 dark:hover:bg-[#183028]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/20 dark:ring-accent-emerald/20">
+                  <Icon className="h-6 w-6 text-emerald-500 dark:text-accent-emerald" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground dark:text-white">{impact.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground dark:text-white/65">{impact.description}</p>
+                <h3 className="mt-6 font-serif text-xl font-semibold text-foreground dark:text-white">{impact.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground dark:text-white/65">{impact.description}</p>
               </div>
-            )
-          })}
-        </div>
+            </Reveal>
+          )
+        })}
       </div>
-    </section>
+    </Section>
   )
 }

@@ -1,12 +1,17 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Fraunces } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { CursorGlow } from '@/components/shared/cursor-glow'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  axes: ["opsz", "SOFT"],
+})
 
 export const metadata: Metadata = {
   title: 'Sage Advisory LLC',
@@ -37,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${fraunces.variable}`}>
       <body className="bg-background font-sans font-medium antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <CursorGlow />

@@ -139,7 +139,7 @@ export function CapabilitiesGrid() {
 
   return (
     <section
-      className="relative pb-32 pt-12 md:pt-16"
+      className="relative pb-24 pt-16 md:pb-32 md:pt-20"
       style={{
         backgroundImage:
           "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
@@ -148,10 +148,10 @@ export function CapabilitiesGrid() {
     >
       <div ref={canvasRef} className="relative mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400/80">
+          <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-emerald-600 dark:text-accent-emerald">
             Capabilities
           </p>
-          <p className="mt-4 text-2xl font-semibold text-muted-foreground dark:text-white/70 md:text-3xl">
+          <p className="mt-4 font-serif text-2xl font-semibold text-foreground dark:text-white/90 md:text-3xl">
             Strategic advisory and hands-on implementation to deliver measurable business impact.
           </p>
         </div>
@@ -193,7 +193,7 @@ export function CapabilitiesGrid() {
               <div className="flex items-center justify-between border-b border-border dark:border-white/10 px-6 py-5">
                 <div className="flex items-center gap-3">
                   <Sparkles className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
-                  <span className="text-2xl font-bold text-foreground dark:text-white">Capabilities</span>
+                  <span className="font-serif text-2xl font-semibold text-foreground dark:text-white">Capabilities</span>
                 </div>
                 <span className="text-muted-foreground dark:text-white/40 transition-colors group-hover:text-foreground dark:group-hover:text-white/80">
                   {expanded ? <X className="h-6 w-6" /> : <span className="text-3xl leading-none">+</span>}

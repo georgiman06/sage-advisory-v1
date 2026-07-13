@@ -1,4 +1,6 @@
 ﻿import { Compass, Wrench, RefreshCw, LifeBuoy, type LucideIcon } from "lucide-react"
+import { Section, SectionHeader } from "@/components/shared/section"
+import { Reveal } from "@/components/shared/reveal"
 
 type Service = {
   icon: LucideIcon
@@ -52,46 +54,37 @@ const services: Service[] = [
 
 export function ServicesSection() {
   return (
-    <section className="relative pt-8 pb-24">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-400/80">
-            Services
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
-            How we engage
-          </h2>
-          <p className="mt-4 text-base text-muted-foreground dark:text-white/70 md:text-lg">
-            From strategy through long-term operations, our engagements meet you wherever you are on the data and AI journey.
-          </p>
-        </div>
+    <Section flushTop>
+      <SectionHeader
+        eyebrow="Services"
+        title="How we engage"
+        intro="From strategy through long-term operations, our engagements meet you wherever you are on the data and AI journey."
+      />
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => {
-            const Icon = service.icon
-            return (
-              <div
-                key={service.title}
-                className="group relative flex flex-col rounded-xl border border-border dark:border-white/10 bg-card dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40 hover:bg-emerald-50/50 dark:hover:bg-[#1a3027]/90"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-emerald-500/15">
-                  <Icon className="h-5 w-5 text-emerald-400" />
+      <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {services.map((service, i) => {
+          const Icon = service.icon
+          return (
+            <Reveal key={service.title} delay={i * 70} className="h-full">
+              <div className="group relative flex h-full flex-col rounded-2xl border border-border dark:border-white/10 bg-card dark:bg-[#10231c]/80 p-7 backdrop-blur-sm transition-all hover:border-emerald-400/40 dark:hover:border-accent-emerald/40 hover:bg-emerald-50/50 dark:hover:bg-[#183028]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/20 dark:ring-accent-emerald/20">
+                  <Icon className="h-6 w-6 text-emerald-500 dark:text-accent-emerald" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold text-foreground dark:text-white">{service.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground dark:text-white/65">{service.description}</p>
-                <ul className="mt-4 space-y-1.5">
+                <h3 className="mt-6 font-serif text-xl font-semibold text-foreground dark:text-white">{service.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground dark:text-white/65">{service.description}</p>
+                <ul className="mt-5 space-y-2 border-t border-border/60 dark:border-white/10 pt-5">
                   {service.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2 text-xs text-muted-foreground dark:text-white/70">
-                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-400" />
+                    <li key={h} className="flex items-start gap-2.5 text-xs text-muted-foreground dark:text-white/70">
+                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-500 dark:bg-accent-emerald" />
                       {h}
                     </li>
                   ))}
                 </ul>
               </div>
-            )
-          })}
-        </div>
+            </Reveal>
+          )
+        })}
       </div>
-    </section>
+    </Section>
   )
 }

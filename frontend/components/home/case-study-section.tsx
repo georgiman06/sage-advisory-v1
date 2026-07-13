@@ -1,67 +1,66 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Section, SectionHeader } from "@/components/shared/section"
+import { Reveal } from "@/components/shared/reveal"
+
+type Stat = {
+  label: string
+  value: string
+}
+
+const stats: Stat[] = [
+  { label: "Outcome", value: "$10M+ operational savings" },
+  { label: "Scale", value: "60,000+ internal users" },
+  { label: "Velocity", value: "98% faster time-to-insight" },
+]
 
 export function CaseStudySection() {
   return (
-    <section className="bg-muted/30 py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="text-center">
-          <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
-            Selected Impact
-          </p>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight">Client Success Stories</h2>
-        </div>
+    <Section className="bg-[#10231c]">
+      <SectionHeader
+        eyebrow="Selected impact"
+        title="Modernizing data for a global asset manager"
+        intro="Faced with fragmented silos, Sage Advisory led a multi-year transformation to unify enterprise analytics and automate legacy reporting."
+      />
 
-        <div className="mt-12">
-          <Card className="overflow-hidden">
-            <CardHeader className="bg-card">
-              <Badge variant="secondary" className="w-fit">Financial Services</Badge>
-              <h3 className="mt-4 text-2xl font-bold">
-                Modernizing Data for a $6T Asset Manager
-              </h3>
-              <p className="mt-2 text-muted-foreground">
-                Faced with fragmented silos, Sage Advisory led a multi-year digital transformation to unify enterprise analytics and automate legacy reporting.
-              </p>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="grid gap-4 md:grid-cols-3">
-                <div>
-                  <p className="text-sm text-muted-foreground">Outcome</p>
-                  <p className="text-xl font-bold">$10M+ Operational Savings</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Scale</p>
-                  <p className="text-xl font-bold">60,000+ Internal Users</p>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Velocity</p>
-                  <p className="text-xl font-bold">Time-to-insight reduced by 98%</p>
-                </div>
-              </div>
-
-              <div className="mt-8 border-t border-border pt-6">
-                <blockquote className="text-lg italic text-muted-foreground">
-                  &ldquo;Sage didn&apos;t just give us a platform; they gave us a data-driven culture.&rdquo;
-                </blockquote>
-                <p className="mt-2 text-sm font-medium">
-                  — Managing Director, Enterprise Data & Analytics
+      <Reveal className="mt-14">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#081a14]">
+          <div className="grid gap-px bg-white/10 md:grid-cols-3">
+            {stats.map((s) => (
+              <div key={s.label} className="bg-[#081a14] p-8">
+                <p className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-white/45">
+                  {s.label}
+                </p>
+                <p className="mt-3 font-mono text-2xl font-semibold text-white md:text-3xl">
+                  {s.value}
                 </p>
               </div>
+            ))}
+          </div>
 
-              <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-                <Button asChild>
-                  <Link href="/case-studies/asset-manager">Read Full Case Study</Link>
-                </Button>
-                <Button variant="outline" asChild>
-                  <Link href="/case-studies">View All Success Stories</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="border-t border-white/10 p-8 md:p-10">
+            <blockquote className="max-w-3xl font-serif text-xl italic leading-relaxed text-white/85 md:text-2xl">
+              &ldquo;Sage didn&apos;t just give us a platform; they gave us a data-driven culture.&rdquo;
+            </blockquote>
+            <p className="mt-4 text-sm text-white/55">
+              &mdash; Managing Director, Enterprise Data &amp; Analytics
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button asChild>
+                <Link href="/contact">Start a conversation</Link>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-white/20 bg-transparent text-white hover:bg-white/10"
+                asChild
+              >
+                <Link href="/capabilities">See how we work</Link>
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </Reveal>
+    </Section>
   )
 }

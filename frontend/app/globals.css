@@ -40,9 +40,9 @@
 }
 
 .dark {
-  --background: oklch(0.15 0.04 145);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.18 0.04 145);
+  --background: oklch(0.13 0.032 155);
+  --foreground: oklch(0.96 0.004 145);
+  --card: oklch(0.17 0.035 152);
   --card-foreground: oklch(0.95 0 0);
   --popover: oklch(0.18 0.04 145);
   --popover-foreground: oklch(0.95 0 0);
@@ -75,8 +75,17 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'SFMono-Regular', monospace;
+  --font-serif: var(--font-fraunces), ui-serif, Georgia, 'Times New Roman', serif;
+  /* "Sage Intelligence" semantic palette — layered forest surfaces + emerald accent */
+  --color-surface-0: #081a14;
+  --color-surface-1: #10231c;
+  --color-surface-2: #183028;
+  --color-accent-emerald: #34d399;
+  --color-accent-emerald-strong: #6ee7b7;
+  --color-ink: #f4f7f5;
+  --color-sage: #9bb5a8;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -127,4 +136,32 @@
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.35; transform: scale(0.98); }
   50% { opacity: 0.75; transform: scale(1.05); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3.5s ease-in-out infinite;
+}
+
+/* Scroll-reveal: elements start hidden, add .is-visible when in view */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-glow {
+    animation: none;
+  }
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    animation: none;
+  }
 }
