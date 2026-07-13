@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation"
 import { MissionSection } from "./mission-section"
-import { FounderSection } from "./founder-section"
+// import { FounderSection } from "./founder-section"
 import { AboutCTA } from "./about-cta"
 
 export function AboutTabsLayout() {
@@ -12,7 +12,7 @@ export function AboutTabsLayout() {
   return (
     <div>
       {activeTab === "mission" && <MissionSection />}
-      {activeTab === "founder" && <FounderSection />}
+      {/* {activeTab === "founder" && <FounderSection />} */}
       <AboutCTA />
     </div>
   )

@@ -7,8 +7,7 @@ import {
   BarChart3,
   Brain,
   Shield,
-  ServerCog,
-  Code2,
+  Briefcase,
   Sparkles,
   X,
   type LucideIcon,
@@ -20,140 +19,88 @@ type Node = {
   description: string
   servicesLabel: string
   services: string[]
-  type: "capability" | "technology"
 }
 
 const nodes: Node[] = [
   {
-    type: "capability",
     icon: Database,
     title: "Enterprise Data Strategy",
-    description: "Design and implement enterprise-wide data strategies that align technology investments with business outcomes.",
+    description: "Building the Foundation for Intelligent Enterprises: Define enterprise data strategies, operating models, governance, and modern data platforms that enable trusted, scalable decision-making.",
     servicesLabel: "Services Include:",
     services: [
+      "Enterprise data strategy & roadmaps",
       "Data operating model design",
-      "Data platform roadmap development",
-      "Enterprise data architecture",
-      "Data product strategy",
-      "Data monetization frameworks",
+      "Data governance frameworks",
+      "Modern data platform architecture",
+      "Trusted, scalable decision-making enablement",
     ],
   },
   {
-    type: "capability",
-    icon: Cloud,
-    title: "Cloud Data Platforms",
-    description: "Build scalable and secure data platforms leveraging modern cloud technologies.",
-    servicesLabel: "Capabilities Include:",
-    services: [
-      "Cloud data warehouse implementation",
-      "Multicloud analytics architecture",
-      "Data lakehouse platforms",
-      "Data integration pipelines",
-      "Platform modernization and migration",
-    ],
-  },
-  {
-    type: "capability",
-    icon: BarChart3,
-    title: "Analytics & Business Intelligence",
-    description: "Enable self-service analytics and modern BI capabilities across the enterprise.",
-    servicesLabel: "Services Include:",
-    services: [
-      "Enterprise BI modernization",
-      "Self-service analytics enablement",
-      "Data visualization platforms",
-      "Analytics governance frameworks",
-      "Executive dashboards and reporting",
-    ],
-  },
-  {
-    type: "capability",
     icon: Brain,
-    title: "AI & Advanced Analytics",
-    description: "Embed AI and advanced analytics into enterprise decision-making processes.",
+    title: "AI Strategy & Transformation",
+    description: "Turning AI Potential into Business Impact: Develop enterprise AI strategies that identify, prioritize, and scale high-value AI initiatives—from GenAI and agentic AI to intelligent automation and responsible AI governance.",
     servicesLabel: "Solutions Include:",
     services: [
-      "Predictive analytics models",
-      "Machine learning platforms",
-      "Generative AI integration",
-      "Intelligent automation solutions",
-      "Customer analytics and insights",
+      "Enterprise AI strategy & roadmap",
+      "GenAI & agentic AI adoption",
+      "Intelligent automation programs",
+      "AI use-case identification & prioritization",
+      "Responsible AI governance",
     ],
   },
   {
-    type: "capability",
-    icon: Shield,
-    title: "Data Governance & Compliance",
-    description: "Establish governance frameworks that ensure trust, security, and compliance across the data ecosystem.",
-    servicesLabel: "Capabilities Include:",
-    services: [
-      "Data governance operating models",
-      "Data quality frameworks",
-      "Metadata management",
-      "Regulatory compliance support",
-      "Data security and privacy programs",
-    ],
-  },
-  {
-    type: "capability",
-    icon: ServerCog,
-    title: "Cloud Architecture",
-    description: "Design resilient, scalable cloud-native architectures for enterprise data workloads.",
+    icon: BarChart3,
+    title: "Analytics & Decision Intelligence",
+    description: "Accelerating Smarter Business Decisions: Leverage analytics, AI, and predictive intelligence to uncover opportunities and accelerate business growth.",
     servicesLabel: "Services Include:",
     services: [
-      "Multi-cloud strategy development",
-      "Data integration architecture",
-      "Infrastructure optimization",
-      "Cloud cost management",
-      "Security and compliance architecture",
+      "Advanced & predictive analytics",
+      "Decision intelligence frameworks",
+      "Self-service analytics enablement",
+      "Executive dashboards & reporting",
+      "Growth & opportunity analysis",
     ],
   },
-  // Technology nodes start at index 6
   {
-    type: "technology",
-    icon: Cloud,
-    title: "Cloud Platforms",
-    description: "Hyperscaler and data-cloud platforms we build on.",
-    servicesLabel: "Tools & Platforms:",
-    services: ["AWS", "Microsoft Azure", "Snowflake", "Microsoft Fabric"],
-  },
-  {
-    type: "technology",
-    icon: BarChart3,
-    title: "Analytics Platforms",
-    description: "Modern BI and analytics tooling we deliver on.",
-    servicesLabel: "Tools & Platforms:",
-    services: ["Power BI", "Tableau", "Oracle Analytics", "Enterprise BI platforms"],
-  },
-  {
-    type: "technology",
     icon: Shield,
-    title: "Data Governance",
-    description: "Governance, catalog, and metadata tooling.",
-    servicesLabel: "Tools & Platforms:",
-    services: ["Collibra", "Alation", "Metadata management platforms"],
+    title: "Digital Trust & Decentralized Technologies",
+    description: "Building Trusted Digital Ecosystems: Guide organizations in adopting blockchain, decentralized identity, tokenization, and smart contracts to build secure, transparent, and trusted digital ecosystems.",
+    servicesLabel: "Capabilities Include:",
+    services: [
+      "Blockchain strategy & adoption",
+      "Decentralized identity solutions",
+      "Tokenization frameworks",
+      "Smart contract advisory",
+      "Secure, transparent digital ecosystems",
+    ],
   },
   {
-    type: "technology",
-    icon: Code2,
-    title: "Development & Engineering",
-    description: "Languages and frameworks for data engineering.",
-    servicesLabel: "Tools & Platforms:",
-    services: ["Python", "SQL", "Data pipeline frameworks", "Enterprise integration platforms"],
+    icon: Cloud,
+    title: "Modern Data & AI Platforms",
+    description: "Engineering the Foundation for Intelligent Innovation: Design modern, cloud-native data and AI platforms that deliver scalable, secure, and high-performance enterprise capabilities.",
+    servicesLabel: "Services Include:",
+    services: [
+      "Cloud-native data platform design",
+      "AI platform engineering",
+      "Data lakehouse & integration architecture",
+      "Platform modernization & migration",
+      "Scalable, secure infrastructure",
+    ],
+  },
+  {
+    icon: Briefcase,
+    title: "Executive Technology Advisory",
+    description: "Guiding Leaders Through Digital Transformation: Partner with executives and boards to shape technology strategy, prioritize investments, and build future-ready enterprises.",
+    servicesLabel: "Services Include:",
+    services: [
+      "Technology strategy for executives & boards",
+      "Investment prioritization",
+      "Digital transformation advisory",
+      "Future-readiness assessments",
+      "Board-level technology briefings",
+    ],
   },
 ]
-
-const TECH_START = 6
-
-// Which technology nodes (by index) each capability relies on
-const capToTech: Record<number, number[]> = {
-  0: [9],     // Enterprise Data Strategy → Development & Engineering
-  1: [6],     // Cloud Data Platforms → Cloud Platforms
-  2: [7],     // Analytics & BI → Analytics Platforms
-  3: [7, 9],  // AI & Advanced Analytics → Analytics Platforms + Dev & Engineering
-  4: [8],     // Data Governance → Data Governance
-  5: [6],     // Cloud Architecture → Cloud Platforms
-}
 
 export function CapabilitiesGrid() {
   const [expanded, setExpanded] = useState(true)
@@ -190,10 +137,6 @@ export function CapabilitiesGrid() {
     return () => window.removeEventListener("resize", handler)
   }, [expanded, selection])
 
-  // Highlight related tech nodes when a capability is selected
-  const relatedTechIndices =
-    selection !== null && selection < TECH_START ? (capToTech[selection] ?? []) : []
-
   return (
     <section
       className="relative pb-32 pt-12 md:pt-16"
@@ -206,7 +149,7 @@ export function CapabilitiesGrid() {
       <div ref={canvasRef} className="relative mx-auto max-w-6xl px-6">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-400/80">
-            Capabilities & Technology
+            Capabilities
           </p>
           <p className="mt-4 text-2xl font-semibold text-muted-foreground dark:text-white/70 md:text-3xl">
             Strategic advisory and hands-on implementation to deliver measurable business impact.
@@ -219,23 +162,13 @@ export function CapabilitiesGrid() {
           style={{ overflow: "visible" }}
         >
           {paths.map((d, i) => {
-            const isTech = i >= TECH_START
             const isActive = selection === i
-            const isRelated = relatedTechIndices.includes(i)
             return (
               <path
                 key={i}
                 d={d}
-                stroke={
-                  isActive || isRelated
-                    ? isTech
-                      ? "rgba(125,211,252,0.9)"
-                      : "rgba(110,231,183,0.9)"
-                    : isTech
-                    ? "rgba(125,211,252,0.35)"
-                    : "rgba(160,200,180,0.45)"
-                }
-                strokeWidth={isActive || isRelated ? 2 : 1.5}
+                stroke={isActive ? "rgba(110,231,183,0.9)" : "rgba(160,200,180,0.45)"}
+                strokeWidth={isActive ? 2 : 1.5}
                 strokeDasharray="5 5"
                 fill="none"
               />
@@ -260,7 +193,7 @@ export function CapabilitiesGrid() {
               <div className="flex items-center justify-between border-b border-border dark:border-white/10 px-6 py-5">
                 <div className="flex items-center gap-3">
                   <Sparkles className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
-                  <span className="text-2xl font-bold text-foreground dark:text-white">Capabilities & Technology</span>
+                  <span className="text-2xl font-bold text-foreground dark:text-white">Capabilities</span>
                 </div>
                 <span className="text-muted-foreground dark:text-white/40 transition-colors group-hover:text-foreground dark:group-hover:text-white/80">
                   {expanded ? <X className="h-6 w-6" /> : <span className="text-3xl leading-none">+</span>}
@@ -268,10 +201,10 @@ export function CapabilitiesGrid() {
               </div>
               <div className="px-6 py-6">
                 <div className="rounded border border-border dark:border-white/10 bg-muted/50 dark:bg-black/40 px-4 py-3 text-base text-muted-foreground dark:text-white/65">
-                  {expanded ? "6 capabilities · 4 technology areas — click a node for details" : "Click to expand"}
+                  {expanded ? "6 core capabilities — click a node for details" : "Click to expand"}
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {["Strategy", "Cloud", "AI", "Governance", "AWS", "Snowflake", "Python"].map((tag) => (
+                  {["Strategy", "AI", "Analytics", "Blockchain", "Platforms", "Advisory"].map((tag) => (
                     <span key={tag} className="rounded bg-muted dark:bg-white/5 px-3 py-1 text-xs font-semibold text-muted-foreground dark:text-white/55">
                       {tag}
                     </span>
@@ -297,7 +230,7 @@ export function CapabilitiesGrid() {
             </div>
 
             <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
-              {nodes.slice(0, TECH_START).map((node, i) => {
+              {nodes.map((node, i) => {
                 const Icon = node.icon
                 const isActive = selection === i
                 return (
@@ -320,44 +253,6 @@ export function CapabilitiesGrid() {
                 )
               })}
             </div>
-
-            {/* ── TECHNOLOGY STACK label ── */}
-            <div className="mb-6 mt-12 flex items-center gap-4">
-              <div className="h-px flex-1 bg-sky-400/30" />
-              <span className="text-lg font-bold uppercase tracking-[0.3em] text-sky-400">
-                Technology Stack
-              </span>
-              <div className="h-px flex-1 bg-sky-400/30" />
-            </div>
-
-            <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
-              {nodes.slice(TECH_START).map((node, j) => {
-                const i = TECH_START + j
-                const Icon = node.icon
-                const isActive = selection === i
-                const isRelated = relatedTechIndices.includes(i)
-                return (
-                  <button
-                    key={node.title}
-                    ref={(el) => { childRefs.current[i] = el }}
-                    onClick={() => setSelection((prev) => (prev === i ? null : i))}
-                    className={`flex items-center gap-4 rounded-xl border px-5 py-5 text-left backdrop-blur-sm transition-all ${
-                      isActive
-                        ? "border-sky-400/60 bg-sky-50/90 dark:bg-[#1a2d35]/90 shadow-[0_0_20px_-6px_rgba(125,211,252,0.5)]"
-                        : isRelated
-                        ? "border-sky-400/50 bg-sky-50/70 dark:bg-[#1a2d35]/70 shadow-[0_0_14px_-6px_rgba(125,211,252,0.35)]"
-                        : "border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 hover:border-sky-400/40 hover:bg-sky-50/70 dark:hover:bg-[#1a2d35]/70"
-                    }`}
-                    style={{ transitionDelay: expanded ? `${i * 50}ms` : "0ms" }}
-                  >
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-sky-500/15">
-                      <Icon className="h-6 w-6 text-sky-500 dark:text-sky-400" />
-                    </div>
-                    <span className="text-base font-bold leading-tight text-foreground dark:text-white/90">{node.title}</span>
-                  </button>
-                )
-              })}
-            </div>
           </div>
         </div>
 
@@ -367,92 +262,40 @@ export function CapabilitiesGrid() {
             {(() => {
               const node = nodes[selection]
               const Icon = node.icon
-              const isTech = node.type === "technology"
-              const linkedTechNodes = !isTech ? (capToTech[selection] ?? []).map((ti) => nodes[ti]) : []
 
               return (
-                <div className={`grid gap-8 ${!isTech && linkedTechNodes.length > 0 ? "md:grid-cols-2" : "grid-cols-1"}`}>
-                  {/* Left: selected node details */}
-                  <div>
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-start gap-3">
-                        <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md ${isTech ? "bg-sky-500/15" : "bg-emerald-500/15"}`}>
-                          <Icon className={`h-5 w-5 ${isTech ? "text-sky-400" : "text-emerald-400"}`} />
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-foreground dark:text-white">{node.title}</h3>
-                          <p className="mt-2 text-base text-muted-foreground dark:text-white/60">{node.description}</p>
-                        </div>
+                <div>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-emerald-500/15">
+                        <Icon className="h-5 w-5 text-emerald-400" />
                       </div>
-                      <button
-                        onClick={() => setSelection(null)}
-                        className="text-muted-foreground dark:text-white/40 hover:text-foreground dark:hover:text-white/80"
-                        aria-label="Close details"
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
+                      <div>
+                        <h3 className="text-2xl font-bold text-foreground dark:text-white">{node.title}</h3>
+                        <p className="mt-2 text-base text-muted-foreground dark:text-white/60">{node.description}</p>
+                      </div>
                     </div>
-                    <div className="mt-5">
-                      <p className={`text-sm font-bold uppercase tracking-wide ${isTech ? "text-sky-400/80" : "text-emerald-400/80"}`}>
-                        {node.servicesLabel}
-                      </p>
-                      {isTech ? (
-                        <div className="mt-4 flex flex-wrap gap-2.5">
-                          {node.services.map((item) => (
-                            <span
-                              key={item}
-                              className="rounded-md border border-sky-400/25 bg-sky-500/10 px-3 py-1.5 text-sm font-medium text-sky-700 dark:text-sky-100"
-                            >
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      ) : (
-                        <ul className="mt-4 space-y-2.5">
-                          {node.services.map((s) => (
-                            <li key={s} className="flex items-start gap-2.5 text-base text-muted-foreground dark:text-white/80">
-                              <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
-                              {s}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
+                    <button
+                      onClick={() => setSelection(null)}
+                      className="text-muted-foreground dark:text-white/40 hover:text-foreground dark:hover:text-white/80"
+                      aria-label="Close details"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
                   </div>
-
-                  {/* Right: linked technology stack (capabilities only) */}
-                  {!isTech && linkedTechNodes.length > 0 && (
-                    <div className="border-t border-border dark:border-white/10 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
-                      <p className="text-sm font-bold uppercase tracking-wide text-sky-400/80">
-                        Technology Stack
-                      </p>
-                      <div className="mt-4 space-y-6">
-                        {linkedTechNodes.map((tech) => {
-                          const TechIcon = tech.icon
-                          return (
-                            <div key={tech.title}>
-                              <div className="flex items-center gap-3 mb-3">
-                                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-sky-500/15">
-                                  <TechIcon className="h-5 w-5 text-sky-400" />
-                                </div>
-                                <span className="text-base font-bold text-foreground dark:text-white">{tech.title}</span>
-                              </div>
-                              <div className="flex flex-wrap gap-2">
-                                {tech.services.map((item) => (
-                                  <span
-                                    key={item}
-                                    className="rounded-md border border-sky-400/30 bg-sky-500/10 px-3 py-1.5 text-sm font-medium text-sky-700 dark:text-sky-100"
-                                  >
-                                    {item}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
-                  )}
+                  <div className="mt-5">
+                    <p className="text-sm font-bold uppercase tracking-wide text-emerald-400/80">
+                      {node.servicesLabel}
+                    </p>
+                    <ul className="mt-4 space-y-2.5">
+                      {node.services.map((s) => (
+                        <li key={s} className="flex items-start gap-2.5 text-base text-muted-foreground dark:text-white/80">
+                          <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               )
             })()}

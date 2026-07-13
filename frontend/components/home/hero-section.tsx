@@ -20,10 +20,10 @@ export function HeroSection() {
       <div className="relative flex h-full items-center px-4 lg:px-12">
         <div className="max-w-xl lg:max-w-2xl">
           <h1 className="text-balance text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
-            Transforming Enterprises Through Data, AI, and Intelligent Analytics
+            Transforming Enterprises with Data, AI &amp; Decentralized Technologies
           </h1>
           <p className="mt-6 text-base leading-relaxed text-white/75 md:text-lg">
-            Sage Advisory helps organizations modernize their data ecosystems, unlock the power of AI-driven insights, and build scalable analytics platforms that drive measurable business outcomes.
+            Sage Advisory empowers organizations to shape a future where wisdom-driven decisions create enduring competitive advantage with data, AI, and decentralized innovation.
           </p>
           <div className="mt-8">
             <Button size="lg" asChild>
