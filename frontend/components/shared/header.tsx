@@ -12,13 +12,12 @@ interface HeaderProps {
 }
 
 const capabilityDropdownItems = [
-  { href: "/capabilities", label: "Capabilities & Technology" },
+  { href: "/capabilities", label: "Capabilities" },
   { href: "/capabilities?section=services", label: "Services & Outcomes" },
 ]
 
 const aboutDropdownItems = [
   { href: "/about", label: "Mission Statement & Vision" },
-  { href: "/about?section=founder", label: "Meet the Founder" },
 ]
 
 const navLinks = [
@@ -48,10 +47,10 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
           onClick={() => setMobileOpen(false)}
         >
           <span className={`text-2xl font-bold tracking-tight md:text-3xl ${isDark ? "text-white" : "text-foreground"}`}>
-            sage
+            Sage Advisory
           </span>
-          <span className={`text-3xl font-semibold tracking-tight md:text-4xl ${isDark ? "text-white" : "text-foreground"}`}>
-            Advisory LLC
+          <span className={`text-xs font-medium tracking-wide md:text-sm ${isDark ? "text-white/60" : "text-muted-foreground"}`}>
+            LLC
           </span>
         </Link>
 

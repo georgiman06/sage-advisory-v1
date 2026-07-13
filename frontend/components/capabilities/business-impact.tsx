@@ -1,4 +1,4 @@
-﻿import { TrendingUp, Users, Clock, ShieldCheck, type LucideIcon } from "lucide-react"
+﻿import { Compass, TrendingUp, BrainCircuit, ShieldCheck, type LucideIcon } from "lucide-react"
 
 type Impact = {
   icon: LucideIcon
@@ -8,24 +8,24 @@ type Impact = {
 
 const impacts: Impact[] = [
   {
+    icon: Compass,
+    title: "Strategic Clarity",
+    description: "Cut through complexity to align technology investments with business priorities and long-term vision.",
+  },
+  {
     icon: TrendingUp,
-    title: "Operational Excellence",
-    description: "Significant operational cost optimization through platform modernization and intelligent automation.",
+    title: "AI-Driven Growth",
+    description: "Turn AI initiatives into measurable business impact and sustained competitive advantage.",
   },
   {
-    icon: Users,
-    title: "Enterprise Adoption",
-    description: "Enterprise-scale analytics adoption and self-service enablement across thousands of users.",
-  },
-  {
-    icon: Clock,
-    title: "Speed to Insight",
-    description: "Reduction in time-to-insight from weeks to minutes through modern data architectures.",
+    icon: BrainCircuit,
+    title: "Intelligent Decision-Making",
+    description: "Enable faster, data-backed decisions across the enterprise with trusted analytics and insight.",
   },
   {
     icon: ShieldCheck,
-    title: "Governance & Compliance",
-    description: "Improved governance frameworks and regulatory compliance across global operations.",
+    title: "Trusted Digital Innovation",
+    description: "Adopt decentralized and emerging technologies securely, transparently, and with confidence.",
   },
 ]
 
@@ -38,7 +38,7 @@ export function BusinessImpact() {
             Outcomes
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground dark:text-white md:text-4xl">
-            Business Impact
+            The Value We Create
           </h2>
         </div>
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
