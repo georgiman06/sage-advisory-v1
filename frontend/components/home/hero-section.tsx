@@ -1,20 +1,25 @@
 "use client"
 
-import dynamic from "next/dynamic"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
-const ChartScene = dynamic(
-  () => import("@/components/home/chart-scene").then((m) => m.ChartScene),
-  { ssr: false }
-)
 
 export function HeroSection() {
   return (
     <section className="relative flex min-h-[88vh] items-center overflow-hidden bg-emerald-100 dark:bg-[#081a14]">
       <div className="absolute inset-0">
-        <ChartScene />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="h-full w-full object-cover"
+          src="/videos/hero-bg.mp4"
+        />
       </div>
+      {/* Tint the footage toward the site's forest/emerald palette */}
+      <div className="absolute inset-0 bg-emerald-600 mix-blend-color dark:bg-emerald-900" aria-hidden />
+      <div className="absolute inset-0 bg-emerald-50/55 dark:bg-[#081a14]/40" aria-hidden />
       <div className="absolute inset-0 bg-gradient-to-r from-emerald-100/80 via-emerald-100/35 to-transparent dark:from-[#081a14]/90 dark:via-[#081a14]/45" />
 
       <div className="relative w-full px-4 py-24 lg:px-12">

@@ -53,7 +53,7 @@ const capabilities: Capability[] = [
 
 export function CapabilitiesPreview() {
   return (
-    <Section className="bg-[#081a14]">
+    <Section className="bg-white dark:bg-[#081a14]">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <SectionHeader
           eyebrow="What we do"
@@ -62,7 +62,7 @@ export function CapabilitiesPreview() {
         />
         <Link
           href="/capabilities"
-          className="group inline-flex items-center gap-2 whitespace-nowrap font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent-emerald transition-colors hover:text-accent-emerald-strong"
+          className="group inline-flex items-center gap-2 whitespace-nowrap font-mono text-xs font-medium uppercase tracking-[0.18em] text-emerald-600 dark:text-accent-emerald transition-colors hover:text-emerald-700 dark:hover:text-accent-emerald-strong"
         >
           View all capabilities
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -76,15 +76,15 @@ export function CapabilitiesPreview() {
             <Reveal key={cap.title} delay={i * 70}>
               <Link
                 href="/capabilities"
-                className="group flex h-full flex-col rounded-2xl border border-white/10 bg-[#10231c] p-8 transition-all hover:border-accent-emerald/40 hover:bg-[#183028]"
+                className="group flex h-full flex-col rounded-2xl border border-border dark:border-white/10 bg-card dark:bg-[#10231c] p-8 transition-all hover:border-emerald-400/40 dark:hover:border-accent-emerald/40 hover:bg-emerald-50/50 dark:hover:bg-[#183028]"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-emerald/10 ring-1 ring-accent-emerald/20 transition-colors group-hover:bg-accent-emerald/15">
-                  <Icon className="h-6 w-6 text-accent-emerald" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 dark:bg-accent-emerald/10 ring-1 ring-emerald-400/20 dark:ring-accent-emerald/20 transition-colors group-hover:bg-emerald-500/15 dark:group-hover:bg-accent-emerald/15">
+                  <Icon className="h-6 w-6 text-emerald-600 dark:text-accent-emerald" />
                 </div>
-                <h3 className="mt-6 font-serif text-xl font-semibold text-white">
+                <h3 className="mt-6 font-serif text-xl font-semibold text-foreground dark:text-white">
                   {cap.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/60">
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground dark:text-white/60">
                   {cap.description}
                 </p>
               </Link>

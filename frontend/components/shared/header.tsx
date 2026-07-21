@@ -7,7 +7,7 @@ import { useTheme } from "next-themes"
 import { ThemeToggle } from "@/components/shared/theme-toggle"
 
 interface HeaderProps {
-  activePage?: "home" | "capabilities" | "about" | "insights" | "case-studies" | "contact"
+  activePage?: "home" | "capabilities" | "about" | "case-studies" | "contact"
   variant?: "default" | "dark"
 }
 
@@ -24,7 +24,6 @@ const navLinks = [
   { href: "/", label: "Home", page: "home" },
   { href: "/capabilities", label: "Capabilities", page: "capabilities" },
   { href: "/about", label: "About", page: "about" },
-  { href: "/insights", label: "Insights", page: "insights" },
   { href: "/case-studies", label: "Case Studies", page: "case-studies" },
   { href: "/contact", label: "Contact", page: "contact" },
 ] as const
