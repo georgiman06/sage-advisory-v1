@@ -1,19 +1,28 @@
 "use client"
 
-import { useState, useRef, useLayoutEffect, useEffect } from "react"
+import { useEffect, useState } from "react"
 import {
   Database,
-  Cloud,
-  BarChart3,
   Brain,
+  BarChart3,
   Shield,
+  Cloud,
   Briefcase,
-  Sparkles,
-  X,
+  ArrowLeft,
+  ArrowRight,
+  Check,
   type LucideIcon,
 } from "lucide-react"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel"
+import { Section } from "@/components/shared/section"
+import { Reveal } from "@/components/shared/reveal"
 
-type Node = {
+type Capability = {
   icon: LucideIcon
   title: string
   description: string
@@ -21,7 +30,7 @@ type Node = {
   services: string[]
 }
 
-const nodes: Node[] = [
+const capabilities: Capability[] = [
   {
     icon: Database,
     title: "Enterprise Data Strategy",
@@ -102,206 +111,180 @@ const nodes: Node[] = [
   },
 ]
 
+const tags = ["Strategy", "AI", "Analytics", "Blockchain", "Platforms", "Advisory"]
+
+/** Decorative graphic panel shown alongside each slide's copy. */
+function VisualPanel({ icon: Icon, index }: { icon: LucideIcon; index: number }) {
+  return (
+    <div className="relative flex min-h-[220px] items-center justify-center overflow-hidden border-b border-emerald-200/60 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:border-white/10 dark:from-[#0c211a] dark:to-[#16342a] md:order-2 md:min-h-0 md:border-b-0 md:border-l">
+      {/* ambient glow */}
+      <div
+        className="pointer-events-none absolute right-4 top-6 h-56 w-56 rounded-full bg-emerald-400/25 blur-3xl dark:bg-accent-emerald/20"
+        aria-hidden
+      />
+      {/* concentric arcs motif */}
+      <svg
+        className="pointer-events-none absolute -bottom-16 -right-16 h-80 w-80 text-emerald-500/20 dark:text-accent-emerald/15"
+        viewBox="0 0 200 200"
+        fill="none"
+        aria-hidden
+      >
+        {[40, 70, 100].map((r) => (
+          <circle key={r} cx="100" cy="100" r={r} stroke="currentColor" strokeWidth="1" />
+        ))}
+      </svg>
+      {/* ghost number watermark */}
+      <span
+        className="pointer-events-none absolute left-7 top-6 font-mono text-7xl font-bold leading-none text-emerald-900/5 dark:text-white/5"
+        aria-hidden
+      >
+        {String(index + 1).padStart(2, "0")}
+      </span>
+      {/* focal icon */}
+      <div className="relative flex h-28 w-28 items-center justify-center rounded-3xl border border-emerald-200 bg-white/80 shadow-xl ring-1 ring-emerald-300/40 backdrop-blur dark:border-white/10 dark:bg-white/5 dark:ring-accent-emerald/25">
+        <Icon className="h-14 w-14 text-emerald-600 dark:text-accent-emerald" />
+      </div>
+    </div>
+  )
+}
+
 export function CapabilitiesGrid() {
-  const [expanded, setExpanded] = useState(true)
-  const [selection, setSelection] = useState<number | null>(null)
-
-  const canvasRef = useRef<HTMLDivElement>(null)
-  const parentRef = useRef<HTMLDivElement>(null)
-  const childRefs = useRef<(HTMLButtonElement | null)[]>([])
-  const [paths, setPaths] = useState<string[]>([])
-
-  const computePaths = (): string[] => {
-    if (!expanded || !canvasRef.current || !parentRef.current) return []
-    const canvasRect = canvasRef.current.getBoundingClientRect()
-    const p = parentRef.current.getBoundingClientRect()
-    const startX = p.left + p.width / 2 - canvasRect.left
-    const startY = p.bottom - canvasRect.top
-    return childRefs.current.map((el) => {
-      if (!el) return ""
-      const c = el.getBoundingClientRect()
-      const endX = c.left + c.width / 2 - canvasRect.left
-      const endY = c.top - canvasRect.top
-      const midY = (startY + endY) / 2
-      return `M ${startX} ${startY} C ${startX} ${midY}, ${endX} ${midY}, ${endX} ${endY}`
-    })
-  }
-
-  useLayoutEffect(() => {
-    setPaths(computePaths())
-  }, [expanded, selection])
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
 
   useEffect(() => {
-    const handler = () => setPaths(computePaths())
-    window.addEventListener("resize", handler)
-    return () => window.removeEventListener("resize", handler)
-  }, [expanded, selection])
+    if (!api) return
+    setCurrent(api.selectedScrollSnap())
+    const onSelect = () => setCurrent(api.selectedScrollSnap())
+    api.on("select", onSelect)
+    return () => {
+      api.off("select", onSelect)
+    }
+  }, [api])
 
   return (
-    <section
-      className="relative pb-24 pt-16 md:pb-32 md:pt-20"
+    <Section
+      flushTop
       style={{
-        backgroundImage:
-          "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
+        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
         backgroundSize: "28px 28px",
       }}
     >
-      <div ref={canvasRef} className="relative mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-emerald-600 dark:text-accent-emerald">
-            Capabilities
-          </p>
-          <p className="mt-4 font-serif text-2xl font-semibold text-foreground dark:text-white/90 md:text-3xl">
-            Strategic advisory and hands-on implementation to deliver measurable business impact.
-          </p>
-        </div>
-
-        {/* SVG connector lines */}
-        <svg
-          className="pointer-events-none absolute inset-0 h-full w-full"
-          style={{ overflow: "visible" }}
-        >
-          {paths.map((d, i) => {
-            const isActive = selection === i
-            return (
-              <path
-                key={i}
-                d={d}
-                stroke={isActive ? "rgba(110,231,183,0.9)" : "rgba(160,200,180,0.45)"}
-                strokeWidth={isActive ? 2 : 1.5}
-                strokeDasharray="5 5"
-                fill="none"
-              />
-            )
-          })}
-        </svg>
-
-        {/* Single parent card */}
-        <div className="mt-12 flex flex-col items-center">
-          <div ref={parentRef} className="relative w-full max-w-full md:max-w-[560px]">
-            <div
-              className="pointer-events-none absolute inset-0 -m-6 rounded-3xl bg-emerald-400/20 blur-2xl"
-              style={{ animation: "pulse-glow 3.5s ease-in-out infinite" }}
-            />
-            <button
-              onClick={() => {
-                setExpanded((v) => !v)
-                setSelection(null)
-              }}
-              className="group relative w-full rounded-xl border border-emerald-400/30 bg-white/95 dark:bg-[#162923]/95 text-left shadow-2xl backdrop-blur-sm transition-all hover:border-emerald-400/60 hover:bg-emerald-50 dark:hover:bg-[#1a3027]"
+      <Reveal className="mx-auto max-w-3xl text-center">
+        <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-emerald-600 dark:text-accent-emerald">
+          What We Do
+        </p>
+        <h1 className="mt-5 font-serif text-5xl font-semibold tracking-tight text-foreground dark:text-white md:text-6xl lg:text-7xl">
+          Capabilities
+        </h1>
+        <p className="mt-6 text-lg leading-relaxed text-muted-foreground dark:text-white/70 md:text-xl">
+          Strategic advisory and hands-on implementation to deliver measurable business impact — across six core disciplines that help enterprises move from complexity to clarity, from data to decisions, and from strategy to scaled execution.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-emerald-400/30 dark:border-accent-emerald/25 bg-emerald-50/60 dark:bg-white/5 px-4 py-1.5 text-xs font-semibold text-emerald-700 dark:text-white/70"
             >
-              <div className="flex items-center justify-between border-b border-border dark:border-white/10 px-6 py-5">
-                <div className="flex items-center gap-3">
-                  <Sparkles className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
-                  <span className="font-serif text-2xl font-semibold text-foreground dark:text-white">Capabilities</span>
-                </div>
-                <span className="text-muted-foreground dark:text-white/40 transition-colors group-hover:text-foreground dark:group-hover:text-white/80">
-                  {expanded ? <X className="h-6 w-6" /> : <span className="text-3xl leading-none">+</span>}
-                </span>
-              </div>
-              <div className="px-6 py-6">
-                <div className="rounded border border-border dark:border-white/10 bg-muted/50 dark:bg-black/40 px-4 py-3 text-base text-muted-foreground dark:text-white/65">
-                  {expanded ? "6 core capabilities — click a node for details" : "Click to expand"}
-                </div>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {["Strategy", "AI", "Analytics", "Blockchain", "Platforms", "Advisory"].map((tag) => (
-                    <span key={tag} className="rounded bg-muted dark:bg-white/5 px-3 py-1 text-xs font-semibold text-muted-foreground dark:text-white/55">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </button>
-          </div>
-
-          {/* Children grid */}
-          <div
-            className={`mt-24 w-full transition-all duration-500 ${
-              expanded ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 -translate-y-4"
-            }`}
-          >
-            {/* ── CORE CAPABILITIES label ── */}
-            <div className="mb-6 flex items-center gap-4">
-              <div className="h-px flex-1 bg-emerald-400/30" />
-              <span className="text-lg font-bold uppercase tracking-[0.3em] text-emerald-400">
-                Core Capabilities
-              </span>
-              <div className="h-px flex-1 bg-emerald-400/30" />
-            </div>
-
-            <div className="grid grid-cols-2 gap-5 sm:grid-cols-3">
-              {nodes.map((node, i) => {
-                const Icon = node.icon
-                const isActive = selection === i
-                return (
-                  <button
-                    key={node.title}
-                    ref={(el) => { childRefs.current[i] = el }}
-                    onClick={() => setSelection((prev) => (prev === i ? null : i))}
-                    className={`flex items-center gap-4 rounded-xl border px-5 py-5 text-left backdrop-blur-sm transition-all ${
-                      isActive
-                        ? "border-emerald-400/60 bg-emerald-100/90 dark:bg-[#1f352c]/90 shadow-[0_0_20px_-6px_rgba(110,231,183,0.5)]"
-                        : "border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 hover:border-emerald-400/40 hover:bg-emerald-50/90 dark:hover:bg-[#1a3027]/90"
-                    }`}
-                    style={{ transitionDelay: expanded ? `${i * 50}ms` : "0ms" }}
-                  >
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-500/15">
-                      <Icon className="h-6 w-6 text-emerald-500 dark:text-emerald-400" />
-                    </div>
-                    <span className="text-base font-bold leading-tight text-foreground dark:text-white/90">{node.title}</span>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
+              {tag}
+            </span>
+          ))}
         </div>
+      </Reveal>
 
-        {/* Detail panel */}
-        {selection !== null && (
-          <div className="relative mx-auto mt-12 w-full max-w-4xl rounded-xl border border-emerald-400/30 bg-white/95 dark:bg-[#162923]/95 p-6 shadow-2xl backdrop-blur-sm">
-            {(() => {
-              const node = nodes[selection]
-              const Icon = node.icon
+      <div
+        className="relative mx-auto mt-16 max-w-5xl"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onFocus={() => setIsPaused(true)}
+        onBlur={() => setIsPaused(false)}
+      >
+        <div
+          className="pointer-events-none absolute -inset-x-10 top-1/2 -z-10 h-72 -translate-y-1/2 rounded-full bg-emerald-400/15 blur-3xl dark:bg-accent-emerald/10"
+          aria-hidden
+        />
 
-              return (
-                <div>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-emerald-500/15">
-                        <Icon className="h-5 w-5 text-emerald-400" />
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold text-foreground dark:text-white">{node.title}</h3>
-                        <p className="mt-2 text-base text-muted-foreground dark:text-white/60">{node.description}</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setSelection(null)}
-                      className="text-muted-foreground dark:text-white/40 hover:text-foreground dark:hover:text-white/80"
-                      aria-label="Close details"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <div className="mt-5">
-                    <p className="text-sm font-bold uppercase tracking-wide text-emerald-400/80">
-                      {node.servicesLabel}
+        <Carousel setApi={setApi} opts={{ align: "center", loop: true }}>
+          <CarouselContent>
+            {capabilities.map((cap, i) => (
+              <CarouselItem key={cap.title}>
+                <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:min-h-[480px] md:grid-cols-2">
+                  <VisualPanel icon={cap.icon} index={i} />
+
+                  <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
+                    <span className="font-mono text-sm text-muted-foreground dark:text-white/40">
+                      {String(i + 1).padStart(2, "0")} / {String(capabilities.length).padStart(2, "0")}
+                    </span>
+                    <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-foreground dark:text-white md:text-4xl">
+                      {cap.title}
+                    </h2>
+                    <p className="mt-4 text-base leading-relaxed text-muted-foreground dark:text-white/70">
+                      {cap.description}
                     </p>
-                    <ul className="mt-4 space-y-2.5">
-                      {node.services.map((s) => (
-                        <li key={s} className="flex items-start gap-2.5 text-base text-muted-foreground dark:text-white/80">
-                          <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
-                          {s}
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="mt-6 border-t border-border/60 pt-6 dark:border-white/10">
+                      <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-emerald-600 dark:text-accent-emerald">
+                        {cap.servicesLabel}
+                      </p>
+                      <ul className="mt-4 space-y-2.5">
+                        {cap.services.map((s) => (
+                          <li key={s} className="flex items-start gap-2.5 text-sm text-muted-foreground dark:text-white/75 md:text-base">
+                            <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500 dark:text-accent-emerald" />
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              )
-            })()}
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        {/* Controls: prev · autoplay progress segments · next */}
+        <div className="mx-auto mt-8 flex max-w-3xl items-center gap-4">
+          <button
+            onClick={() => api?.scrollPrev()}
+            aria-label="Previous capability"
+            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-emerald-400/30 text-emerald-700 transition-colors hover:border-emerald-400/60 hover:bg-emerald-50 dark:border-accent-emerald/25 dark:text-white/80 dark:hover:bg-white/5"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+
+          <div className="flex flex-1 items-center gap-2">
+            {capabilities.map((cap, i) => (
+              <button
+                key={cap.title}
+                onClick={() => api?.scrollTo(i)}
+                aria-label={`Go to slide ${i + 1}: ${cap.title}`}
+                className="group flex-1 py-2"
+              >
+                <span className="relative block h-1.5 overflow-hidden rounded-full bg-emerald-400/20 dark:bg-white/15">
+                  {i === current ? (
+                    <span
+                      key={current}
+                      className="cap-progress-fill absolute inset-0 rounded-full bg-emerald-500 dark:bg-accent-emerald"
+                      style={{ animationPlayState: isPaused ? "paused" : "running" }}
+                      onAnimationEnd={() => api?.scrollNext()}
+                    />
+                  ) : (
+                    <span className="absolute inset-0 rounded-full bg-transparent transition-colors group-hover:bg-emerald-400/40 dark:group-hover:bg-white/30" />
+                  )}
+                </span>
+              </button>
+            ))}
           </div>
-        )}
+
+          <button
+            onClick={() => api?.scrollNext()}
+            aria-label="Next capability"
+            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-emerald-400/30 text-emerald-700 transition-colors hover:border-emerald-400/60 hover:bg-emerald-50 dark:border-accent-emerald/25 dark:text-white/80 dark:hover:bg-white/5"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
       </div>
-    </section>
+    </Section>
   )
 }

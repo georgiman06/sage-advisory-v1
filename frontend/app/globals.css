@@ -155,6 +155,19 @@
   animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* Carousel autoplay progress: the active segment fills over the dwell time and
+   drives the auto-advance via onAnimationEnd. */
+@keyframes cap-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.cap-progress-fill {
+  transform-origin: left;
+  transform: scaleX(1);
+  animation: cap-progress 5500ms linear forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse-glow {
     animation: none;
@@ -162,6 +175,10 @@
   .reveal,
   .reveal.is-visible {
     opacity: 1;
+    animation: none;
+  }
+  /* No autoplay under reduced motion — the fill stays static (no end event fires). */
+  .cap-progress-fill {
     animation: none;
   }
 }
