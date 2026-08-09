@@ -30,6 +30,7 @@ type Capability = {
   servicesLabel: string
   services: string[]
   imageSrc?: string
+  badgeLabel?: string
 }
 
 const capabilities: Capability[] = [
@@ -46,6 +47,7 @@ const capabilities: Capability[] = [
       "Trusted, scalable decision-making enablement",
     ],
     imageSrc: "/images/enterprise-data-team.jpg",
+    badgeLabel: "Data-Driven Strategy",
   },
   {
     icon: Brain,
@@ -59,6 +61,8 @@ const capabilities: Capability[] = [
       "AI use-case identification & prioritization",
       "Responsible AI governance",
     ],
+    imageSrc: "/images/ai-strategy-team.jpg",
+    badgeLabel: "AI-Driven Strategy",
   },
   {
     icon: BarChart3,
@@ -121,10 +125,12 @@ function VisualPanel({
   icon: Icon,
   index,
   imageSrc,
+  badgeLabel = "Data-Driven Strategy",
 }: {
   icon: LucideIcon
   index: number
   imageSrc?: string
+  badgeLabel?: string
 }) {
   /* ── Photo variant (slide 0) ─────────────────────────────── */
   if (imageSrc) {
@@ -133,7 +139,7 @@ function VisualPanel({
         {/* Photo */}
         <Image
           src={imageSrc}
-          alt="Enterprise data strategy team working on analytics"
+          alt={`${badgeLabel} team collaboration`}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover object-center"
@@ -176,7 +182,7 @@ function VisualPanel({
         <div className="absolute bottom-5 right-5 flex items-center gap-2.5 rounded-2xl border border-white/30 bg-white/80 px-4 py-2.5 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#10231c]/85">
           <span className="flex h-2 w-2 rounded-full bg-emerald-500 dark:bg-accent-emerald" />
           <span className="font-mono text-xs font-semibold text-emerald-800 dark:text-white/80">
-            Data-Driven Strategy
+            {badgeLabel}
           </span>
         </div>
       </div>
@@ -279,7 +285,7 @@ export function CapabilitiesGrid() {
             {capabilities.map((cap, i) => (
               <CarouselItem key={cap.title}>
                 <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:min-h-[480px] md:grid-cols-2">
-                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} />
+                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} />
 
                   <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
                     <span className="font-mono text-sm text-muted-foreground dark:text-white/40">
