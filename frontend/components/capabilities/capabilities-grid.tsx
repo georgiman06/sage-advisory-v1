@@ -110,6 +110,8 @@ const capabilities: Capability[] = [
       "Platform modernization & migration",
       "Scalable, secure infrastructure",
     ],
+    imageSrc: "/images/modern-ai-platforms-v2.jpg",
+    darkImage: true,
   },
   {
     icon: Briefcase,
