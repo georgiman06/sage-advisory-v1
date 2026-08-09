@@ -32,6 +32,7 @@ type Capability = {
   imageSrc?: string
   badgeLabel?: string
   darkImage?: boolean
+  badgeAccent?: "orange" | "teal" | "emerald"
 }
 
 const capabilities: Capability[] = [
@@ -95,6 +96,7 @@ const capabilities: Capability[] = [
     imageSrc: "/images/digital-trust-blockchain.jpg",
     badgeLabel: "Decentralized Trust",
     darkImage: true,
+    badgeAccent: "orange",
   },
   {
     icon: Cloud,
@@ -108,6 +110,10 @@ const capabilities: Capability[] = [
       "Platform modernization & migration",
       "Scalable, secure infrastructure",
     ],
+    imageSrc: "/images/modern-ai-platforms.jpg",
+    badgeLabel: "Cloud-Native AI",
+    darkImage: true,
+    badgeAccent: "teal",
   },
   {
     icon: Briefcase,
@@ -133,12 +139,14 @@ function VisualPanel({
   imageSrc,
   badgeLabel = "Data-Driven Strategy",
   darkImage = false,
+  badgeAccent = "orange",
 }: {
   icon: LucideIcon
   index: number
   imageSrc?: string
   badgeLabel?: string
   darkImage?: boolean
+  badgeAccent?: "orange" | "teal" | "emerald"
 }) {
   /* ── Photo variant (slide 0) ─────────────────────────────── */
   if (imageSrc) {
@@ -188,21 +196,23 @@ function VisualPanel({
           {String(index + 1).padStart(2, "0")}
         </span>
 
-        {/* Floating metric badge */}
-        <div className={`absolute bottom-5 right-5 flex items-center gap-2.5 rounded-2xl px-4 py-2.5 shadow-lg backdrop-blur-md ${
-          darkImage
-            ? "border border-orange-500/30 bg-black/70 text-orange-300"
-            : "border border-white/30 bg-white/80 dark:border-white/10 dark:bg-[#10231c]/85"
-        }`}>
-          <span className={`flex h-2 w-2 rounded-full ${
-            darkImage ? "bg-orange-400" : "bg-emerald-500 dark:bg-accent-emerald"
-          }`} />
-          <span className={`font-mono text-xs font-semibold ${
-            darkImage ? "text-orange-200" : "text-emerald-800 dark:text-white/80"
-          }`}>
-            {badgeLabel}
-          </span>
-        </div>
+        {/* Floating metric badge — accent color per slide */}
+        {(() => {
+          const accentStyles = {
+            orange: { wrap: "border border-orange-500/30 bg-black/70", dot: "bg-orange-400", text: "text-orange-200" },
+            teal:   { wrap: "border border-teal-400/30 bg-black/70",   dot: "bg-teal-400",   text: "text-teal-200"   },
+            emerald:{ wrap: "border border-white/30 bg-white/80 dark:border-white/10 dark:bg-[#10231c]/85", dot: "bg-emerald-500 dark:bg-accent-emerald", text: "text-emerald-800 dark:text-white/80" },
+          }
+          const a = darkImage ? accentStyles[badgeAccent] : accentStyles.emerald
+          return (
+            <div className={`absolute bottom-5 right-5 flex items-center gap-2.5 rounded-2xl px-4 py-2.5 shadow-lg backdrop-blur-md ${a.wrap}`}>
+              <span className={`flex h-2 w-2 rounded-full ${a.dot}`} />
+              <span className={`font-mono text-xs font-semibold ${a.text}`}>
+                {badgeLabel}
+              </span>
+            </div>
+          )
+        })()}
       </div>
     )
   }
@@ -303,7 +313,7 @@ export function CapabilitiesGrid() {
             {capabilities.map((cap, i) => (
               <CarouselItem key={cap.title}>
                 <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:h-[560px] md:grid-cols-2">
-                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} darkImage={cap.darkImage} />
+                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} darkImage={cap.darkImage} badgeAccent={cap.badgeAccent} />
 
                   <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
                     <span className="font-mono text-sm text-muted-foreground dark:text-white/40">
