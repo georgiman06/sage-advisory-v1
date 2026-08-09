@@ -110,7 +110,7 @@ const capabilities: Capability[] = [
       "Platform modernization & migration",
       "Scalable, secure infrastructure",
     ],
-    imageSrc: "/images/modern-ai-platforms-v2.jpg",
+    imageSrc: "/images/ai-platforms-fiber.jpg",
     darkImage: true,
   },
   {
@@ -125,6 +125,8 @@ const capabilities: Capability[] = [
       "Future-readiness assessments",
       "Board-level technology briefings",
     ],
+    imageSrc: "/images/executive-advisory-team.jpg",
+    badgeLabel: "Executive Advisory",
   },
 ]
 
