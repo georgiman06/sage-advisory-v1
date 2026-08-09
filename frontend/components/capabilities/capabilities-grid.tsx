@@ -31,6 +31,7 @@ type Capability = {
   services: string[]
   imageSrc?: string
   badgeLabel?: string
+  darkImage?: boolean
 }
 
 const capabilities: Capability[] = [
@@ -91,6 +92,9 @@ const capabilities: Capability[] = [
       "Smart contract advisory",
       "Secure, transparent digital ecosystems",
     ],
+    imageSrc: "/images/digital-trust-blockchain.jpg",
+    badgeLabel: "Decentralized Trust",
+    darkImage: true,
   },
   {
     icon: Cloud,
@@ -128,11 +132,13 @@ function VisualPanel({
   index,
   imageSrc,
   badgeLabel = "Data-Driven Strategy",
+  darkImage = false,
 }: {
   icon: LucideIcon
   index: number
   imageSrc?: string
   badgeLabel?: string
+  darkImage?: boolean
 }) {
   /* ── Photo variant (slide 0) ─────────────────────────────── */
   if (imageSrc) {
@@ -148,15 +154,17 @@ function VisualPanel({
           priority
         />
 
-        {/* Overlay gradient — adapts to theme */}
-        {/* Light: soft white wash on left edge so card text stays readable */}
-        {/* Dark: deep green wash on left + bottom for brand cohesion */}
+        {/* Overlay gradient — adapts to theme + image darkness */}
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-transparent dark:from-[#0c211a]/50 dark:via-transparent dark:to-transparent"
+          className={`pointer-events-none absolute inset-0 bg-gradient-to-r via-transparent to-transparent ${
+            darkImage
+              ? "from-black/60 dark:from-black/70"
+              : "from-white/30 dark:from-[#0c211a]/50"
+          } dark:via-transparent dark:to-transparent`}
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent dark:from-black/50"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent dark:from-black/60"
           aria-hidden
         />
 
@@ -181,9 +189,17 @@ function VisualPanel({
         </span>
 
         {/* Floating metric badge */}
-        <div className="absolute bottom-5 right-5 flex items-center gap-2.5 rounded-2xl border border-white/30 bg-white/80 px-4 py-2.5 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#10231c]/85">
-          <span className="flex h-2 w-2 rounded-full bg-emerald-500 dark:bg-accent-emerald" />
-          <span className="font-mono text-xs font-semibold text-emerald-800 dark:text-white/80">
+        <div className={`absolute bottom-5 right-5 flex items-center gap-2.5 rounded-2xl px-4 py-2.5 shadow-lg backdrop-blur-md ${
+          darkImage
+            ? "border border-orange-500/30 bg-black/70 text-orange-300"
+            : "border border-white/30 bg-white/80 dark:border-white/10 dark:bg-[#10231c]/85"
+        }`}>
+          <span className={`flex h-2 w-2 rounded-full ${
+            darkImage ? "bg-orange-400" : "bg-emerald-500 dark:bg-accent-emerald"
+          }`} />
+          <span className={`font-mono text-xs font-semibold ${
+            darkImage ? "text-orange-200" : "text-emerald-800 dark:text-white/80"
+          }`}>
             {badgeLabel}
           </span>
         </div>
@@ -287,7 +303,7 @@ export function CapabilitiesGrid() {
             {capabilities.map((cap, i) => (
               <CarouselItem key={cap.title}>
                 <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:h-[560px] md:grid-cols-2">
-                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} />
+                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} darkImage={cap.darkImage} />
 
                   <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
                     <span className="font-mono text-sm text-muted-foreground dark:text-white/40">
