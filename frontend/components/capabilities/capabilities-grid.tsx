@@ -113,7 +113,7 @@ const capabilities: Capability[] = [
     imageSrc: "/images/modern-ai-platforms.jpg",
     badgeLabel: "Cloud-Native AI",
     darkImage: true,
-    badgeAccent: "teal",
+    badgeAccent: "orange",
   },
   {
     icon: Briefcase,
