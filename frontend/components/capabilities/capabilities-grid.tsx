@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import {
   Database,
   Brain,
@@ -28,6 +29,7 @@ type Capability = {
   description: string
   servicesLabel: string
   services: string[]
+  imageSrc?: string
 }
 
 const capabilities: Capability[] = [
@@ -43,6 +45,7 @@ const capabilities: Capability[] = [
       "Modern data platform architecture",
       "Trusted, scalable decision-making enablement",
     ],
+    imageSrc: "/images/enterprise-data-team.jpg",
   },
   {
     icon: Brain,
@@ -114,7 +117,73 @@ const capabilities: Capability[] = [
 const tags = ["Strategy", "AI", "Analytics", "Blockchain", "Platforms", "Advisory"]
 
 /** Decorative graphic panel shown alongside each slide's copy. */
-function VisualPanel({ icon: Icon, index }: { icon: LucideIcon; index: number }) {
+function VisualPanel({
+  icon: Icon,
+  index,
+  imageSrc,
+}: {
+  icon: LucideIcon
+  index: number
+  imageSrc?: string
+}) {
+  /* ── Photo variant (slide 0) ─────────────────────────────── */
+  if (imageSrc) {
+    return (
+      <div className="relative flex min-h-[260px] overflow-hidden border-b border-emerald-200/60 bg-emerald-50 dark:border-white/10 dark:bg-[#0c211a] md:order-2 md:min-h-0 md:border-b-0 md:border-l">
+        {/* Photo */}
+        <Image
+          src={imageSrc}
+          alt="Enterprise data strategy team working on analytics"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover object-center"
+          priority
+        />
+
+        {/* Overlay gradient — adapts to theme */}
+        {/* Light: soft white wash on left edge so card text stays readable */}
+        {/* Dark: deep green wash on left + bottom for brand cohesion */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-transparent dark:from-[#0c211a]/50 dark:via-transparent dark:to-transparent"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent dark:from-black/50"
+          aria-hidden
+        />
+
+        {/* Concentric arcs motif (matches icon-panel style) */}
+        <svg
+          className="pointer-events-none absolute -bottom-16 -right-16 h-80 w-80 text-white/15 dark:text-accent-emerald/15"
+          viewBox="0 0 200 200"
+          fill="none"
+          aria-hidden
+        >
+          {[40, 70, 100].map((r) => (
+            <circle key={r} cx="100" cy="100" r={r} stroke="currentColor" strokeWidth="1" />
+          ))}
+        </svg>
+
+        {/* Ghost number watermark */}
+        <span
+          className="pointer-events-none absolute left-6 top-5 font-mono text-7xl font-bold leading-none text-white/10 dark:text-white/5"
+          aria-hidden
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+
+        {/* Floating metric badge */}
+        <div className="absolute bottom-5 right-5 flex items-center gap-2.5 rounded-2xl border border-white/30 bg-white/80 px-4 py-2.5 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-[#10231c]/85">
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 dark:bg-accent-emerald" />
+          <span className="font-mono text-xs font-semibold text-emerald-800 dark:text-white/80">
+            Data-Driven Strategy
+          </span>
+        </div>
+      </div>
+    )
+  }
+
+  /* ── Default icon/decorative variant ───────────────────────── */
   return (
     <div className="relative flex min-h-[220px] items-center justify-center overflow-hidden border-b border-emerald-200/60 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:border-white/10 dark:from-[#0c211a] dark:to-[#16342a] md:order-2 md:min-h-0 md:border-b-0 md:border-l">
       {/* ambient glow */}
@@ -210,7 +279,7 @@ export function CapabilitiesGrid() {
             {capabilities.map((cap, i) => (
               <CarouselItem key={cap.title}>
                 <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:min-h-[480px] md:grid-cols-2">
-                  <VisualPanel icon={cap.icon} index={i} />
+                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} />
 
                   <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
                     <span className="font-mono text-sm text-muted-foreground dark:text-white/40">
