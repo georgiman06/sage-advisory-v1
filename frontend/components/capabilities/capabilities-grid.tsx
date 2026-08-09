@@ -76,6 +76,8 @@ const capabilities: Capability[] = [
       "Executive dashboards & reporting",
       "Growth & opportunity analysis",
     ],
+    imageSrc: "/images/analytics-decision-team.jpg",
+    badgeLabel: "Decision Intelligence",
   },
   {
     icon: Shield,
@@ -284,7 +286,7 @@ export function CapabilitiesGrid() {
           <CarouselContent>
             {capabilities.map((cap, i) => (
               <CarouselItem key={cap.title}>
-                <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:min-h-[480px] md:grid-cols-2">
+                <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:min-h-[560px] md:grid-cols-2">
                   <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} />
 
                   <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
