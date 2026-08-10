@@ -37,23 +37,23 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
 
   return (
     <header className={`sticky top-0 z-50 ${isDark ? "border-b border-white/10 bg-[#1a3529]" : "border-b border-border bg-background"}`}>
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:h-20 md:gap-12 md:justify-start md:px-6">
+      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 md:h-24 md:gap-14 md:justify-start md:px-10">
         {/* Logo */}
         <Link
           href="/"
           className="flex shrink-0 items-baseline gap-1 font-serif"
           onClick={() => setMobileOpen(false)}
         >
-          <span className={`text-2xl font-bold tracking-tight md:text-3xl ${isDark ? "text-white" : "text-foreground"}`}>
+          <span className={`text-3xl font-bold tracking-tight md:text-4xl ${isDark ? "text-white" : "text-foreground"}`}>
             Sage Advisory
           </span>
-          <span className={`text-xs font-medium tracking-wide md:text-sm ${isDark ? "text-white/60" : "text-muted-foreground"}`}>
+          <span className={`text-sm font-semibold tracking-widest md:text-base ${isDark ? "text-white/50" : "text-muted-foreground"}`}>
             LLC
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-10 md:flex">
           {navLinks.map(({ href, label, page }) => {
             const isActive = activePage === page
             const isCapabilities = page === "capabilities"
@@ -74,7 +74,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                   {/* Trigger */}
                   <Link
                     href={href}
-                    className={`group relative flex items-center gap-1 text-base font-medium transition-colors ${
+                    className={`group relative flex items-center gap-1 text-lg font-semibold transition-colors ${
                       isDark
                         ? isActive ? "text-white" : "text-white/70 hover:text-white"
                         : isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
@@ -136,7 +136,7 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
               <Link
                 key={page}
                 href={href}
-                className={`group relative text-base font-medium transition-colors ${
+                className={`group relative text-lg font-semibold transition-colors ${
                   isDark
                     ? isActive ? "text-white" : "text-white/70 hover:text-white"
                     : isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
