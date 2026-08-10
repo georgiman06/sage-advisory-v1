@@ -1,0 +1,5 @@
+# Ignore junk files that end up in this folder from Zoom, Office, etc.
+*.xml
+*.tmp
+*.dat
+*.log
