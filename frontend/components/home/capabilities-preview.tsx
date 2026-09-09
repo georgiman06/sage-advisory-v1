@@ -27,12 +27,12 @@ const capabilities: Capability[] = [
   {
     icon: Brain,
     title: "AI Strategy & Transformation",
-    description: "Identify, prioritize, and scale high-value AI — from GenAI to responsible governance.",
+    description: "Identify, prioritize, and scale high-value AI initiatives, from GenAI pilots to responsible governance.",
   },
   {
     icon: BarChart3,
     title: "Analytics & Decision Intelligence",
-    description: "Analytics and predictive intelligence that accelerate smarter business decisions.",
+    description: "Analytics and predictive models that shorten the path from data to decision.",
   },
   {
     icon: Shield,
@@ -47,7 +47,7 @@ const capabilities: Capability[] = [
   {
     icon: Briefcase,
     title: "Executive Technology Advisory",
-    description: "Partner with boards and executives to build future-ready enterprises.",
+    description: "Advise boards and executive teams on technology strategy and investment priorities.",
   },
 ]
 
@@ -57,7 +57,7 @@ export function CapabilitiesPreview() {
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <SectionHeader
           eyebrow="What we do"
-          title="Six capabilities, one wisdom-driven approach"
+          title="Six capabilities, one advisory team"
           intro="Strategic advisory and hands-on implementation across the full data and AI lifecycle."
         />
         <Link

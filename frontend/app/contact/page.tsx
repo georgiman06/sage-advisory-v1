@@ -127,19 +127,19 @@ export default function ContactPage() {
               Let&apos;s talk
             </p>
             <h1 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-foreground dark:text-white md:text-5xl">
-              Start your transformation
+              Talk to our team
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground dark:text-white/80">
-              Partner with Sage Advisory to unlock the full value of your data, AI, and decentralized technology investments.
+              Tell us about your data, AI, or technology initiative. We&apos;ll respond within one business day to schedule a discovery call.
             </p>
 
             {/* Proof strip — credibility at the decision point */}
             <dl className="mt-10 grid max-w-3xl grid-cols-2 gap-6 border-t border-border/60 dark:border-white/10 pt-8 sm:grid-cols-4">
               {[
-                { v: "$10M+", l: "Savings delivered" },
-                { v: "60,000+", l: "Users enabled" },
-                { v: "98%", l: "Faster insight" },
-                { v: "Fortune 100", l: "Scale engagements" },
+                { v: "$10M+", l: "Operational savings delivered" },
+                { v: "60,000+", l: "Enterprise users enabled" },
+                { v: "98%", l: "Faster time-to-insight" },
+                { v: "Fortune 100", l: "Scale engagements led" },
               ].map((m) => (
                 <div key={m.l}>
                   <dt className="font-mono text-2xl font-semibold text-foreground dark:text-white md:text-3xl">
@@ -167,9 +167,9 @@ export default function ContactPage() {
               {/* Left Column - Info */}
               <div>
                 <p className="text-muted-foreground leading-relaxed">
-                  Ready to modernize your data ecosystem? Let&apos;s discuss your transformation
-                  initiatives and explore how our V2V Framework can accelerate your journey
-                  to data-driven excellence.
+                  Tell us about the data, AI, or platform initiative you&apos;re evaluating. We&apos;ll use
+                  the call to understand your current state and outline how the V2V Framework
+                  would apply.
                 </p>
 
                 <div className="mt-8">
@@ -416,7 +416,7 @@ export default function ContactPage() {
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
                 <h3 className="font-semibold text-foreground dark:text-white">Email</h3>
-                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">strategy@sageconsulting.com</p>
+                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">strategy@sageadvisory.com</p>
               </div>
               <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
                 <h3 className="font-semibold text-foreground dark:text-white">Phone</h3>
@@ -424,7 +424,7 @@ export default function ContactPage() {
               </div>
               <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
                 <h3 className="font-semibold text-foreground dark:text-white">LinkedIn</h3>
-                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">linkedin.com/company/sage-consulting</p>
+                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">linkedin.com/company/sage-advisory</p>
               </div>
             </div>
           </div>

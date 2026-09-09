@@ -12,7 +12,7 @@ export function AboutCTA() {
           Ready to partner with us?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-xl leading-relaxed text-muted-foreground dark:text-white/65">
-          Let&apos;s discuss how Sage Advisory can help accelerate your data transformation journey.
+          Tell us about the data or AI initiative you&apos;re evaluating, and we&apos;ll walk you through how we&apos;d approach it.
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button asChild size="lg">

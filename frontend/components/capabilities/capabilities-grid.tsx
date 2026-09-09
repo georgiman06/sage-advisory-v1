@@ -39,7 +39,7 @@ const capabilities: Capability[] = [
   {
     icon: Database,
     title: "Enterprise Data Strategy",
-    description: "Building the Foundation for Intelligent Enterprises: Define enterprise data strategies, operating models, governance, and modern data platforms that enable trusted, scalable decision-making.",
+    description: "Define enterprise data strategies, operating models, governance, and modern data platforms that enterprises can actually run decisions on.",
     servicesLabel: "Services Include:",
     services: [
       "Enterprise data strategy & roadmaps",
@@ -54,8 +54,8 @@ const capabilities: Capability[] = [
   {
     icon: Brain,
     title: "AI Strategy & Transformation",
-    description: "Turning AI Potential into Business Impact: Develop enterprise AI strategies that identify, prioritize, and scale high-value AI initiatives—from GenAI and agentic AI to intelligent automation and responsible AI governance.",
-    servicesLabel: "Solutions Include:",
+    description: "Develop enterprise AI strategies that identify, prioritize, and scale high-value initiatives, from GenAI and agentic AI to automation and responsible governance.",
+    servicesLabel: "Services Include:",
     services: [
       "Enterprise AI strategy & roadmap",
       "GenAI & agentic AI adoption",
@@ -69,7 +69,7 @@ const capabilities: Capability[] = [
   {
     icon: BarChart3,
     title: "Analytics & Decision Intelligence",
-    description: "Accelerating Smarter Business Decisions: Leverage analytics, AI, and predictive intelligence to uncover opportunities and accelerate business growth.",
+    description: "Use analytics, AI, and predictive models to surface opportunities that would otherwise stay buried in the data.",
     servicesLabel: "Services Include:",
     services: [
       "Advanced & predictive analytics",
@@ -84,8 +84,8 @@ const capabilities: Capability[] = [
   {
     icon: Shield,
     title: "Digital Trust & Decentralized Technologies",
-    description: "Building Trusted Digital Ecosystems: Guide organizations in adopting blockchain, decentralized identity, tokenization, and smart contracts to build secure, transparent, and trusted digital ecosystems.",
-    servicesLabel: "Capabilities Include:",
+    description: "Guide organizations through adopting blockchain, decentralized identity, tokenization, and smart contracts, with security and transparency built in from day one.",
+    servicesLabel: "Services Include:",
     services: [
       "Blockchain strategy & adoption",
       "Decentralized identity solutions",
@@ -101,7 +101,7 @@ const capabilities: Capability[] = [
   {
     icon: Cloud,
     title: "Modern Data & AI Platforms",
-    description: "Engineering the Foundation for Intelligent Innovation: Design modern, cloud-native data and AI platforms that deliver scalable, secure, and high-performance enterprise capabilities.",
+    description: "Design cloud-native data and AI platforms built to scale with the business, not just the pilot.",
     servicesLabel: "Services Include:",
     services: [
       "Cloud-native data platform design",
@@ -116,7 +116,7 @@ const capabilities: Capability[] = [
   {
     icon: Briefcase,
     title: "Executive Technology Advisory",
-    description: "Guiding Leaders Through Digital Transformation: Partner with executives and boards to shape technology strategy, prioritize investments, and build future-ready enterprises.",
+    description: "Partner with executives and boards to shape technology strategy, prioritize investments, and plan for what comes after the current roadmap.",
     servicesLabel: "Services Include:",
     services: [
       "Technology strategy for executives & boards",
@@ -276,13 +276,13 @@ export function CapabilitiesGrid() {
     >
       <Reveal className="mx-auto max-w-3xl text-center">
         <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-emerald-600 dark:text-accent-emerald">
-          What We Do
+          What we do
         </p>
         <h1 className="mt-5 font-serif text-5xl font-semibold tracking-tight text-foreground dark:text-white md:text-6xl lg:text-7xl">
           Capabilities
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-muted-foreground dark:text-white/70 md:text-xl">
-          Strategic advisory and hands-on implementation to deliver measurable business impact — across six core disciplines that help enterprises move from complexity to clarity, from data to decisions, and from strategy to scaled execution.
+          Strategic advisory and hands-on implementation across six disciplines, covering enterprise data, AI, analytics, decentralized technology, platforms, and executive strategy.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-2">
           {tags.map((tag) => (

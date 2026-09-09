@@ -15,10 +15,10 @@ export function CTASection() {
               Get started
             </p>
             <h2 className="mt-4 max-w-2xl font-serif text-3xl font-semibold tracking-tight text-foreground dark:text-white md:text-4xl">
-              Discuss your transformation
+              See where this fits your roadmap
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground dark:text-white/70 md:text-lg">
-              Ready to modernize your data ecosystem? Let&apos;s explore how our capabilities align with your strategic objectives.
+              Bring us your current roadmap and we&apos;ll show you where these capabilities fit, and where they don&apos;t.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" asChild>
@@ -30,7 +30,7 @@ export function CTASection() {
                 asChild
                 className="border-emerald-400/40 bg-transparent text-emerald-700 dark:text-emerald-100 hover:bg-emerald-400/10 hover:text-emerald-800 dark:hover:text-white"
               >
-                <Link href="/case-studies">View case studies</Link>
+                <Link href="/">See our work</Link>
               </Button>
             </div>
           </div>

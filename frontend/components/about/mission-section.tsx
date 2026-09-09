@@ -9,7 +9,7 @@ const values = [
   },
   {
     title: "Innovation Focus",
-    description: "We stay at the forefront of data and AI technologies to bring cutting-edge solutions to our clients.",
+    description: "We track emerging data and AI technology closely enough to know which parts are ready for production and which still need another year.",
   },
   {
     title: "Results Driven",
@@ -80,11 +80,12 @@ export function MissionSection() {
                 Vision
               </p>
               <h2 className="mt-4 font-serif text-4xl font-semibold tracking-tight text-foreground dark:text-white md:text-5xl">
-                A wisdom-driven future
+                Decisions that outlast the hype cycle
               </h2>
               <p className="mt-5 text-xl leading-relaxed text-muted-foreground dark:text-white/70">
-                To shape a future where wisdom-driven decisions create enduring competitive
-                advantage through data, AI, and decentralized innovation.
+                Technology strategy should hold up over multiple budget cycles, not just the current
+                one. We help enterprises make data, AI, and decentralized technology decisions that
+                stay right in five years, not just this quarter.
               </p>
             </div>
             <div>
@@ -95,9 +96,9 @@ export function MissionSection() {
                 From complexity to clarity
               </h2>
               <p className="mt-5 text-xl leading-relaxed text-muted-foreground dark:text-white/70">
-                Sage Advisory empowers organizations to turn complexity into clarity by combining
-                strategic wisdom, deep analytical insight, agentic &amp; emerging technologies, and
-                execution excellence to deliver measurable business outcomes.
+                We pair strategic advisory with hands-on delivery, including AI agents,
+                decentralized identity, and other emerging technology, so a recommendation turns
+                into a system your team can run without us.
               </p>
             </div>
           </div>

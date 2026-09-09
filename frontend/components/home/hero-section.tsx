@@ -29,10 +29,10 @@ export function HeroSection() {
               Data · AI · Decentralized Technologies
             </p>
             <h1 className="mt-5 text-balance font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-slate-900 dark:text-white md:text-5xl lg:text-6xl">
-              Transforming Enterprises with Data, AI &amp; Decentralized Technologies
+              Data, AI, and decentralized technology for enterprises with real stakes
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-700 dark:text-white/75 md:text-lg">
-              Sage Advisory empowers organizations to shape a future where wisdom-driven decisions create enduring competitive advantage with data, AI, and decentralized innovation.
+              Sage Advisory advises executive teams on data strategy, AI adoption, and emerging technology, then works alongside their teams to build it.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button size="lg" asChild>

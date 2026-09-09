@@ -13,13 +13,13 @@ export function CtaSection() {
           />
           <div className="relative">
             <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-emerald-600 dark:text-accent-emerald">
-              Start your transformation
+              Ready when you are
             </p>
             <h2 className="mx-auto mt-5 max-w-2xl text-balance font-serif text-3xl font-semibold tracking-tight text-foreground dark:text-white md:text-4xl">
-              Turn wisdom-driven decisions into enduring advantage
+              Bring your data and AI strategy into one plan
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground dark:text-white/70">
-              Partner with Sage Advisory to unlock the full value of your data, AI, and decentralized technology investments.
+              Sage Advisory works with your team from initial assessment through implementation, so the strategy doesn&apos;t stall after the workshop.
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button size="lg" asChild>

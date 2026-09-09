@@ -36,8 +36,8 @@ export function BusinessImpact() {
     <Section>
       <SectionHeader
         eyebrow="Outcomes"
-        title="The Value We Create"
-        intro="Every engagement is measured by the advantage it creates — clarity, growth, better decisions, and trusted innovation."
+        title="The value we create"
+        intro="Every engagement is measured by the advantage it creates: clarity, growth, better decisions, and technology adopted with confidence."
       />
       <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {impacts.map((impact, i) => {

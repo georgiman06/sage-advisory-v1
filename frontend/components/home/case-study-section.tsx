@@ -20,7 +20,7 @@ export function CaseStudySection() {
       <SectionHeader
         eyebrow="Selected impact"
         title="Modernizing data for a global asset manager"
-        intro="Faced with fragmented silos, Sage Advisory led a multi-year transformation to unify enterprise analytics and automate legacy reporting."
+        intro="Faced with fragmented silos, Sage Advisory led a multi-year program to unify enterprise analytics and automate legacy reporting."
       />
 
       <Reveal className="mt-14">
