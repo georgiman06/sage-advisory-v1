@@ -165,7 +165,7 @@
 .cap-progress-fill {
   transform-origin: left;
   transform: scaleX(1);
-  animation: cap-progress 5500ms linear forwards;
+  animation: cap-progress 5000ms linear forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -297,16 +297,22 @@ export function CapabilitiesGrid() {
       </Reveal>
 
       <div
-        className="relative mx-auto mt-16 max-w-5xl"
+        className="relative isolate mx-auto mt-20 max-w-5xl md:mt-24"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onFocus={() => setIsPaused(true)}
         onBlur={() => setIsPaused(false)}
       >
         <div
-          className="pointer-events-none absolute -inset-x-10 top-1/2 -z-10 h-72 -translate-y-1/2 rounded-full bg-emerald-400/15 blur-3xl dark:bg-accent-emerald/10"
+          className="pointer-events-none absolute -inset-x-10 top-1/2 -z-20 h-72 -translate-y-1/2 rounded-full bg-emerald-400/15 blur-3xl dark:bg-accent-emerald/10"
           aria-hidden
         />
+
+        {/* Decorative card stack — hints that five more capabilities sit behind the active one */}
+        <div className="pointer-events-none absolute inset-0 -z-10 hidden md:block" aria-hidden>
+          <div className="absolute inset-x-16 -top-8 h-[560px] rotate-[2deg] rounded-3xl border border-emerald-400/30 bg-white/70 shadow-sm dark:border-white/15 dark:bg-white/10" />
+          <div className="absolute inset-x-10 -top-4 h-[560px] -rotate-[1.6deg] rounded-3xl border border-emerald-400/40 bg-white/90 shadow-md dark:border-white/20 dark:bg-white/[0.16]" />
+        </div>
 
         <Carousel setApi={setApi} opts={{ align: "center", loop: true }}>
           <CarouselContent>
