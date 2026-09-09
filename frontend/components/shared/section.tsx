@@ -26,6 +26,8 @@ type SectionHeaderProps = {
   intro?: React.ReactNode
   align?: "left" | "center"
   className?: string
+  /** Override the H2's default size/weight for sections that need more visual weight. */
+  titleClassName?: string
 }
 
 /**
@@ -38,6 +40,7 @@ export function SectionHeader({
   intro,
   align = "left",
   className,
+  titleClassName,
 }: SectionHeaderProps) {
   const centered = align === "center"
   return (
@@ -53,7 +56,12 @@ export function SectionHeader({
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+      <h2
+        className={cn(
+          "mt-4 text-balance font-serif text-3xl font-semibold tracking-tight text-foreground md:text-4xl",
+          titleClassName
+        )}
+      >
         {title}
       </h2>
       {intro && (
