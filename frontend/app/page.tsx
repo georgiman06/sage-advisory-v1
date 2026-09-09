@@ -1,7 +1,7 @@
 import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import { HeroSection } from "@/components/home/hero-section"
-import { MetricsBand } from "@/components/home/metrics-band"
+// import { MetricsBand } from "@/components/home/metrics-band" // archived — re-enable when we have metrics to show
 import { CapabilitiesPreview } from "@/components/home/capabilities-preview"
 import { CaseStudySection } from "@/components/home/case-study-section"
 import { CtaSection } from "@/components/home/cta-section"
@@ -12,7 +12,7 @@ export default function HomePage() {
       <Header activePage="home" variant="dark" />
       <main className="flex-1">
         <HeroSection />
-        <MetricsBand />
+        {/* <MetricsBand /> */}
         <CapabilitiesPreview />
         <CaseStudySection />
         <CtaSection />
