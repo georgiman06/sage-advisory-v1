@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Fraunces } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { CursorGlow } from '@/components/shared/cursor-glow'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
@@ -45,7 +44,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${fraunces.variable}`}>
       <body className="bg-background font-sans font-medium antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-          <CursorGlow />
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>
