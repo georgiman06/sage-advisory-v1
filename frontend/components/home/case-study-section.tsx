@@ -16,7 +16,12 @@ const stats: Stat[] = [
 
 export function CaseStudySection() {
   return (
-    <Section className="bg-emerald-50 dark:bg-[#10231c]">
+    <Section className="relative bg-emerald-50 dark:bg-[#10231c]">
+      {/* Bottom fade — blends into the CTA section below instead of a hard edge */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white md:h-48 dark:to-[#081a14]"
+        aria-hidden
+      />
       <SectionHeader
         eyebrow="Selected impact"
         title="Modernizing data for a global asset manager"

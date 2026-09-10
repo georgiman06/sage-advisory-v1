@@ -21,6 +21,11 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-emerald-600 mix-blend-color dark:bg-emerald-900" aria-hidden />
       <div className="absolute inset-0 bg-emerald-50/55 dark:bg-[#081a14]/40" aria-hidden />
       <div className="absolute inset-0 bg-gradient-to-r from-emerald-100/80 via-emerald-100/35 to-transparent dark:from-[#081a14]/90 dark:via-[#081a14]/45" />
+      {/* Bottom fade — blends the hero into the section below instead of a hard edge */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white md:h-48 dark:to-[#081a14]"
+        aria-hidden
+      />
 
       <div className="relative w-full px-4 py-24 lg:px-12">
         <div className="mx-auto max-w-6xl">

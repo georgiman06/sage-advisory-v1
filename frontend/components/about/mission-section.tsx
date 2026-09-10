@@ -116,6 +116,16 @@ export function MissionSection() {
           src="/videos/values-bg.mp4"
         />
         <div className="absolute inset-0 bg-[#081a14]/80" />
+        {/* Top fade — blends in from the section above instead of a hard edge */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-emerald-50/70 to-transparent md:h-36 dark:from-[#143028]/70"
+          aria-hidden
+        />
+        {/* Bottom fade — blends out into the CTA section below instead of a hard edge */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-emerald-50/20 md:h-56 dark:to-[#0d1e17]"
+          aria-hidden
+        />
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-accent-emerald">
             Principles
