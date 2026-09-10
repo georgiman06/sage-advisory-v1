@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Image from "next/image"
+import { motion } from "framer-motion"
 import {
   Database,
   Brain,
@@ -14,12 +15,6 @@ import {
   Check,
   type LucideIcon,
 } from "lucide-react"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel"
 import { Section } from "@/components/shared/section"
 import { Reveal } from "@/components/shared/reveal"
 
@@ -251,20 +246,26 @@ function VisualPanel({
   )
 }
 
-export function CapabilitiesGrid() {
-  const [api, setApi] = useState<CarouselApi>()
-  const [current, setCurrent] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
+/** How many "exited" (behind, fading) and "upcoming" (ahead, peeking) cards stay mounted
+ *  around the active one so framer-motion can animate each card through the stack. */
+const BUFFER_BEHIND = 1
+const BUFFER_AHEAD = 2
 
-  useEffect(() => {
-    if (!api) return
-    setCurrent(api.selectedScrollSnap())
-    const onSelect = () => setCurrent(api.selectedScrollSnap())
-    api.on("select", onSelect)
-    return () => {
-      api.off("select", onSelect)
-    }
-  }, [api])
+export function CapabilitiesGrid() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const length = capabilities.length
+  const active = ((currentIndex % length) + length) % length
+
+  const goTo = (target: number) => {
+    const delta = ((target - active) + length) % length
+    if (delta !== 0) setCurrentIndex((p) => p + delta)
+  }
+
+  const visibleCards = []
+  for (let i = currentIndex - BUFFER_BEHIND; i <= currentIndex + BUFFER_AHEAD; i++) {
+    visibleCards.push({ absoluteIndex: i, dataIndex: ((i % length) + length) % length })
+  }
 
   return (
     <Section
@@ -308,53 +309,71 @@ export function CapabilitiesGrid() {
           aria-hidden
         />
 
-        {/* Decorative card stack — hints that five more capabilities sit behind the active one */}
-        <div className="pointer-events-none absolute inset-0 -z-10 hidden md:block" aria-hidden>
-          <div className="absolute inset-x-16 -top-8 h-[560px] rotate-[2deg] rounded-3xl border border-emerald-400/30 bg-white/70 shadow-sm dark:border-white/15 dark:bg-white/10" />
-          <div className="absolute inset-x-10 -top-4 h-[560px] -rotate-[1.6deg] rounded-3xl border border-emerald-400/40 bg-white/90 shadow-md dark:border-white/20 dark:bg-white/[0.16]" />
-        </div>
+        {/* Card stack — each capability animates through active → peeking → exited as the timer advances */}
+        <div className="relative h-[860px] md:h-[560px]">
+          {visibleCards.map(({ absoluteIndex, dataIndex }) => {
+            const offset = absoluteIndex - currentIndex
+            const cap = capabilities[dataIndex]
+            const isActive = offset === 0
 
-        <Carousel setApi={setApi} opts={{ align: "center", loop: true }}>
-          <CarouselContent>
-            {capabilities.map((cap, i) => (
-              <CarouselItem key={cap.title}>
-                <div className="grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:h-[560px] md:grid-cols-2">
-                  <VisualPanel icon={cap.icon} index={i} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} darkImage={cap.darkImage} badgeAccent={cap.badgeAccent} />
+            const y = offset <= 0 ? offset * -40 : offset === 1 ? -34 : -58
+            const scale = offset <= 0 ? 1 - offset * 0.02 : offset === 1 ? 0.95 : 0.9
+            const opacity = offset < 0 ? 0 : offset === 2 ? 0.85 : 1
+            const blur = offset < 0 ? 6 : 0
 
-                  <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
-                    <span className="font-mono text-sm text-muted-foreground dark:text-white/40">
-                      {String(i + 1).padStart(2, "0")} / {String(capabilities.length).padStart(2, "0")}
-                    </span>
-                    <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-foreground dark:text-white md:text-4xl">
-                      {cap.title}
-                    </h2>
-                    <p className="mt-4 text-base leading-relaxed text-muted-foreground dark:text-white/70">
-                      {cap.description}
+            return (
+              <motion.div
+                key={absoluteIndex}
+                aria-hidden={!isActive}
+                className="absolute inset-0 grid grid-cols-1 overflow-hidden rounded-3xl border border-emerald-400/25 bg-white/95 shadow-2xl backdrop-blur-sm dark:border-accent-emerald/20 dark:bg-[#10231c]/95 md:grid-cols-2"
+                style={{
+                  zIndex: 1000 - absoluteIndex,
+                  filter: `blur(${blur}px)`,
+                  opacity,
+                  pointerEvents: isActive ? "auto" : "none",
+                  transitionProperty: "opacity, filter",
+                  transitionDuration: "300ms",
+                  transitionTimingFunction: "ease-out",
+                }}
+                initial={false}
+                animate={{ y, scale }}
+                transition={{ type: "spring", stiffness: 260, damping: 26, mass: 0.6 }}
+              >
+                <VisualPanel icon={cap.icon} index={dataIndex} imageSrc={cap.imageSrc} badgeLabel={cap.badgeLabel} darkImage={cap.darkImage} badgeAccent={cap.badgeAccent} />
+
+                <div className="flex flex-col justify-center p-8 md:order-1 md:p-12">
+                  <span className="font-mono text-sm text-muted-foreground dark:text-white/40">
+                    {String(dataIndex + 1).padStart(2, "0")} / {String(length).padStart(2, "0")}
+                  </span>
+                  <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-foreground dark:text-white md:text-4xl">
+                    {cap.title}
+                  </h2>
+                  <p className="mt-4 text-base leading-relaxed text-muted-foreground dark:text-white/70">
+                    {cap.description}
+                  </p>
+                  <div className="mt-6 border-t border-border/60 pt-6 dark:border-white/10">
+                    <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-emerald-600 dark:text-accent-emerald">
+                      {cap.servicesLabel}
                     </p>
-                    <div className="mt-6 border-t border-border/60 pt-6 dark:border-white/10">
-                      <p className="font-mono text-xs font-medium uppercase tracking-[0.2em] text-emerald-600 dark:text-accent-emerald">
-                        {cap.servicesLabel}
-                      </p>
-                      <ul className="mt-4 space-y-2.5">
-                        {cap.services.map((s) => (
-                          <li key={s} className="flex items-start gap-2.5 text-sm text-muted-foreground dark:text-white/75 md:text-base">
-                            <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500 dark:text-accent-emerald" />
-                            {s}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <ul className="mt-4 space-y-2.5">
+                      {cap.services.map((s) => (
+                        <li key={s} className="flex items-start gap-2.5 text-sm text-muted-foreground dark:text-white/75 md:text-base">
+                          <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500 dark:text-accent-emerald" />
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+              </motion.div>
+            )
+          })}
+        </div>
 
         {/* Controls: prev · autoplay progress segments · next */}
         <div className="mx-auto mt-8 flex max-w-3xl items-center gap-4">
           <button
-            onClick={() => api?.scrollPrev()}
+            onClick={() => setCurrentIndex((p) => p - 1)}
             aria-label="Previous capability"
             className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-emerald-400/30 text-emerald-700 transition-colors hover:border-emerald-400/60 hover:bg-emerald-50 dark:border-accent-emerald/25 dark:text-white/80 dark:hover:bg-white/5"
           >
@@ -365,17 +384,17 @@ export function CapabilitiesGrid() {
             {capabilities.map((cap, i) => (
               <button
                 key={cap.title}
-                onClick={() => api?.scrollTo(i)}
+                onClick={() => goTo(i)}
                 aria-label={`Go to slide ${i + 1}: ${cap.title}`}
                 className="group flex-1 py-2"
               >
                 <span className="relative block h-1.5 overflow-hidden rounded-full bg-emerald-400/20 dark:bg-white/15">
-                  {i === current ? (
+                  {i === active ? (
                     <span
-                      key={current}
+                      key={currentIndex}
                       className="cap-progress-fill absolute inset-0 rounded-full bg-emerald-500 dark:bg-accent-emerald"
                       style={{ animationPlayState: isPaused ? "paused" : "running" }}
-                      onAnimationEnd={() => api?.scrollNext()}
+                      onAnimationEnd={() => setCurrentIndex((p) => p + 1)}
                     />
                   ) : (
                     <span className="absolute inset-0 rounded-full bg-transparent transition-colors group-hover:bg-emerald-400/40 dark:group-hover:bg-white/30" />
@@ -386,7 +405,7 @@ export function CapabilitiesGrid() {
           </div>
 
           <button
-            onClick={() => api?.scrollNext()}
+            onClick={() => setCurrentIndex((p) => p + 1)}
             aria-label="Next capability"
             className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-emerald-400/30 text-emerald-700 transition-colors hover:border-emerald-400/60 hover:bg-emerald-50 dark:border-accent-emerald/25 dark:text-white/80 dark:hover:bg-white/5"
           >
