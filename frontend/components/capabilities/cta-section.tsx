@@ -24,14 +24,6 @@ export function CTASection() {
               <Button size="lg" asChild>
                 <Link href="/contact">Schedule consultation</Link>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="border-emerald-400/40 bg-transparent text-emerald-700 dark:text-emerald-100 hover:bg-emerald-400/10 hover:text-emerald-800 dark:hover:text-white"
-              >
-                <Link href="/">See our work</Link>
-              </Button>
             </div>
           </div>
         </div>
