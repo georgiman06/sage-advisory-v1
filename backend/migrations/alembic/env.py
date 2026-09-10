@@ -38,6 +38,10 @@ _load_module_from_path(
     "booking_model",
     PROJECT_ROOT / "services" / "notification-service" / "app" / "models" / "booking.py",
 )
+_load_module_from_path(
+    "page_view_model",
+    PROJECT_ROOT / "services" / "analytics-service" / "app" / "models" / "page_view.py",
+)
 
 config = context.config
 

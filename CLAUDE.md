@@ -15,7 +15,8 @@ project-root/
 │   │   ├── notification-service/  FastAPI — Redis consumer, SendGrid, webhooks (Phase 1 ✓)
 │   │   ├── content-service/       FastAPI — Sanity CMS proxy + cache (Phase 2)
 │   │   ├── auth-service/          FastAPI — Auth0 JWT + sessions (Phase 3)
-│   │   └── portal-service/        FastAPI — engagements, deliverables, milestones (Phase 3)
+│   │   ├── portal-service/        FastAPI — engagements, deliverables, milestones (Phase 3)
+│   │   └── analytics-service/     FastAPI — first-party page view tracking + /admin/stats
 │   ├── shared/        Python package shared by all services (auth middleware, DB session)
 │   ├── migrations/    Single Alembic project covering all service schemas
 │   ├── docker-compose.yml
@@ -45,6 +46,7 @@ make dev-down        # docker-compose down -v
 
 make test-lead       # pytest for lead-service (needs local postgres + redis)
 make test-notification
+make test-analytics
 
 # Single test
 cd backend/services/lead-service
@@ -125,6 +127,14 @@ async def submit_lead(request: Request, ...):
 - Consumer group: `notification-service`. Stream: `stream:lead_received`. Dead-letters to `stream:notification_dead_letter` after 3 retries.
 - All SendGrid calls go through `backend/services/notification-service/app/services/sendgrid.py` only.
 - To add a new stream: append to `STREAMS` in `worker.py`, add a `_handle_{event}` function, add it to `HANDLERS`.
+
+### `analytics-service` specifics
+
+- Cookies (`vid` 1yr, `sid` 30min sliding) are issued by `frontend/middleware.ts`, not the backend — the service only ever receives `vid`/`sid`/`path` on `POST /api/track`.
+- Bot/crawler/uptime-check and asset-request filtering happens twice: primarily in `frontend/middleware.ts` (so filtered traffic never even calls the backend), and again defensively in `app/services/bot_filter.py` (so a direct/misbehaving client can't pollute stats). Keep the two regexes in sync.
+- `POST /api/track` always returns 202 (`recorded` or `ignored`) — it's a fire-and-forget beacon and must never surface an error to the visitor's page load.
+- `GET /admin/stats` requires `require_auth(["admin"])` and aggregates `page_views` by distinct `vid` (unique visitors), distinct `sid` (sessions), total row count (page views), and `path` (top pages).
+- The service is wrapped with `uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware` (see `app/main.py`'s `application` export, used in the Dockerfile `CMD`) so `TRUSTED_PROXY_HOSTS` makes it trust Railway's edge-proxy `X-Forwarded-For`/`X-Forwarded-Proto` headers. `app` (plain FastAPI instance) stays the import target for tests/dependency overrides.
 
 ### Alembic migrations (`backend/migrations/alembic/`)
 

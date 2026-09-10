@@ -1,4 +1,4 @@
-.PHONY: dev dev-down migrate migrate-local test test-lead test-notification lint format install-tools
+.PHONY: dev dev-down migrate migrate-local test test-lead test-notification test-analytics lint format install-tools
 
 # Local development (run from backend/)
 dev:
@@ -22,6 +22,10 @@ test-lead:
 
 test-notification:
 	cd services/notification-service && \
+		PYTHONPATH=$(CURDIR) pytest tests/ --cov=app --cov-report=term-missing -v
+
+test-analytics:
+	cd services/analytics-service && \
 		PYTHONPATH=$(CURDIR) pytest tests/ --cov=app --cov-report=term-missing -v
 
 # Linting (run from backend/)

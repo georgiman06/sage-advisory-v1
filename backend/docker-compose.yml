@@ -81,6 +81,27 @@ services:
         condition: service_healthy
     restart: on-failure
 
+  analytics-service:
+    build:
+      context: .
+      dockerfile: services/analytics-service/Dockerfile
+    ports:
+      - "8006:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://sage:devpass@postgres:5432/sage_dev
+      REDIS_URL: redis://redis:6379
+      ENVIRONMENT: development
+      AUTH0_DOMAIN: ${AUTH0_DOMAIN:-sageconsulting.auth0.com}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE:-https://sage-api}
+      CORS_ORIGINS: "*"
+      TRUSTED_PROXY_HOSTS: "*"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: on-failure
+
 volumes:
   postgres_data:
   redis_data:
