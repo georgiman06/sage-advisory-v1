@@ -102,19 +102,16 @@ export function ServicesSection() {
           className="pointer-events-none absolute left-7 right-7 top-7 hidden h-px bg-emerald-950/[0.08] dark:bg-white/[0.08] lg:block"
           aria-hidden
         />
-        {/* filled progress up to the current checkpoint */}
-        {services.slice(0, -1).map((_, i) => (
-          <div
-            key={`segment-${i}`}
-            className="pointer-events-none absolute top-7 hidden h-px bg-gradient-to-r from-emerald-400/80 to-emerald-500/80 opacity-0 transition-opacity duration-500 ease-out dark:from-accent-emerald/80 dark:to-accent-emerald/80 lg:block"
-            style={{
-              left: `calc(1.75rem + ${i} * (100% - 3.5rem) / ${services.length - 1})`,
-              width: `calc((100% - 3.5rem) / ${services.length - 1})`,
-              opacity: active >= i + 1 ? 1 : 0,
-            }}
-            aria-hidden
-          />
-        ))}
+        {/* filled progress up to the current checkpoint — animates continuously like a video scrub bar */}
+        <div
+          className="pointer-events-none absolute left-7 top-7 hidden h-px origin-left bg-gradient-to-r from-emerald-400/80 to-emerald-500/80 transition-transform ease-linear dark:from-accent-emerald/80 dark:to-accent-emerald/80 lg:block"
+          style={{
+            width: "calc(100% - 3.5rem)",
+            transform: `scaleX(${active / (services.length - 1)})`,
+            transitionDuration: active === 0 ? "0ms" : `${STEP_MS}ms`,
+          }}
+          aria-hidden
+        />
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 lg:grid-cols-4">
           {services.map((service, i) => {
