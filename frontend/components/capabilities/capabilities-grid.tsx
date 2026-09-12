@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { Section } from "@/components/shared/section"
 import { Reveal } from "@/components/shared/reveal"
+import { IconBadge } from "@/components/shared/icon-badge"
 
 type Capability = {
   icon: LucideIcon
@@ -239,9 +240,7 @@ function VisualPanel({
         {String(index + 1).padStart(2, "0")}
       </span>
       {/* focal icon */}
-      <div className="relative flex h-28 w-28 items-center justify-center rounded-3xl border border-emerald-200 bg-white/80 shadow-xl ring-1 ring-emerald-300/40 backdrop-blur dark:border-white/10 dark:bg-white/5 dark:ring-accent-emerald/25">
-        <Icon className="h-14 w-14 text-emerald-600 dark:text-accent-emerald" />
-      </div>
+      <IconBadge icon={Icon} size="lg" />
     </div>
   )
 }

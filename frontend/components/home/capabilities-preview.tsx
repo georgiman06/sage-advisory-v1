@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 import { Section, SectionHeader } from "@/components/shared/section"
 import { Reveal } from "@/components/shared/reveal"
+import { IconBadge } from "@/components/shared/icon-badge"
 
 type Capability = {
   icon: LucideIcon
@@ -88,9 +89,7 @@ export function CapabilitiesPreview() {
                 className="group relative flex h-full flex-col rounded-2xl border border-emerald-950/[0.08] dark:border-white/10 bg-card dark:bg-[#10231c] p-8 shadow-[0_1px_2px_rgba(16,35,28,0.04)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-emerald-400/50 dark:hover:border-accent-emerald/40 hover:shadow-[0_24px_48px_-16px_rgba(16,185,129,0.25)] dark:hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.55)]"
               >
                 <div className="flex items-start justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 dark:bg-accent-emerald/10 ring-1 ring-emerald-400/20 dark:ring-accent-emerald/20 transition-colors group-hover:bg-emerald-500/15 dark:group-hover:bg-accent-emerald/15">
-                    <Icon className="h-6 w-6 text-emerald-600 dark:text-accent-emerald" />
-                  </div>
+                  <IconBadge icon={Icon} size="sm" className="group-hover:scale-105" />
                   <span className="rounded-full border border-emerald-400/25 dark:border-accent-emerald/20 bg-emerald-50/70 dark:bg-white/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700/80 dark:text-white/50">
                     {cap.tag}
                   </span>

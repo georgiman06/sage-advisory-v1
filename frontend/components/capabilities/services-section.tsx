@@ -1,6 +1,7 @@
 ﻿import { Compass, Wrench, RefreshCw, LifeBuoy, type LucideIcon } from "lucide-react"
 import { Section, SectionHeader } from "@/components/shared/section"
 import { Reveal } from "@/components/shared/reveal"
+import { IconBadge } from "@/components/shared/icon-badge"
 
 type Service = {
   icon: LucideIcon
@@ -75,9 +76,7 @@ export function ServicesSection() {
             return (
               <Reveal key={service.title} delay={i * 90}>
                 <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-0">
-                  <div className="relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-emerald-400/50 bg-white shadow-md dark:border-accent-emerald/50 dark:bg-[#081a14]">
-                    <Icon className="h-6 w-6 text-emerald-600 dark:text-accent-emerald" />
-                  </div>
+                  <IconBadge icon={Icon} size="md" className="relative z-10 shadow-md" />
                   <span className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground/70 dark:text-white/35 lg:mt-4">
                     Stage {String(i + 1).padStart(2, "0")}
                   </span>

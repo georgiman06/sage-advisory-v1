@@ -1,6 +1,7 @@
 ﻿import { Compass, TrendingUp, BrainCircuit, ShieldCheck, type LucideIcon } from "lucide-react"
 import { Section, SectionHeader } from "@/components/shared/section"
 import { Reveal } from "@/components/shared/reveal"
+import { IconBadge } from "@/components/shared/icon-badge"
 
 type Impact = {
   icon: LucideIcon
@@ -54,9 +55,7 @@ export function BusinessImpact() {
         {/* Featured outcome — anchors the grid so the section doesn't read as four interchangeable boxes */}
         <Reveal className="lg:col-span-2 lg:row-span-2">
           <div className={`${tileClasses} h-full justify-center p-10 lg:p-12`}>
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/15 ring-1 ring-emerald-400/25 dark:ring-accent-emerald/25">
-              <FeaturedIcon className="h-7 w-7 text-emerald-500 dark:text-accent-emerald" />
-            </div>
+            <IconBadge icon={FeaturedIcon} size="md" />
             <h3 className="mt-8 font-serif text-3xl font-semibold leading-tight text-foreground dark:text-white md:text-4xl lg:text-[2.75rem]">
               {featured.title}
             </h3>
@@ -68,9 +67,7 @@ export function BusinessImpact() {
 
         <Reveal delay={90} className="lg:col-span-1">
           <div className={`${tileClasses} h-full p-7`}>
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/20 dark:ring-accent-emerald/20">
-              <SecondIcon className="h-5 w-5 text-emerald-500 dark:text-accent-emerald" />
-            </div>
+            <IconBadge icon={SecondIcon} size="sm" />
             <h3 className="mt-5 font-serif text-xl font-semibold leading-snug text-foreground dark:text-white">
               {second.title}
             </h3>
@@ -82,9 +79,7 @@ export function BusinessImpact() {
 
         <Reveal delay={160} className="lg:col-span-1">
           <div className={`${tileClasses} h-full p-7`}>
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/20 dark:ring-accent-emerald/20">
-              <ThirdIcon className="h-5 w-5 text-emerald-500 dark:text-accent-emerald" />
-            </div>
+            <IconBadge icon={ThirdIcon} size="sm" />
             <h3 className="mt-5 font-serif text-xl font-semibold leading-snug text-foreground dark:text-white">
               {third.title}
             </h3>
@@ -97,9 +92,7 @@ export function BusinessImpact() {
         {/* Fourth outcome as a wide banner tile for variety instead of a fourth identical box */}
         <Reveal delay={230} className="lg:col-span-2">
           <div className={`${tileClasses} h-full flex-row items-center gap-6 p-7`}>
-            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-emerald-500/15 ring-1 ring-emerald-400/20 dark:ring-accent-emerald/20">
-              <FourthIcon className="h-6 w-6 text-emerald-500 dark:text-accent-emerald" />
-            </div>
+            <IconBadge icon={FourthIcon} size="md" />
             <div>
               <h3 className="font-serif text-xl font-semibold leading-snug text-foreground dark:text-white">
                 {fourth.title}
