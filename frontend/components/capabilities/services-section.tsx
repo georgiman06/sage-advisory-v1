@@ -1,7 +1,11 @@
-﻿import { Compass, Wrench, RefreshCw, LifeBuoy, type LucideIcon } from "lucide-react"
+﻿"use client"
+
+import { useEffect, useRef, useState } from "react"
+import { Compass, Wrench, RefreshCw, LifeBuoy, type LucideIcon } from "lucide-react"
 import { Section, SectionHeader } from "@/components/shared/section"
 import { Reveal } from "@/components/shared/reveal"
 import { IconBadge } from "@/components/shared/icon-badge"
+import { cn } from "@/lib/utils"
 
 type Service = {
   icon: LucideIcon
@@ -53,7 +57,31 @@ const services: Service[] = [
   },
 ]
 
+const STEP_MS = 3000
+
 export function ServicesSection() {
+  const [active, setActive] = useState(0)
+  const pausedRef = useRef(false)
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    const onVisibility = () => {
+      pausedRef.current = document.hidden
+    }
+    document.addEventListener("visibilitychange", onVisibility)
+
+    const id = setInterval(() => {
+      if (pausedRef.current) return
+      setActive((prev) => (prev + 1) % services.length)
+    }, STEP_MS)
+
+    return () => {
+      clearInterval(id)
+      document.removeEventListener("visibilitychange", onVisibility)
+    }
+  }, [])
+
   return (
     <Section flushTop>
       <SectionHeader
@@ -64,25 +92,58 @@ export function ServicesSection() {
       />
 
       {/* Engagement lifecycle — a real four-stage sequence, so a numbered rail earns its place here. */}
-      <div className="relative mt-20">
+      <div
+        className="relative mt-20"
+        onMouseEnter={() => (pausedRef.current = true)}
+        onMouseLeave={() => (pausedRef.current = false)}
+      >
+        {/* base track */}
         <div
-          className="pointer-events-none absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent dark:via-white/15 lg:block"
+          className="pointer-events-none absolute left-7 right-7 top-7 hidden h-px bg-emerald-950/[0.08] dark:bg-white/[0.08] lg:block"
+          aria-hidden
+        />
+        {/* filled progress up to the current checkpoint */}
+        <div
+          className="pointer-events-none absolute left-7 top-7 hidden h-px origin-left bg-gradient-to-r from-emerald-400/70 to-emerald-500/70 transition-transform duration-[900ms] ease-[cubic-bezier(0.77,0,0.175,1)] dark:from-accent-emerald/70 dark:to-accent-emerald/70 lg:block"
+          style={{
+            width: "calc(100% - 3.5rem)",
+            transform: `scaleX(${active / (services.length - 1)})`,
+          }}
+          aria-hidden
+        />
+        {/* traveling checkpoint marker */}
+        <div
+          className="pointer-events-none absolute top-7 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.25)] transition-[left] duration-[900ms] ease-[cubic-bezier(0.77,0,0.175,1)] dark:bg-accent-emerald lg:block"
+          style={{ left: `calc(1.75rem + ${active} * (100% - 3.5rem) / ${services.length - 1})` }}
           aria-hidden
         />
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 lg:grid-cols-4">
           {services.map((service, i) => {
             const Icon = service.icon
+            const isActive = i === active
             return (
               <Reveal key={service.title} delay={i * 90}>
                 <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-0">
-                  <IconBadge icon={Icon} size="md" className="relative z-10 shadow-md" />
-                  <span className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground/70 dark:text-white/35 lg:mt-4">
+                  <IconBadge icon={Icon} size="md" active={isActive} className="relative z-10 shadow-md" />
+                  <span
+                    className={cn(
+                      "font-mono text-xs font-semibold uppercase tracking-[0.18em] transition-colors duration-500 lg:mt-4",
+                      isActive
+                        ? "text-emerald-700 dark:text-accent-emerald"
+                        : "text-muted-foreground/70 dark:text-white/35"
+                    )}
+                  >
                     Stage {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                <h3 className="mt-4 font-serif text-2xl font-semibold leading-snug text-foreground dark:text-white lg:mt-3">
+                <h3
+                  className={cn(
+                    "mt-4 font-serif text-2xl font-semibold leading-snug transition-colors duration-500 lg:mt-3",
+                    isActive ? "text-emerald-800 dark:text-white" : "text-foreground/80 dark:text-white/70"
+                  )}
+                >
                   {service.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground dark:text-white/65 md:text-base">

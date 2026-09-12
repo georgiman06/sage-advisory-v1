@@ -15,10 +15,13 @@ const sizes = {
 export function IconBadge({
   icon: Icon,
   size = "md",
+  active = false,
   className,
 }: {
   icon: LucideIcon
   size?: "sm" | "md" | "lg"
+  /** Emphasized "current checkpoint" state — brighter core, glow ring, slight scale-up. */
+  active?: boolean
   className?: string
 }) {
   const s = sizes[size]
@@ -26,7 +29,10 @@ export function IconBadge({
   return (
     <div
       className={cn(
-        "relative flex flex-shrink-0 items-center justify-center border border-emerald-950/[0.06] bg-emerald-950/[0.03] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] dark:border-white/[0.06] dark:bg-white/[0.03]",
+        "relative flex flex-shrink-0 items-center justify-center border transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
+        active
+          ? "scale-110 border-emerald-400/50 shadow-[0_0_0_4px_rgba(16,185,129,0.12)] dark:border-accent-emerald/50 dark:shadow-[0_0_0_4px_rgba(16,185,129,0.16)]"
+          : "scale-100 border-emerald-950/[0.06] bg-emerald-950/[0.03] dark:border-white/[0.06] dark:bg-white/[0.03]",
         s.shell,
         s.radius,
         className
@@ -34,7 +40,10 @@ export function IconBadge({
     >
       <div
         className={cn(
-          "relative flex items-center justify-center overflow-hidden bg-gradient-to-b from-emerald-500/18 to-emerald-500/6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] ring-1 ring-inset ring-emerald-400/25 dark:from-accent-emerald/22 dark:to-accent-emerald/6 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)] dark:ring-accent-emerald/25",
+          "relative flex items-center justify-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] ring-1 ring-inset transition-[background,box-shadow] duration-500 dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]",
+          active
+            ? "bg-gradient-to-b from-emerald-500/32 to-emerald-500/12 ring-emerald-400/45 dark:from-accent-emerald/38 dark:to-accent-emerald/12 dark:ring-accent-emerald/45"
+            : "bg-gradient-to-b from-emerald-500/18 to-emerald-500/6 ring-emerald-400/25 dark:from-accent-emerald/22 dark:to-accent-emerald/6 dark:ring-accent-emerald/25",
           s.core,
           s.coreRadius
         )}
@@ -45,8 +54,12 @@ export function IconBadge({
           aria-hidden
         />
         <Icon
-          className={cn("relative z-10 text-emerald-700 dark:text-accent-emerald", s.icon)}
-          strokeWidth={1.6}
+          className={cn(
+            "relative z-10 transition-colors duration-500",
+            active ? "text-emerald-800 dark:text-accent-emerald" : "text-emerald-700 dark:text-accent-emerald",
+            s.icon
+          )}
+          strokeWidth={active ? 1.9 : 1.6}
         />
       </div>
     </div>
