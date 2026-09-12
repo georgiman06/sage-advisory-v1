@@ -57,7 +57,7 @@ const services: Service[] = [
   },
 ]
 
-const STEP_MS = 3000
+const STEP_MS = 2000
 
 export function ServicesSection() {
   const [active, setActive] = useState(0)
@@ -103,20 +103,18 @@ export function ServicesSection() {
           aria-hidden
         />
         {/* filled progress up to the current checkpoint */}
-        <div
-          className="pointer-events-none absolute left-7 top-7 hidden h-px origin-left bg-gradient-to-r from-emerald-400/70 to-emerald-500/70 transition-transform duration-[900ms] ease-[cubic-bezier(0.77,0,0.175,1)] dark:from-accent-emerald/70 dark:to-accent-emerald/70 lg:block"
-          style={{
-            width: "calc(100% - 3.5rem)",
-            transform: `scaleX(${active / (services.length - 1)})`,
-          }}
-          aria-hidden
-        />
-        {/* traveling checkpoint marker */}
-        <div
-          className="pointer-events-none absolute top-7 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.25)] transition-[left] duration-[900ms] ease-[cubic-bezier(0.77,0,0.175,1)] dark:bg-accent-emerald lg:block"
-          style={{ left: `calc(1.75rem + ${active} * (100% - 3.5rem) / ${services.length - 1})` }}
-          aria-hidden
-        />
+        {services.slice(0, -1).map((_, i) => (
+          <div
+            key={`segment-${i}`}
+            className="pointer-events-none absolute top-7 hidden h-px bg-gradient-to-r from-emerald-400/80 to-emerald-500/80 opacity-0 transition-opacity duration-500 ease-out dark:from-accent-emerald/80 dark:to-accent-emerald/80 lg:block"
+            style={{
+              left: `calc(1.75rem + ${i} * (100% - 3.5rem) / ${services.length - 1})`,
+              width: `calc((100% - 3.5rem) / ${services.length - 1})`,
+              opacity: active === i + 1 ? 1 : 0,
+            }}
+            aria-hidden
+          />
+        ))}
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 lg:grid-cols-4">
           {services.map((service, i) => {
@@ -146,13 +144,24 @@ export function ServicesSection() {
                 >
                   {service.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground dark:text-white/65 md:text-base">
+                <p
+                  className={cn(
+                    "mt-3 text-sm leading-relaxed transition-colors duration-500 md:text-base",
+                    isActive ? "font-medium text-foreground dark:text-white/95" : "text-muted-foreground dark:text-white/65"
+                  )}
+                >
                   {service.description}
                 </p>
 
                 <ul className="mt-5 space-y-2.5 border-t border-border/60 pt-5 dark:border-white/10">
                   {service.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2.5 text-sm text-muted-foreground dark:text-white/70">
+                    <li
+                      key={h}
+                      className={cn(
+                        "flex items-start gap-2.5 text-sm transition-colors duration-500",
+                        isActive ? "font-medium text-foreground dark:text-white/95" : "text-muted-foreground dark:text-white/70"
+                      )}
+                    >
                       <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-emerald-500 dark:bg-accent-emerald" />
                       {h}
                     </li>
