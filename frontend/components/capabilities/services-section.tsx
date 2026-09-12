@@ -110,7 +110,7 @@ export function ServicesSection() {
             style={{
               left: `calc(1.75rem + ${i} * (100% - 3.5rem) / ${services.length - 1})`,
               width: `calc((100% - 3.5rem) / ${services.length - 1})`,
-              opacity: active === i + 1 ? 1 : 0,
+              opacity: active >= i + 1 ? 1 : 0,
             }}
             aria-hidden
           />
