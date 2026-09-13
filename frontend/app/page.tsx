@@ -3,7 +3,7 @@ import { Footer } from "@/components/shared/footer"
 import { HeroSection } from "@/components/home/hero-section"
 // import { MetricsBand } from "@/components/home/metrics-band" // archived — re-enable when we have metrics to show
 import { CapabilitiesPreview } from "@/components/home/capabilities-preview"
-import { CaseStudySection } from "@/components/home/case-study-section"
+// import { CaseStudySection } from "@/components/home/case-study-section" // archived — re-enable when we have a real case study to show
 import { CtaSection } from "@/components/home/cta-section"
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
         <HeroSection />
         {/* <MetricsBand /> */}
         <CapabilitiesPreview />
-        <CaseStudySection />
+        {/* <CaseStudySection /> */}
         <CtaSection />
       </main>
       <Footer />

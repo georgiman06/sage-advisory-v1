@@ -132,25 +132,6 @@ export default function ContactPage() {
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground dark:text-white/80">
               Tell us about your data, AI, or technology initiative. We&apos;ll respond within one business day to schedule a discovery call.
             </p>
-
-            {/* Proof strip — credibility at the decision point */}
-            <dl className="mt-10 grid max-w-3xl grid-cols-2 gap-6 border-t border-border/60 dark:border-white/10 pt-8 sm:grid-cols-4">
-              {[
-                { v: "$10M+", l: "Operational savings delivered" },
-                { v: "60,000+", l: "Enterprise users enabled" },
-                { v: "98%", l: "Faster time-to-insight" },
-                { v: "Fortune 100", l: "Scale engagements led" },
-              ].map((m) => (
-                <div key={m.l}>
-                  <dt className="font-mono text-2xl font-semibold text-foreground dark:text-white md:text-3xl">
-                    {m.v}
-                  </dt>
-                  <dd className="mt-2 text-xs leading-snug text-muted-foreground dark:text-white/55">
-                    {m.l}
-                  </dd>
-                </div>
-              ))}
-            </dl>
           </div>
         </section>
 
