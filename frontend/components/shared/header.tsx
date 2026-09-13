@@ -8,13 +8,15 @@ import { ThemeToggle } from "@/components/shared/theme-toggle"
 
 interface HeaderProps {
   activePage?: "home" | "capabilities" | "about" | "contact"
+  /** Which capabilities sub-tab is current, so the dropdown can show a persistent (not just hover) active item. */
+  activeSection?: "capabilities" | "services"
   variant?: "default" | "dark"
 }
 
 const capabilityDropdownItems = [
-  { href: "/capabilities", label: "Capabilities" },
-  { href: "/capabilities?section=services", label: "Services & Outcomes" },
-]
+  { href: "/capabilities", label: "Capabilities", section: "capabilities" },
+  { href: "/capabilities?section=services", label: "Services & Outcomes", section: "services" },
+] as const
 
 const aboutDropdownItems = [
   { href: "/about", label: "Mission Statement & Vision" },
@@ -27,7 +29,7 @@ const navLinks = [
   { href: "/contact", label: "Contact", page: "contact" },
 ] as const
 
-export function Header({ activePage = "home", variant = "default" }: HeaderProps) {
+export function Header({ activePage = "home", activeSection, variant = "default" }: HeaderProps) {
   const isDark = variant === "dark"
   const [mobileOpen, setMobileOpen] = useState(false)
   const [capHovered, setCapHovered] = useState(false)
@@ -106,26 +108,29 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                           : "border-border bg-white/98"
                       }`}
                     >
-                      {dropdownItems.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className={`group/item relative flex items-center px-5 py-3.5 text-sm font-medium transition-colors ${
-                            isDark
-                              ? "text-white/75 hover:bg-emerald-400/10 hover:text-white"
-                              : "text-muted-foreground hover:bg-emerald-50 hover:text-foreground"
-                          }`}
-                        >
-                          <span className="relative">
-                            {item.label}
-                            <span
-                              className={`absolute -bottom-0.5 left-0 h-[1.5px] w-0 rounded-full transition-all duration-300 ease-out group-hover/item:w-full ${
-                                isDark ? "bg-emerald-400" : "bg-emerald-500"
-                              }`}
-                            />
-                          </span>
-                        </Link>
-                      ))}
+                      {dropdownItems.map((item) => {
+                        const isItemActive = isCapabilities && "section" in item && item.section === activeSection
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`group/item relative flex items-center px-5 py-3.5 text-sm font-medium transition-colors ${
+                              isDark
+                                ? isItemActive ? "text-white" : "text-white/75 hover:bg-emerald-400/10 hover:text-white"
+                                : isItemActive ? "text-foreground" : "text-muted-foreground hover:bg-emerald-50 hover:text-foreground"
+                            }`}
+                          >
+                            <span className="relative">
+                              {item.label}
+                              <span
+                                className={`absolute -bottom-0.5 left-0 h-[1.5px] rounded-full transition-all duration-300 ease-out ${
+                                  isDark ? "bg-emerald-400" : "bg-emerald-500"
+                                } ${isItemActive ? "w-full" : "w-0 group-hover/item:w-full"}`}
+                              />
+                            </span>
+                          </Link>
+                        )
+                      })}
                     </div>
                   </div>
                 </div>
@@ -204,19 +209,24 @@ export function Header({ activePage = "home", variant = "default" }: HeaderProps
                     {label}
                   </Link>
 
-                  {mobileSubItems && mobileSubItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={`flex items-center gap-2 border-b py-2.5 pl-5 text-sm font-medium transition-colors ${
-                        isDark ? "border-white/10 text-emerald-400/80 hover:text-emerald-300" : "border-border text-emerald-600 hover:text-emerald-700"
-                      }`}
-                    >
-                      <span className="h-px w-3 rounded-full bg-current opacity-50" />
-                      {item.label}
-                    </Link>
-                  ))}
+                  {mobileSubItems && mobileSubItems.map((item) => {
+                    const isItemActive = isCapabilities && "section" in item && item.section === activeSection
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className={`flex items-center gap-2 border-b py-2.5 pl-5 text-sm font-medium transition-colors ${
+                          isDark
+                            ? isItemActive ? "text-emerald-300" : "text-emerald-400/80 hover:text-emerald-300"
+                            : isItemActive ? "text-emerald-700" : "text-emerald-600 hover:text-emerald-700"
+                        } ${isDark ? "border-white/10" : "border-border"}`}
+                      >
+                        <span className={`h-px w-3 rounded-full bg-current ${isItemActive ? "opacity-100" : "opacity-50"}`} />
+                        {item.label}
+                      </Link>
+                    )
+                  })}
                 </div>
               )
             })}
