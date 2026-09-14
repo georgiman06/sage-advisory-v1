@@ -9,7 +9,7 @@ import os
 
 import redis.asyncio as aioredis
 
-from app.services.sendgrid import send_internal_alert, send_lead_autoreply
+from app.services.resend_email import send_internal_alert, send_lead_autoreply
 
 logger = logging.getLogger(__name__)
 

@@ -13,7 +13,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.booking import Booking
-from app.services.sendgrid import send_consultation_confirmed
+from app.services.resend_email import send_consultation_confirmed
 from shared.database.connection import get_db
 
 logger = logging.getLogger(__name__)
@@ -175,19 +175,18 @@ async def calendly_webhook(
     return {"received": True}
 
 
-@router.post("/notifications/sendgrid-webhook", status_code=status.HTTP_200_OK)
-async def sendgrid_webhook(request: Request) -> dict:
+@router.post("/notifications/resend-webhook", status_code=status.HTTP_200_OK)
+async def resend_webhook(request: Request) -> dict:
     """
-    Receives SendGrid event webhook (delivered, bounced, spam_report).
+    Receives Resend event webhooks (email.sent, email.delivered, email.bounced, etc).
     Stores events via the email_events table (write path deferred to Phase 4 DB wiring).
     """
     try:
-        events = await request.json()
-        for event in events if isinstance(events, list) else [events]:
-            event_type = event.get("event", "unknown")
-            message_id = event.get("sg_message_id", "")
-            logger.info("SendGrid event: %s message_id=%s", event_type, message_id)
+        event = await request.json()
+        event_type = event.get("type", "unknown")
+        email_id = (event.get("data") or {}).get("email_id", "")
+        logger.info("Resend event: %s email_id=%s", event_type, email_id)
     except Exception as exc:
-        logger.error("SendGrid webhook processing error: %s", exc)
+        logger.error("Resend webhook processing error: %s", exc)
 
     return {"received": True}

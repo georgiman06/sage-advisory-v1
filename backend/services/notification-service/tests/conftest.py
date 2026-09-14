@@ -5,7 +5,7 @@ from httpx import ASGITransport, AsyncClient
 from unittest.mock import AsyncMock, patch
 
 os.environ.setdefault("REDIS_URL", "redis://localhost:6379")
-os.environ.setdefault("SENDGRID_API_KEY", "test-key")
+os.environ.setdefault("RESEND_API_KEY", "test-key")
 os.environ.setdefault("REDIS_CONSUMER_GROUP", "notification-service-test")
 
 

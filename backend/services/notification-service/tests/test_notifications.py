@@ -12,15 +12,15 @@ async def test_health(client: AsyncClient):
     assert resp.json() == {"status": "ok", "service": "notification-service"}
 
 
-async def test_sendgrid_webhook_returns_200(client: AsyncClient):
-    payload = [{"event": "delivered", "sg_message_id": "abc123", "email": "test@example.com"}]
-    resp = await client.post("/api/notifications/sendgrid-webhook", json=payload)
+async def test_resend_webhook_returns_200(client: AsyncClient):
+    payload = {"type": "email.delivered", "data": {"email_id": "abc123", "to": ["test@example.com"]}}
+    resp = await client.post("/api/notifications/resend-webhook", json=payload)
     assert resp.status_code == 200
     assert resp.json()["received"] is True
 
 
-async def test_sendgrid_webhook_empty_list(client: AsyncClient):
-    resp = await client.post("/api/notifications/sendgrid-webhook", json=[])
+async def test_resend_webhook_empty_body(client: AsyncClient):
+    resp = await client.post("/api/notifications/resend-webhook", json={})
     assert resp.status_code == 200
 
 
@@ -63,7 +63,7 @@ async def test_calendly_webhook_no_secret_passes(client: AsyncClient):
     assert resp.status_code == 200
 
 
-async def test_lead_received_handler_calls_sendgrid():
+async def test_lead_received_handler_calls_resend():
     from unittest.mock import AsyncMock, patch
 
     mock_r = AsyncMock()
@@ -96,15 +96,13 @@ async def test_lead_received_handler_calls_sendgrid():
 
 async def test_send_internal_alert_skips_when_not_configured():
     import os
-    os.environ.pop("SENDGRID_API_KEY", None)
-    os.environ.pop("SENDGRID_TEMPLATE_LEAD_INTERNAL", None)
+    os.environ.pop("RESEND_API_KEY", None)
 
-    from app.services import sendgrid as sg_module
-    sg_module.SENDGRID_API_KEY = ""
-    sg_module.TEMPLATE_LEAD_INTERNAL = ""
+    from app.services import resend_email as email_module
+    email_module.RESEND_API_KEY = ""
 
     # Should not raise — just logs a warning
-    await sg_module.send_internal_alert(
+    await email_module.send_internal_alert(
         lead_id="test-id",
         name="Test",
         email="test@example.com",
@@ -114,8 +112,7 @@ async def test_send_internal_alert_skips_when_not_configured():
 
 
 async def test_send_autoreply_skips_when_not_configured():
-    from app.services import sendgrid as sg_module
-    sg_module.SENDGRID_API_KEY = ""
-    sg_module.TEMPLATE_LEAD_AUTOREPLY = ""
+    from app.services import resend_email as email_module
+    email_module.RESEND_API_KEY = ""
 
-    await sg_module.send_lead_autoreply(name="Test", email="test@example.com")
+    await email_module.send_lead_autoreply(name="Test", email="test@example.com")

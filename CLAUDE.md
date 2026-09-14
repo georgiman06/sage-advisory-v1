@@ -125,7 +125,7 @@ async def submit_lead(request: Request, ...):
 
 - `worker_loop()` starts as an `asyncio.create_task` inside FastAPI lifespan — the same process is both HTTP server (webhooks) and Redis consumer.
 - Consumer group: `notification-service`. Stream: `stream:lead_received`. Dead-letters to `stream:notification_dead_letter` after 3 retries.
-- All SendGrid calls go through `backend/services/notification-service/app/services/sendgrid.py` only.
+- All Resend calls go through `backend/services/notification-service/app/services/resend_email.py` only.
 - To add a new stream: append to `STREAMS` in `worker.py`, add a `_handle_{event}` function, add it to `HANDLERS`.
 
 ### `analytics-service` specifics
