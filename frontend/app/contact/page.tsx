@@ -142,22 +142,14 @@ export default function ContactPage() {
         {/* Alternative Contact */}
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <h2 className="font-serif text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Prefer to Email or Call?</h2>
+            <h2 className="font-serif text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Prefer to Email?</h2>
             <p className="mt-2 text-muted-foreground dark:text-white/65">
               We&apos;re here to help. Reach out through your preferred channel.
             </p>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 max-w-sm">
               <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
                 <h3 className="font-semibold text-foreground dark:text-white">Email</h3>
-                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">strategy@sageadvisory.com</p>
-              </div>
-              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
-                <h3 className="font-semibold text-foreground dark:text-white">Phone</h3>
-                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">+1 (555) 123-4567</p>
-              </div>
-              <div className="rounded-xl border border-border dark:border-white/10 bg-white/80 dark:bg-[#162923]/80 p-6 backdrop-blur-sm transition-all hover:border-emerald-400/40">
-                <h3 className="font-semibold text-foreground dark:text-white">LinkedIn</h3>
-                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">linkedin.com/company/sage-advisory</p>
+                <p className="mt-2 text-sm text-muted-foreground dark:text-white/65">advisorysage@gmail.com</p>
               </div>
             </div>
           </div>
