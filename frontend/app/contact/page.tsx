@@ -70,7 +70,7 @@ export default function ContactPage() {
                 Share a few details about your project so we can prepare for your call. Pick a time below that works for you.
               </p>
             </div>
-            <div className="grid gap-12 lg:grid-cols-2">
+            <div className="grid items-start gap-12 lg:grid-cols-2">
               {/* Left Column - Info */}
               <div>
                 <p className="text-muted-foreground leading-relaxed">
@@ -111,7 +111,7 @@ export default function ContactPage() {
                   <div
                     className="calendly-inline-widget"
                     data-url={`${CALENDLY_URL}?background_color=ffffff&primary_color=13631e&text_color=081a14`}
-                    style={{ minWidth: "480px", height: "820px" }}
+                    style={{ minWidth: "480px", height: "520px" }}
                   />
                   <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
                 </div>
