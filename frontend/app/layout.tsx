@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Fraunces } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
@@ -42,11 +43,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${geist.variable} ${geistMono.variable} ${fraunces.variable}`}>
+      <head>
+        {/* Calendly badge widget */}
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+      </head>
       <body className="bg-background font-sans font-medium antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>
+        <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
+        <Script id="calendly-badge-init" strategy="afterInteractive">
+          {`window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/advisorysage/30min?primary_color=1e4e27', text: 'Send Inquiry', color: '#265022', textColor: '#ffffff', branding: true }); }`}
+        </Script>
       </body>
     </html>
   )

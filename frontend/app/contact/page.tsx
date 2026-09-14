@@ -1,10 +1,9 @@
 ﻿"use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import Cal, { getCalApi } from "@calcom/embed-react"
 import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import { Button } from "@/components/ui/button"
@@ -17,7 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { submitLead, captureUtmParams } from "@/lib/api"
 
-const CALCOM_LINK = process.env.NEXT_PUBLIC_CALCOM_LINK || "discovery-call/discovery-call"
+const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com/advisorysage/30min"
 
 const schema = z.object({
   full_name: z.string().min(2, "Name must be at least 2 characters"),
@@ -77,17 +76,6 @@ export default function ContactPage() {
   const [step, setStep] = useState<"form" | "booking">("form")
   const [bookingPrefill, setBookingPrefill] = useState<{ name: string; email: string } | null>(null)
   const [submitError, setSubmitError] = useState<string | null>(null)
-
-  useEffect(() => {
-    ;(async () => {
-      const cal = await getCalApi({ namespace: "discovery" })
-      cal("ui", {
-        theme: "light",
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      })
-    })()
-  }, [])
 
   const {
     register,
@@ -349,15 +337,10 @@ export default function ContactPage() {
                 <Card className="border-border overflow-hidden">
                   <CardContent className="p-0">
                     <div className="min-h-[480px] sm:min-h-[640px]">
-                      <Cal
-                        namespace="discovery"
-                        calLink={CALCOM_LINK}
-                        style={{ width: "100%", height: "100%", minHeight: "480px", overflow: "scroll" }}
-                        config={{
-                          layout: "month_view",
-                          name: bookingPrefill.name,
-                          email: bookingPrefill.email,
-                        }}
+                      <iframe
+                        title="Schedule a discovery call"
+                        src={`${CALENDLY_URL}?embed_domain=${typeof window !== "undefined" ? window.location.hostname : ""}&embed_type=Inline&name=${encodeURIComponent(bookingPrefill.name)}&email=${encodeURIComponent(bookingPrefill.email)}`}
+                        style={{ width: "100%", height: "100%", minHeight: "480px", border: "none" }}
                       />
                     </div>
                   </CardContent>
