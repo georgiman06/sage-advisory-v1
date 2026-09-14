@@ -17,6 +17,7 @@ async def publish_lead_received(
     email: str,
     company: str,
     service_interest: str | None,
+    message: str = "",
 ) -> None:
     r = aioredis.from_url(REDIS_URL, decode_responses=True)
     try:
@@ -28,6 +29,7 @@ async def publish_lead_received(
                 "email": email,
                 "company": company,
                 "service_interest": service_interest or "",
+                "message": message or "",
             },
         )
         logger.info("[lead:%s] Published to %s", lead_id, LEAD_STREAM)

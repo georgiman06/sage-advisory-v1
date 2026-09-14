@@ -90,6 +90,7 @@ async def submit_lead(
             email=body.email,
             company=body.company,
             service_interest=body.service_interest,
+            message=body.message,
         )
 
     results = await asyncio.gather(_hubspot_task(), _redis_task(), return_exceptions=True)

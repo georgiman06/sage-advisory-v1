@@ -44,6 +44,7 @@ async def send_internal_alert(
     email: str,
     company: str,
     service_interest: str,
+    message: str = "",
 ) -> None:
     if not SENDGRID_API_KEY or not TEMPLATE_LEAD_INTERNAL:
         logger.warning("SendGrid not configured — skipping internal alert for lead_id=%s", lead_id)
@@ -59,6 +60,7 @@ async def send_internal_alert(
                 "email": email,
                 "company": company,
                 "service_interest": service_interest,
+                "message": message,
             },
         )
         _send(msg, f"internal-alert lead_id={lead_id}")

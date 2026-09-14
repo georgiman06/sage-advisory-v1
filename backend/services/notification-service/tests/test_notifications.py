@@ -73,6 +73,7 @@ async def test_lead_received_handler_calls_sendgrid():
         "email": "jane@example.com",
         "company": "Corp",
         "service_interest": "Data Strategy",
+        "message": "We need help modernizing our data platform.",
     }
 
     with (
@@ -88,6 +89,7 @@ async def test_lead_received_handler_calls_sendgrid():
         email="jane@example.com",
         company="Corp",
         service_interest="Data Strategy",
+        message="We need help modernizing our data platform.",
     )
     mock_reply.assert_called_once_with(name="Jane Smith", email="jane@example.com")
 

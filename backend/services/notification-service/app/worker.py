@@ -39,6 +39,7 @@ async def _handle_lead_received(message_id: str, data: dict, r: aioredis.Redis) 
     email = data.get("email", "")
     company = data.get("company", "")
     service_interest = data.get("service_interest", "")
+    message = data.get("message", "")
 
     await asyncio.gather(
         send_internal_alert(
@@ -47,6 +48,7 @@ async def _handle_lead_received(message_id: str, data: dict, r: aioredis.Redis) 
             email=email,
             company=company,
             service_interest=service_interest,
+            message=message,
         ),
         send_lead_autoreply(name=name, email=email),
     )
