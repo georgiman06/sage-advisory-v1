@@ -42,7 +42,7 @@ type FormValues = z.infer<typeof schema>
 
 const expectations = [
   "Initial Assessment: 30-minute discovery call to understand your challenges",
-  "V2V Roadmap: Customized transformation roadmap aligned to your goals",
+  "Custom Roadmap: Transformation roadmap aligned to your goals",
   "ROI Projection: Estimated savings and business impact analysis",
   "No Obligation: Free consultation with no commitment required",
 ]
@@ -57,7 +57,7 @@ const engagementModels = [
 const faqs = [
   {
     question: "How long does a typical engagement last?",
-    answer: "Engagements vary based on scope. Strategic assessments typically take 4-6 weeks, while full V2V Framework implementations range from 6-18 months depending on complexity.",
+    answer: "Engagements vary based on scope. Strategic assessments typically take 4-6 weeks, while full platform implementations range from 6-18 months depending on complexity.",
   },
   {
     question: "Do you work with companies outside the US?",
@@ -65,7 +65,7 @@ const faqs = [
   },
   {
     question: "What industries do you specialize in?",
-    answer: "We have deep expertise in Financial Services, Healthcare, Retail, Technology, and Utilities. However, our V2V Framework is industry-agnostic and applicable to any enterprise.",
+    answer: "We have deep expertise in Financial Services, Healthcare, Retail, Technology, and Utilities. Our approach is industry-agnostic and applicable to any enterprise.",
   },
   {
     question: "What is the typical ROI timeline?",
@@ -149,8 +149,7 @@ export default function ContactPage() {
               <div>
                 <p className="text-muted-foreground leading-relaxed">
                   Tell us about the data, AI, or platform initiative you&apos;re evaluating. We&apos;ll use
-                  the call to understand your current state and outline how the V2V Framework
-                  would apply.
+                  the call to understand your current state and outline our recommended approach.
                 </p>
 
                 <div className="mt-8">
@@ -277,7 +276,7 @@ export default function ContactPage() {
                                   <SelectItem value="Analytics & BI">Analytics &amp; BI</SelectItem>
                                   <SelectItem value="AI & Advanced Analytics">AI &amp; Advanced Analytics</SelectItem>
                                   <SelectItem value="Data Governance">Data Governance</SelectItem>
-                                  <SelectItem value="V2V Framework Assessment">V2V Framework Assessment</SelectItem>
+                                  <SelectItem value="Platform Assessment">Platform Assessment</SelectItem>
                                   <SelectItem value="Other">Other</SelectItem>
                                 </SelectContent>
                               </Select>
