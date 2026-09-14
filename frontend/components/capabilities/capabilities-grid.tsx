@@ -106,8 +106,7 @@ const capabilities: Capability[] = [
       "Platform modernization & migration",
       "Scalable, secure infrastructure",
     ],
-    imageSrc: "/images/ai-platforms-fiber.jpg",
-    darkImage: true,
+    imageSrc: "/images/modern-data-ai-platforms.jpg",
   },
   {
     icon: Briefcase,
