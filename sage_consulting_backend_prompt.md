@@ -21,7 +21,7 @@ Your job is to produce a clean, production-grade backend that is ready for a fut
 | Transactional email | **SendGrid** | Reliable deliverability, Dynamic Templates, event webhooks |
 | Marketing email | **HubSpot** | CRM + email in one; enterprise clients recognise it |
 | CRM | **HubSpot CRM** | Integrated with marketing email; contact/deal pipeline management |
-| Scheduling | **Cal.com** (cloud) | Open-source Calendly alternative; webhook support |
+| Scheduling | **Calendly** (cloud) | Widely-used scheduling tool; webhook support |
 | Deployment | **Railway** | All services deployed as Railway services within one project |
 | Containerisation | **Docker** | Each service has a Dockerfile; Railway builds from it |
 | CI/CD | **GitHub Actions → Railway** | Push to `main` triggers Railway deploy via `railway up` |
@@ -365,7 +365,7 @@ POST /api/portal/engagements                            — create engagement (a
 | `stream:lead_received` | lead-service | Send internal alert + prospect auto-reply |
 | `stream:deliverable_uploaded` | portal-service | Email client users on the engagement |
 | `stream:milestone_updated` | portal-service | Email client users on the engagement |
-| `stream:consultation_scheduled` | Cal.com webhook handler | Send calendar confirmation + prep materials |
+| `stream:consultation_scheduled` | Calendly webhook handler | Send calendar confirmation + prep materials |
 
 **Worker loop:**
 
@@ -380,7 +380,7 @@ POST /api/portal/engagements                            — create engagement (a
 
 ```
 GET  /health
-POST /api/notifications/cal-webhook       — Cal.com booking confirmed webhook
+POST /api/notifications/calendly-webhook  — Calendly booking confirmed webhook
 POST /api/notifications/sendgrid-webhook  — SendGrid delivery event webhook (delivered, bounced, spam_report)
 ```
 
@@ -565,7 +565,7 @@ SENDGRID_TEMPLATE_DELIVERABLE_UPLOADED=
 SENDGRID_TEMPLATE_MILESTONE_UPDATED=
 SENDGRID_TEMPLATE_CONSULTATION_CONFIRMED=
 SENDGRID_TEMPLATE_WEEKLY_DIGEST=
-CALCOM_WEBHOOK_SECRET=
+CALENDLY_WEBHOOK_SECRET=
 INTERNAL_ALERT_EMAIL=strategy@sageconsulting.com
 REDIS_CONSUMER_GROUP=notification-service
 ```
@@ -725,7 +725,7 @@ Build in this exact sequence — each phase is independently deployable and test
 **Phase 4 (Week 8): Notifications Complete + Cron**
 - All remaining notification-service event types wired up
 - `digest-cron` Railway cron service deployed
-- Cal.com webhook endpoint live
+- Calendly webhook endpoint live
 - SendGrid all Dynamic Templates built and tested
 
 ---

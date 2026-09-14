@@ -175,11 +175,11 @@ Each service's `conftest.py` overrides the `get_db` dependency with a test sessi
 Patch module-level constants with `patch()`, not `os.environ`:
 ```python
 # Correct
-patch("app.routes.webhooks.CALCOM_WEBHOOK_SECRET", "test-secret")
+patch("app.routes.webhooks.CALENDLY_WEBHOOK_SECRET", "test-secret")
 patch("app.routes.leads.create_hubspot_contact_and_deal", new_callable=AsyncMock)
 
 # Wrong — module constant is already evaluated at import time
-os.environ["CALCOM_WEBHOOK_SECRET"] = "test-secret"
+os.environ["CALENDLY_WEBHOOK_SECRET"] = "test-secret"
 ```
 
 ---
@@ -189,6 +189,6 @@ os.environ["CALCOM_WEBHOOK_SECRET"] = "test-secret"
 - **Phase 1 (complete):** `lead-service` + `notification-service` (lead stream only)
 - **Phase 2:** `content-service` — Sanity GROQ proxy, Redis caching, cache-purge webhook
 - **Phase 3:** `auth-service` + `portal-service` — Auth0, S3 presigned URLs, full audit log
-- **Phase 4:** Remaining notification streams, `digest-cron` Railway cron service, Cal.com full wiring
+- **Phase 4:** Remaining notification streams, `digest-cron` Railway cron service, Calendly full wiring
 
 When adding a new service, follow the existing pattern: `app/{main,limiter,models,schemas,routes,services}/`, `Dockerfile`, `railway.json`, `requirements.txt`, `pytest.ini`, `tests/conftest.py`. Register its ORM models in `backend/migrations/alembic/env.py`.

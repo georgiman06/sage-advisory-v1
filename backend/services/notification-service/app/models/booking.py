@@ -14,10 +14,10 @@ class Booking(Base):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
-    calcom_booking_id: Mapped[str] = mapped_column(
-        String(100), unique=True, index=True
+    calendly_invitee_uri: Mapped[str] = mapped_column(
+        String(255), unique=True, index=True
     )
-    calcom_uid: Mapped[str | None] = mapped_column(String(100), index=True)
+    calendly_event_uri: Mapped[str | None] = mapped_column(String(255), index=True)
     attendee_email: Mapped[str] = mapped_column(String(320))
     attendee_name: Mapped[str | None] = mapped_column(String(255))
     attendee_email_hash: Mapped[str | None] = mapped_column(String(64), index=True)

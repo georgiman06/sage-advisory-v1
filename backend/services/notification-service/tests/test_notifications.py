@@ -24,32 +24,38 @@ async def test_sendgrid_webhook_empty_list(client: AsyncClient):
     assert resp.status_code == 200
 
 
-async def test_cal_webhook_invalid_signature(client: AsyncClient):
-    with patch("app.routes.webhooks.CALCOM_WEBHOOK_SECRET", "supersecret"):
+async def test_calendly_webhook_invalid_signature(client: AsyncClient):
+    with patch("app.routes.webhooks.CALENDLY_WEBHOOK_SECRET", "supersecret"):
         resp = await client.post(
-            "/api/notifications/cal-webhook",
-            content=b'{"triggerEvent":"BOOKING_CREATED","payload":{}}',
+            "/api/notifications/calendly-webhook",
+            content=b'{"event":"invitee.created","payload":{}}',
             headers={
                 "content-type": "application/json",
-                "x-cal-signature-256": "badsignature",
+                "calendly-webhook-signature": "t=9999999999,v1=badsignature",
             },
         )
     assert resp.status_code == 401
 
 
-async def test_cal_webhook_no_secret_passes(client: AsyncClient):
+async def test_calendly_webhook_no_secret_passes(client: AsyncClient):
     with (
-        patch("app.routes.webhooks.CALCOM_WEBHOOK_SECRET", ""),
+        patch("app.routes.webhooks.CALENDLY_WEBHOOK_SECRET", ""),
         patch("app.routes.webhooks.send_consultation_confirmed", new_callable=AsyncMock),
     ):
         resp = await client.post(
-            "/api/notifications/cal-webhook",
+            "/api/notifications/calendly-webhook",
             json={
-                "triggerEvent": "BOOKING_CREATED",
+                "event": "invitee.created",
                 "payload": {
-                    "attendees": [{"name": "John", "email": "john@example.com"}],
-                    "startTime": "2024-03-01T10:00:00Z",
-                    "metadata": {"videoCallUrl": "https://meet.example.com/abc"},
+                    "uri": "https://api.calendly.com/scheduled_events/EVT/invitees/INV",
+                    "name": "John",
+                    "email": "john@example.com",
+                    "scheduled_event": {
+                        "uri": "https://api.calendly.com/scheduled_events/EVT",
+                        "start_time": "2024-03-01T10:00:00Z",
+                        "end_time": "2024-03-01T10:30:00Z",
+                        "location": {"join_url": "https://meet.example.com/abc"},
+                    },
                 },
             },
         )

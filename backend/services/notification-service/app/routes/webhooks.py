@@ -3,6 +3,7 @@ import hmac
 import json
 import logging
 import os
+import time
 from datetime import datetime
 from typing import Any
 
@@ -17,18 +18,43 @@ from shared.database.connection import get_db
 
 logger = logging.getLogger(__name__)
 
-CALCOM_WEBHOOK_SECRET = os.environ.get("CALCOM_WEBHOOK_SECRET", "")
+CALENDLY_WEBHOOK_SECRET = os.environ.get("CALENDLY_WEBHOOK_SECRET", "")
 SENDGRID_WEBHOOK_SECRET = os.environ.get("SENDGRID_WEBHOOK_SECRET", "")
+
+# How much clock skew to tolerate between the webhook timestamp and now.
+CALENDLY_SIGNATURE_TOLERANCE_SECONDS = 300
 
 router = APIRouter(tags=["webhooks"])
 
 
-def _verify_calcom_signature(payload: bytes, signature: str) -> bool:
-    if not CALCOM_WEBHOOK_SECRET:
-        logger.warning("CALCOM_WEBHOOK_SECRET not set — skipping signature verification")
+def _verify_calendly_signature(payload: bytes, signature_header: str) -> bool:
+    """
+    Calendly signs webhooks with a `Calendly-Webhook-Signature` header shaped
+    like `t=<timestamp>,v1=<hex hmac>`. The signed message is `f"{t}.{raw_body}"`,
+    HMAC-SHA256'd with the webhook signing key.
+    """
+    if not CALENDLY_WEBHOOK_SECRET:
+        logger.warning("CALENDLY_WEBHOOK_SECRET not set — skipping signature verification")
         return True
+
+    parts = dict(
+        item.split("=", 1) for item in signature_header.split(",") if "=" in item
+    )
+    timestamp = parts.get("t")
+    signature = parts.get("v1")
+    if not timestamp or not signature:
+        return False
+
+    try:
+        if abs(time.time() - int(timestamp)) > CALENDLY_SIGNATURE_TOLERANCE_SECONDS:
+            logger.warning("Calendly webhook timestamp outside tolerance window")
+            return False
+    except ValueError:
+        return False
+
+    signed_payload = f"{timestamp}.{payload.decode('utf-8')}".encode("utf-8")
     expected = hmac.new(
-        CALCOM_WEBHOOK_SECRET.encode(), payload, hashlib.sha256
+        CALENDLY_WEBHOOK_SECRET.encode(), signed_payload, hashlib.sha256
     ).hexdigest()
     return hmac.compare_digest(expected, signature)
 
@@ -46,20 +72,20 @@ def _parse_dt(value: Any) -> datetime | None:
         return None
 
 
-class CalComWebhookPayload(BaseModel):
-    triggerEvent: str
+class CalendlyWebhookPayload(BaseModel):
+    event: str
     payload: dict[str, Any]
 
 
-@router.post("/notifications/cal-webhook", status_code=status.HTTP_200_OK)
-async def cal_webhook(
+@router.post("/notifications/calendly-webhook", status_code=status.HTTP_200_OK)
+async def calendly_webhook(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ) -> dict:
     raw_body = await request.body()
-    signature = request.headers.get("x-cal-signature-256", "")
+    signature = request.headers.get("calendly-webhook-signature", "")
 
-    if not _verify_calcom_signature(raw_body, signature):
+    if not _verify_calendly_signature(raw_body, signature):
         raise HTTPException(
             status_code=401,
             detail={"error": {"code": "INVALID_SIGNATURE", "message": "Webhook signature invalid."}},
@@ -67,76 +93,84 @@ async def cal_webhook(
 
     try:
         data = json.loads(raw_body)
-        trigger = data.get("triggerEvent", "")
-        booking_payload = data.get("payload", {})
+        event = data.get("event", "")
+        invitee = data.get("payload", {})
 
-        calcom_id = str(booking_payload.get("id") or booking_payload.get("bookingId") or "")
-        if not calcom_id:
-            logger.warning("Cal.com webhook missing booking id, trigger=%s", trigger)
+        invitee_uri = invitee.get("uri", "")
+        if not invitee_uri:
+            logger.warning("Calendly webhook missing invitee uri, event=%s", event)
             return {"received": True}
 
-        attendee = (booking_payload.get("attendees") or [{}])[0]
-        attendee_email = attendee.get("email", "")
-        attendee_name = attendee.get("name", "")
+        attendee_email = invitee.get("email", "")
+        attendee_name = invitee.get("name", "")
+
+        scheduled_event = invitee.get("scheduled_event") or {}
+        event_uri = scheduled_event.get("uri")
+        event_type_uri = scheduled_event.get("event_type")
+        location = scheduled_event.get("location") or {}
+        meeting_url = location.get("join_url") or location.get("location")
+
+        old_invitee = invitee.get("old_invitee")
+
+        # A reschedule shows up as a new invitee.created event carrying a
+        # link back to the invitee it replaced.
+        lookup_uri = old_invitee if (event == "invitee.created" and old_invitee) else invitee_uri
 
         existing = (
             await db.execute(
-                select(Booking).where(Booking.calcom_booking_id == calcom_id)
+                select(Booking).where(Booking.calendly_invitee_uri == lookup_uri)
             )
         ).scalar_one_or_none()
 
-        if trigger == "BOOKING_CREATED":
-            if existing is None:
+        if event == "invitee.created":
+            if old_invitee and existing is not None:
+                existing.calendly_invitee_uri = invitee_uri
+                existing.calendly_event_uri = event_uri
+                existing.start_time = _parse_dt(scheduled_event.get("start_time"))
+                existing.end_time = _parse_dt(scheduled_event.get("end_time"))
+                existing.status = "rescheduled"
+                existing.raw_payload = invitee
+                logger.info("[booking:%s] invitee.created (reschedule)", existing.id)
+            elif existing is None:
                 booking = Booking(
-                    calcom_booking_id=calcom_id,
-                    calcom_uid=booking_payload.get("uid"),
+                    calendly_invitee_uri=invitee_uri,
+                    calendly_event_uri=event_uri,
                     attendee_email=attendee_email,
                     attendee_name=attendee_name,
                     attendee_email_hash=_hash_email(attendee_email) if attendee_email else None,
-                    event_type_slug=booking_payload.get("eventTypeSlug")
-                    or booking_payload.get("type"),
-                    start_time=_parse_dt(booking_payload.get("startTime")),
-                    end_time=_parse_dt(booking_payload.get("endTime")),
+                    event_type_slug=event_type_uri,
+                    start_time=_parse_dt(scheduled_event.get("start_time")),
+                    end_time=_parse_dt(scheduled_event.get("end_time")),
                     status="confirmed",
-                    meeting_url=(booking_payload.get("metadata") or {}).get("videoCallUrl"),
-                    raw_payload=booking_payload,
+                    meeting_url=meeting_url,
+                    raw_payload=invitee,
                 )
                 db.add(booking)
                 await db.flush()
-                logger.info("[booking:%s] BOOKING_CREATED persisted", booking.id)
+                logger.info("[booking:%s] invitee.created persisted", booking.id)
             else:
-                logger.info("[booking:%s] BOOKING_CREATED duplicate, skipping insert", existing.id)
+                logger.info("[booking:%s] invitee.created duplicate, skipping insert", existing.id)
 
             await send_consultation_confirmed(
                 recipient_email=attendee_email,
                 attendee_name=attendee_name,
-                start_time=booking_payload.get("startTime", ""),
-                meeting_url=(booking_payload.get("metadata") or {}).get("videoCallUrl", ""),
+                start_time=scheduled_event.get("start_time", ""),
+                meeting_url=meeting_url or "",
             )
 
-        elif trigger == "BOOKING_CANCELLED":
+        elif event == "invitee.canceled":
             if existing is not None:
                 existing.status = "cancelled"
-                existing.raw_payload = booking_payload
-                logger.info("[booking:%s] BOOKING_CANCELLED", existing.id)
+                existing.raw_payload = invitee
+                logger.info("[booking:%s] invitee.canceled", existing.id)
             else:
-                logger.warning("BOOKING_CANCELLED for unknown calcom_id=%s", calcom_id)
-
-        elif trigger == "BOOKING_RESCHEDULED":
-            if existing is not None:
-                existing.start_time = _parse_dt(booking_payload.get("startTime"))
-                existing.end_time = _parse_dt(booking_payload.get("endTime"))
-                existing.status = "rescheduled"
-                existing.raw_payload = booking_payload
-                logger.info("[booking:%s] BOOKING_RESCHEDULED", existing.id)
-            else:
-                logger.warning("BOOKING_RESCHEDULED for unknown calcom_id=%s", calcom_id)
+                logger.warning("invitee.canceled for unknown invitee_uri=%s", lookup_uri)
 
         else:
-            logger.info("Cal.com webhook unhandled trigger=%s", trigger)
+            logger.info("Calendly webhook unhandled event=%s", event)
 
     except Exception as exc:
-        logger.error("Cal.com webhook processing error: %s", exc)
+        logger.error("Calendly webhook processing error: %s", exc)
 
     return {"received": True}
 
