@@ -1,43 +1,11 @@
 ﻿"use client"
 
-import { useState } from "react"
-import { useForm, Controller } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import Script from "next/script"
 import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { submitLead, captureUtmParams } from "@/lib/api"
 
 const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com/advisorysage/30min"
-
-const schema = z.object({
-  full_name: z.string().min(2, "Name must be at least 2 characters"),
-  work_email: z.string().email("Please enter a valid work email"),
-  company: z.string().min(1, "Company name is required"),
-  role: z.enum([
-    "C-Suite Executive",
-    "VP/Director",
-    "Manager",
-    "Data Architect/Engineer",
-    "Data Analyst/Scientist",
-    "Other",
-  ]),
-  area_of_interest: z.string().optional(),
-  message: z.string().min(20, "Please provide at least 20 characters describing your project"),
-  agreed_to_contact: z.literal(true, {
-    errorMap: () => ({ message: "You must agree to be contacted to submit" }),
-  }),
-})
-
-type FormValues = z.infer<typeof schema>
 
 const expectations = [
   "Initial Assessment: 30-minute discovery call to understand your challenges",
@@ -73,36 +41,6 @@ const faqs = [
 ]
 
 export default function ContactPage() {
-  const [step, setStep] = useState<"form" | "booking">("form")
-  const [bookingPrefill, setBookingPrefill] = useState<{ name: string; email: string } | null>(null)
-  const [submitError, setSubmitError] = useState<string | null>(null)
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors, isSubmitting },
-  } = useForm<FormValues>({
-    resolver: zodResolver(schema),
-    defaultValues: { agreed_to_contact: undefined as unknown as true },
-  })
-
-  const onSubmit = async (data: FormValues) => {
-    setSubmitError(null)
-    try {
-      await submitLead({
-        ...data,
-        ...captureUtmParams(),
-      })
-      setBookingPrefill({ name: data.full_name, email: data.work_email })
-      setStep("booking")
-    } catch (err) {
-      setSubmitError(
-        err instanceof Error ? err.message : "Something went wrong. Please try again."
-      )
-    }
-  }
-
   return (
     <div className="flex min-h-screen flex-col">
       <div className="relative bg-gradient-to-b from-emerald-50 via-emerald-50/60 to-emerald-50/20 dark:from-[#22513f] dark:via-[#143028] dark:to-[#0d1e17]">
@@ -129,7 +67,7 @@ export default function ContactPage() {
             <div className="mb-10">
               <h2 className="font-serif text-2xl font-semibold text-foreground dark:text-white md:text-3xl">Book a Discovery Call</h2>
               <p className="mt-2 text-muted-foreground dark:text-white/65">
-                Share a few details about your project so we can prepare for your call. After you submit, you&apos;ll pick a time that works for you.
+                Share a few details about your project so we can prepare for your call. Pick a time below that works for you.
               </p>
             </div>
             <div className="grid gap-12 lg:grid-cols-2">
@@ -167,186 +105,16 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Right Column - Form */}
+              {/* Right Column - Calendly inline widget */}
               <div>
-                <Card className="border-border">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold">Contact Form</h3>
-
-                    {step === "booking" ? (
-                      <div className="mt-6 rounded-lg bg-muted/50 p-6 text-center">
-                        <p className="font-medium">Thanks{bookingPrefill?.name ? `, ${bookingPrefill.name.split(" ")[0]}` : ""}!</p>
-                        <p className="mt-2 text-sm text-muted-foreground">
-                          Pick a time below to book your discovery call.
-                        </p>
-                      </div>
-                    ) : (
-                      <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="full_name">Full Name *</Label>
-                          <Input
-                            id="full_name"
-                            placeholder="Enter your full name"
-                            {...register("full_name")}
-                            aria-invalid={!!errors.full_name}
-                          />
-                          {errors.full_name && (
-                            <p className="text-xs text-destructive">{errors.full_name.message}</p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="work_email">Work Email *</Label>
-                          <Input
-                            id="work_email"
-                            type="email"
-                            placeholder="you@company.com"
-                            {...register("work_email")}
-                            aria-invalid={!!errors.work_email}
-                          />
-                          {errors.work_email && (
-                            <p className="text-xs text-destructive">{errors.work_email.message}</p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="company">Company *</Label>
-                          <Input
-                            id="company"
-                            placeholder="Your company name"
-                            {...register("company")}
-                            aria-invalid={!!errors.company}
-                          />
-                          {errors.company && (
-                            <p className="text-xs text-destructive">{errors.company.message}</p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label>Role *</Label>
-                          <Controller
-                            name="role"
-                            control={control}
-                            render={({ field }) => (
-                              <Select onValueChange={field.onChange} value={field.value}>
-                                <SelectTrigger aria-invalid={!!errors.role}>
-                                  <SelectValue placeholder="Select your role" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="C-Suite Executive">C-Suite Executive</SelectItem>
-                                  <SelectItem value="VP/Director">VP / Director</SelectItem>
-                                  <SelectItem value="Manager">Manager</SelectItem>
-                                  <SelectItem value="Data Architect/Engineer">Data Architect / Engineer</SelectItem>
-                                  <SelectItem value="Data Analyst/Scientist">Data Analyst / Scientist</SelectItem>
-                                  <SelectItem value="Other">Other</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            )}
-                          />
-                          {errors.role && (
-                            <p className="text-xs text-destructive">{errors.role.message}</p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label>Area of Interest</Label>
-                          <Controller
-                            name="area_of_interest"
-                            control={control}
-                            render={({ field }) => (
-                              <Select onValueChange={field.onChange} value={field.value ?? ""}>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select area of interest" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="Enterprise Data Strategy">Enterprise Data Strategy</SelectItem>
-                                  <SelectItem value="Cloud Data Platforms">Cloud Data Platforms</SelectItem>
-                                  <SelectItem value="Analytics & BI">Analytics &amp; BI</SelectItem>
-                                  <SelectItem value="AI & Advanced Analytics">AI &amp; Advanced Analytics</SelectItem>
-                                  <SelectItem value="Data Governance">Data Governance</SelectItem>
-                                  <SelectItem value="Platform Assessment">Platform Assessment</SelectItem>
-                                  <SelectItem value="Other">Other</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            )}
-                          />
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="message">Tell us about your project *</Label>
-                          <Textarea
-                            id="message"
-                            placeholder="Describe your challenges and goals..."
-                            className="min-h-[100px]"
-                            {...register("message")}
-                            aria-invalid={!!errors.message}
-                          />
-                          {errors.message && (
-                            <p className="text-xs text-destructive">{errors.message.message}</p>
-                          )}
-                        </div>
-
-                        <div className="space-y-2">
-                          <div className="flex items-start gap-2">
-                            <Controller
-                              name="agreed_to_contact"
-                              control={control}
-                              render={({ field }) => (
-                                <Checkbox
-                                  id="agreed_to_contact"
-                                  checked={field.value === true}
-                                  onCheckedChange={(checked) =>
-                                    field.onChange(checked === true ? true : undefined)
-                                  }
-                                  aria-invalid={!!errors.agreed_to_contact}
-                                />
-                              )}
-                            />
-                            <Label htmlFor="agreed_to_contact" className="text-sm text-muted-foreground leading-relaxed">
-                              I agree to be contacted by Sage Advisory regarding my inquiry.
-                              We respect your privacy and will never share your information.
-                            </Label>
-                          </div>
-                          {errors.agreed_to_contact && (
-                            <p className="text-xs text-destructive">{errors.agreed_to_contact.message}</p>
-                          )}
-                        </div>
-
-                        {submitError && (
-                          <div className="rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive">
-                            {submitError}
-                          </div>
-                        )}
-
-                        <Button
-                          type="submit"
-                          className="w-full"
-                          disabled={isSubmitting}
-                        >
-                          {isSubmitting ? "Sending..." : "Send Inquiry"}
-                        </Button>
-                      </form>
-                    )}
-                  </CardContent>
-                </Card>
+                <div
+                  className="calendly-inline-widget"
+                  data-url={`${CALENDLY_URL}?background_color=f1f1e4&primary_color=13631e`}
+                  style={{ minWidth: "320px", height: "700px" }}
+                />
+                <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
               </div>
             </div>
-
-            {step === "booking" && bookingPrefill && (
-              <div className="mt-12">
-                <Card className="border-border overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="min-h-[480px] sm:min-h-[640px]">
-                      <iframe
-                        title="Schedule a discovery call"
-                        src={`${CALENDLY_URL}?embed_domain=${typeof window !== "undefined" ? window.location.hostname : ""}&embed_type=Inline&name=${encodeURIComponent(bookingPrefill.name)}&email=${encodeURIComponent(bookingPrefill.email)}`}
-                        style={{ width: "100%", height: "100%", minHeight: "480px", border: "none" }}
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
           </div>
         </section>
 
