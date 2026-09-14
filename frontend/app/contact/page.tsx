@@ -106,13 +106,15 @@ export default function ContactPage() {
               </div>
 
               {/* Right Column - Calendly inline widget */}
-              <div>
-                <div
-                  className="calendly-inline-widget"
-                  data-url={`${CALENDLY_URL}?background_color=f1f1e4&primary_color=13631e`}
-                  style={{ minWidth: "320px", height: "700px" }}
-                />
-                <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
+              <div className="relative">
+                <div className="rounded-xl border border-border dark:border-white/10 overflow-hidden">
+                  <div
+                    className="calendly-inline-widget"
+                    data-url={`${CALENDLY_URL}?background_color=f1f1e4&primary_color=13631e&text_color=081a14`}
+                    style={{ minWidth: "320px", height: "820px" }}
+                  />
+                  <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
+                </div>
               </div>
             </div>
           </div>
